@@ -226,10 +226,11 @@ PHP_FUNCTION(ta_ad)
 		RETURN_FALSE
 	}
 
-	endidx = TA_MINI4(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+	TA_SET_MIN_INT4(endidx, zend_hash_num_elements(Z_ARRVAL_P(high_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(close_in)),
-				zend_hash_num_elements(Z_ARRVAL_P(vol_in)))-1;
+				zend_hash_num_elements(Z_ARRVAL_P(vol_in)));
+	endidx--;
 
 	TA_DBL_ZARR_TO_ARR(high_in, high)
 	TA_DBL_ZARR_TO_ARR(low_in, low)
@@ -238,21 +239,13 @@ PHP_FUNCTION(ta_ad)
 	result = emalloc(sizeof(double)*(endidx+1));
 
 	if (TA_AD(startidx, endidx, high, low, close, vol, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
-		efree(high);
-		efree(low);
-		efree(close);
-		efree(vol);
-		efree(result);
+		TA_EFREE5(high, low, close, vol, result)
 		RETURN_FALSE
 	}
 	
-	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem-1)
+	TA_DBL_ARR_TO_ZARR(result, return_value, endidx, outbegidx, outnbeelem-1)
 
-	efree(high);
-	efree(low);
-	efree(close);
-	efree(vol);
-	efree(result);
+	TA_EFREE5(high, low, close, vol, result)
 }
 /*}}}*/
 
@@ -272,10 +265,11 @@ PHP_FUNCTION(ta_adosc)
 	TA_SET_PERIOD(2, 100000, fast_period)
 	TA_SET_PERIOD(2, 100000, slow_period)
 
-	endidx = TA_MINI4(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+	TA_SET_MIN_INT4(endidx, zend_hash_num_elements(Z_ARRVAL_P(high_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(close_in)),
-				zend_hash_num_elements(Z_ARRVAL_P(vol_in)))-1;
+				zend_hash_num_elements(Z_ARRVAL_P(vol_in)));
+	endidx--;
 
 	TA_DBL_ZARR_TO_ARR(high_in, high)
 	TA_DBL_ZARR_TO_ARR(low_in, low)
@@ -284,21 +278,13 @@ PHP_FUNCTION(ta_adosc)
 	result = emalloc(sizeof(double)*(endidx));
 
 	if (TA_ADOSC(startidx, endidx, high, low, close, vol, (int)fast_period, (int)slow_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
-		efree(high);
-		efree(low);
-		efree(close);
-		efree(vol);
-		efree(result);
+		TA_EFREE5(high, low, close, vol, result)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+	TA_DBL_ARR_TO_ZARR(result, return_value, endidx, outbegidx, outnbeelem)
 
-	efree(high);
-	efree(low);
-	efree(close);
-	efree(vol);
-	efree(result);
+	TA_EFREE5(high, low, close, vol, result)
 }
 /*}}}*/
 
@@ -317,9 +303,10 @@ PHP_FUNCTION(ta_adx)
 
 	TA_SET_PERIOD(2, 100000, time_period)
 
-	endidx = TA_MINI3(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+	TA_SET_MIN_INT3(endidx, zend_hash_num_elements(Z_ARRVAL_P(high_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
-				zend_hash_num_elements(Z_ARRVAL_P(close_in)))-1;
+				zend_hash_num_elements(Z_ARRVAL_P(close_in)));
+	endidx--;
 
 	TA_DBL_ZARR_TO_ARR(high_in, high)
 	TA_DBL_ZARR_TO_ARR(low_in, low)
@@ -327,21 +314,15 @@ PHP_FUNCTION(ta_adx)
 	result = emalloc(sizeof(double)*endidx);
 
 	if (TA_ADX(startidx, endidx, high, low, close, (int)time_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
-		efree(high);
-		efree(low);
-		efree(close);
-		efree(result);
+		TA_EFREE4(high, low, close, result)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+	TA_DBL_ARR_TO_ZARR(result, return_value, endidx, outbegidx, outnbeelem)
 
 	/*printf("startidx %d, endidx %d, outbegidx %d, outnbeelem %d\n", startidx, endidx, outbegidx, outnbeelem);*/
 
-	efree(high);
-	efree(low);
-	efree(close);
-	efree(result);
+	TA_EFREE4(high, low, close, result)
 }
 /*}}}*/
 
@@ -360,9 +341,10 @@ PHP_FUNCTION(ta_adxr)
 
 	TA_SET_PERIOD(2, 100000, time_period)
 
-	endidx = TA_MINI3(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+	TA_SET_MIN_INT3(endidx, zend_hash_num_elements(Z_ARRVAL_P(high_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
-				zend_hash_num_elements(Z_ARRVAL_P(close_in)))-1;
+				zend_hash_num_elements(Z_ARRVAL_P(close_in)));
+	endidx--;
 
 	TA_DBL_ZARR_TO_ARR(high_in, high)
 	TA_DBL_ZARR_TO_ARR(low_in, low)
@@ -370,19 +352,13 @@ PHP_FUNCTION(ta_adxr)
 	result = emalloc(sizeof(double)*endidx);
 
 	if (TA_ADXR(startidx, endidx, high, low, close, (int)time_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
-		efree(high);
-		efree(low);
-		efree(close);
-		efree(result);
+		TA_EFREE4(high, low, close, result)
 		RETURN_FALSE;
 	}
 
-	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+	TA_DBL_ARR_TO_ZARR(result, return_value, endidx, outbegidx, outnbeelem)
 
-	efree(high);
-	efree(low);
-	efree(close);
-	efree(result);
+	TA_EFREE4(high, low, close, result)
 }
 /*}}}*/
 
@@ -409,15 +385,13 @@ PHP_FUNCTION(ta_apo)
 	result = emalloc(sizeof(double)*endidx);
 
 	if (TA_APO(startidx, endidx, price, (int)fast_period, (int)slow_period, (int)ma_type, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
-		efree(price);
-		efree(result);
+		TA_EFREE2(price, result)
 		RETURN_FALSE;
 	}
 
-	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+	TA_DBL_ARR_TO_ZARR(result, return_value, endidx, outbegidx, outnbeelem)
 
-	efree(price);
-	efree(result);
+	TA_EFREE2(price, result)
 }
 /*}}}*/
 

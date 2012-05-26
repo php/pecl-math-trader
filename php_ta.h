@@ -47,7 +47,7 @@ extern zend_module_entry ta_module_entry;
 #endif
 
 #define TA_DEFAULT_REAL_PRECISION 3
-#define TA_PHP_VERSION "0.1"
+#define TA_PHP_VERSION "0.12"
 
 PHP_MINIT_FUNCTION(ta);
 PHP_MSHUTDOWN_FUNCTION(ta);
@@ -92,11 +92,30 @@ ZEND_END_MODULE_GLOBALS(ta)
 			} \
 		} while (0);
 
-#define TA_MINI(x, y) ((x) < (y) ? (x) : (y))
-#define TA_MINI3(x, y, z) (TA_MINI(x, y) < (z) ? TA_MINI(x, y) : (z))
-#define TA_MINI4(x, y, z, k) (TA_MINI3(x, y, z) < (k) ? TA_MINI3(x, y, z) : (k))
+#define TA_SET_MIN_INT(t, x, y) \
+	do { \
+		int a = (int)(x); \
+		int b = (int)(y); \
+		t = a < b ? a : b; \
+	} while (0);		
 
-#define TA_DBL_ARR_TO_ZARR_RES(arr, zarr, endidx, outbegidx, outnbeelem) \
+#define TA_SET_MIN_INT3(t, x, y, z) \
+	do { \
+		int a; \
+		TA_SET_MIN_INT(a, x, y) \
+		int b = (z); \
+		t = a < b ? a : b; \
+	} while (0);		
+
+#define TA_SET_MIN_INT4(t, x, y, z, k) \
+	do { \
+		int a; \
+		TA_SET_MIN_INT3(a, x, y, z) \
+		int b = (k); \
+		t = a < b ? a : b; \
+	} while (0);		
+
+#define TA_DBL_ARR_TO_ZARR(arr, zarr, endidx, outbegidx, outnbeelem) \
 	array_init(zarr); \
 	do { \
 		int i; \
@@ -109,6 +128,12 @@ ZEND_END_MODULE_GLOBALS(ta)
 	if (val < min || val > max) { \
 		val = min; \
 	} 
+
+#define TA_EFREE2(one, two) efree(one);efree(two);
+#define TA_EFREE3(one, two, three) efree(one);TA_EFREE2(two, three)
+#define TA_EFREE4(one, two, three, four) efree(one);TA_EFREE3(two, three, four)
+#define TA_EFREE5(one, two, three, four, five) efree(one);TA_EFREE4(two, three, four, five)
+
 
 #endif	/* PHP_TA_H */
 
