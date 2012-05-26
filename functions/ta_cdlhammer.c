@@ -74,7 +74,7 @@ PHP_FUNCTION(ta_cdlhammer)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outInteger, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inOpen);
 	efree(inHigh);

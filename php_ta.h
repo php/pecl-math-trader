@@ -270,17 +270,41 @@ ZEND_END_MODULE_GLOBALS(ta)
 		t = a < b ? a : b; \
 	} while (0);		
 
-#define TA_DBL_ARR_TO_ZARR1(arr, zarr, endidx, outbegidx, outnbeelem) \
+#define TA_DBL_ARR_TO_ZRET1(arr, zarr, endidx, outbegidx, outnbelem) \
 	array_init(zarr); \
 	do { \
 		int i; \
-		for(i = (outbegidx); i < (outnbeelem); i++) { \
+		for(i = (outbegidx); i < (outnbelem); i++) { \
 			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - (outbegidx)])); \
 		} \
 	} while(0);
 
-#define TA_DBL_ARR_TO_ZARR2(arr1, arr2, zarr, endidx, outbegidx, outnbeelem)
-#define TA_DBL_ARR_TO_ZARR3(arr1, arr2, arr3, zarr, endidx, outbegidx, outnbeelem)
+#define TA_DBL_ARR_TO_ZRET2(arr1, arr2, zarr, endidx, outbegidx, outnbelem) \
+	array_init(zarr); \
+	do { \
+		zval *zarr1, *zarr2; \
+		ALLOC_INIT_ZVAL(zarr1); \
+		TA_DBL_ARR_TO_ZRET1(arr1, zarr1, endidx, outbegidx, outnbelem) \
+		ALLOC_INIT_ZVAL(zarr2); \
+		TA_DBL_ARR_TO_ZRET1(arr2, zarr2, endidx, outbegidx, outnbelem) \
+		add_next_index_zval(zarr, zarr1); \
+		add_next_index_zval(zarr, zarr2); \
+	} while (0);
+
+#define TA_DBL_ARR_TO_ZRET3(arr1, arr2, arr3, zarr, endidx, outbegidx, outnbelem) \
+	array_init(zarr); \
+	do { \
+		zval *zarr1, *zarr2, *zarr3; \
+		ALLOC_INIT_ZVAL(zarr1); \
+		TA_DBL_ARR_TO_ZRET1(arr1, zarr1, endidx, outbegidx, outnbelem) \
+		ALLOC_INIT_ZVAL(zarr2); \
+		TA_DBL_ARR_TO_ZRET1(arr2, zarr2, endidx, outbegidx, outnbelem) \
+		ALLOC_INIT_ZVAL(zarr3); \
+		TA_DBL_ARR_TO_ZRET1(arr3, zarr3, endidx, outbegidx, outnbelem) \
+		add_next_index_zval(zarr, zarr1); \
+		add_next_index_zval(zarr, zarr2); \
+		add_next_index_zval(zarr, zarr3); \
+	} while (0);
 
 #define TA_SET_BOUNDABLE(min, max, val) \
 	if (val < min || val > max) { \

@@ -70,7 +70,7 @@ PHP_FUNCTION(ta_aroon)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR2(outAroonDown, outAroonUp, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET2(outAroonDown, outAroonUp, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);

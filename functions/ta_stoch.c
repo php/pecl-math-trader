@@ -75,7 +75,7 @@ PHP_FUNCTION(ta_stoch)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);

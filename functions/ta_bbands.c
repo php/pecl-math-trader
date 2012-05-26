@@ -71,7 +71,7 @@ PHP_FUNCTION(ta_bbands)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outRealUpperBand);

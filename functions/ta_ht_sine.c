@@ -67,7 +67,7 @@ PHP_FUNCTION(ta_ht_sine)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR2(outSine, outLeadSine, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET2(outSine, outLeadSine, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outSine);

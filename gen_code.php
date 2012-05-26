@@ -242,7 +242,7 @@ foreach ($func as $name => $defs) {
 	}
 	$count_rets = count($rets) ;
 	$tpl = str_replace('MY_PHP_MAKE_RETURN',
-		"TA_DBL_ARR_TO_ZARR$count_rets(" . implode(', ', $rets) 
+		"TA_DBL_ARR_TO_ZRET$count_rets(" . implode(', ', $rets) 
 		. ", return_value, endIdx, outBegIdx, outNBElement-1)", $tpl);
 	
 	$func_arr_allocs = array();

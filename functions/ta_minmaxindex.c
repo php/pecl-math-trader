@@ -67,7 +67,7 @@ PHP_FUNCTION(ta_minmaxindex)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR2(outMinIdx, outMaxIdx, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET2(outMinIdx, outMaxIdx, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMinIdx);

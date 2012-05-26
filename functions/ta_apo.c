@@ -66,7 +66,7 @@ PHP_FUNCTION(ta_apo)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outReal);
