@@ -194,7 +194,9 @@ PHP_FUNCTION(ta_ad)
 		return;
 	}
 
-	TA_AD(startidx, endidx, &high, &low, &close, &vol, &outbegidx, &outnbeelem, &result);
+	if (TA_AD(startidx, endidx, &high, &low, &close, &vol, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+		RETURN_FALSE;
+	}
 	
 	TA_RETURN_DOUBLE(result);
 }
@@ -213,7 +215,9 @@ PHP_FUNCTION(ta_adosc)
 		return;
 	}
 
-	TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, fast_period, slow_period, &outbegidx, &outnbeelem, &result);
+	if (TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, fast_period, slow_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+		RETURN_FALSE;
+	}
 
 	TA_RETURN_DOUBLE(result);
 }
@@ -232,7 +236,9 @@ PHP_FUNCTION(ta_adx)
 		return;
 	}
 
-	TA_ADX(startidx, endidx, &high, &low, &close, time_period, &outbegidx, &outnbeelem, &result);
+	if (TA_ADX(startidx, endidx, &high, &low, &close, time_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+		RETURN_FALSE;
+	}
 
 	TA_RETURN_DOUBLE(result);
 }
