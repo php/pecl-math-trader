@@ -214,7 +214,7 @@ PHP_MINFO_FUNCTION(ta)
 }
 /* }}} */
 
-/*{{{ proto float ta_ad(array high, array low, array close, array volume)
+/*{{{ proto array ta_ad(array high, array low, array close, array volume)
 	Accumulation/Distribution Line (AD) */
 PHP_FUNCTION(ta_ad)
 {
@@ -238,6 +238,11 @@ PHP_FUNCTION(ta_ad)
 	result = emalloc(sizeof(double)*(endidx+1));
 
 	if (TA_AD(startidx, endidx, high, low, close, vol, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
+		efree(high);
+		efree(low);
+		efree(close);
+		efree(vol);
+		efree(result);
 		RETURN_FALSE
 	}
 	
@@ -251,40 +256,66 @@ PHP_FUNCTION(ta_ad)
 }
 /*}}}*/
 
-/*{{{ proto float ta_adosc(float high, float low, float close, float folume, int fast_period, int slow_period)
+/*{{{ proto array ta_adosc(array high, array low, array close, array volume[, int fast_period, [int slow_period]])
 	Accumulation/Distribution Oscillator */
 PHP_FUNCTION(ta_adosc)
 {
-	double result;
-	double high, low, close, vol;
-	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
-	long fast_period = 2, slow_period = 2;
+	zval *high_in, *low_in, *close_in, *vol_in;
+	double *high, *low, *close, *vol, *result;
+	int startidx = 0, endidx, outbegidx, outnbeelem;
+	long fast_period, slow_period;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "dddd|ll", &high, &low, &close, &vol, &fast_period, &slow_period) == FAILURE) {
-		return;
-	}
-
-	if (TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, (int)fast_period, (int)slow_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|ll", &high_in, &low_in, &close_in, &vol_in, &fast_period, &slow_period) == FAILURE) {
 		RETURN_FALSE
 	}
 
-	TA_RETURN_DOUBLE(result);
+	TA_SET_PERIOD(2, 100000, fast_period)
+	TA_SET_PERIOD(2, 100000, slow_period)
+
+	endidx = TA_MINI4(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(close_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(vol_in)))-1;
+
+	TA_DBL_ZARR_TO_ARR(high_in, high)
+	TA_DBL_ZARR_TO_ARR(low_in, low)
+	TA_DBL_ZARR_TO_ARR(close_in, close)
+	TA_DBL_ZARR_TO_ARR(vol_in, vol)
+	result = emalloc(sizeof(double)*(endidx));
+
+	if (TA_ADOSC(startidx, endidx, high, low, close, vol, (int)fast_period, (int)slow_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
+		efree(high);
+		efree(low);
+		efree(close);
+		efree(vol);
+		efree(result);
+		RETURN_FALSE
+	}
+
+	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+
+	efree(high);
+	efree(low);
+	efree(close);
+	efree(vol);
+	efree(result);
 }
 /*}}}*/
 
-/*{{{ proto float ta_adx(array high, array low, array close [, int time_period]) 
+/*{{{ proto array ta_adx(array high, array low, array close [, int time_period]) 
  	Directional Movement - Average Index */
 PHP_FUNCTION(ta_adx)
 {
 	zval *high_in, *low_in, *close_in;
 	double *high, *low, *close, *result;
 	int startidx = 0, endidx, outbegidx, outnbeelem;
-	long time_period = 2;
-	HashTable *zht;
+	long time_period;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|l", &high_in, &low_in, &close_in, &time_period) == FAILURE) {
 		RETURN_FALSE
 	}
+
+	TA_SET_PERIOD(2, 100000, time_period)
 
 	endidx = TA_MINI3(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
 				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
@@ -296,6 +327,10 @@ PHP_FUNCTION(ta_adx)
 	result = emalloc(sizeof(double)*endidx);
 
 	if (TA_ADX(startidx, endidx, high, low, close, (int)time_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
+		efree(high);
+		efree(low);
+		efree(close);
+		efree(result);
 		RETURN_FALSE
 	}
 
@@ -310,45 +345,79 @@ PHP_FUNCTION(ta_adx)
 }
 /*}}}*/
 
-/*{{{ proto float ta_adxr(float high, float low, float closa, int time_period) 
+/*{{{ proto array ta_adxr(array high, array low, array close, int time_period) 
 	Directional Movement - Average Index Rating */
 PHP_FUNCTION(ta_adxr)
 {
-	double result;
-	double high, low, close, vol;
-	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
-	long time_period = 2;
+	zval *high_in, *low_in, *close_in;
+	double *high, *low, *close, *result;
+	int startidx = 0, endidx, outbegidx, outnbeelem;
+	long time_period;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &high, &low, &close, &time_period) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|l", &high_in, &low_in, &close_in, &time_period) == FAILURE) {
 		return;
 	}
 
-	if (TA_ADXR(startidx, endidx, &high, &low, &close, (int)time_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+	TA_SET_PERIOD(2, 100000, time_period)
+
+	endidx = TA_MINI3(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(close_in)))-1;
+
+	TA_DBL_ZARR_TO_ARR(high_in, high)
+	TA_DBL_ZARR_TO_ARR(low_in, low)
+	TA_DBL_ZARR_TO_ARR(close_in, close)
+	result = emalloc(sizeof(double)*endidx);
+
+	if (TA_ADXR(startidx, endidx, high, low, close, (int)time_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
+		efree(high);
+		efree(low);
+		efree(close);
+		efree(result);
 		RETURN_FALSE;
 	}
 
-	TA_RETURN_DOUBLE(result);
+	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+
+	efree(high);
+	efree(low);
+	efree(close);
+	efree(result);
 }
 /*}}}*/
 
-/*{{{ proto ta_apo(float price, int fast_period, int slow_period, int ma_type)
+/*{{{ proto array ta_apo(array price, int fast_period, int slow_period, int ma_type)
 	Price Oscillator - Absolute */
 PHP_FUNCTION(ta_apo)
 {
-	double result, price;
-	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
-	long fast_period = 2, slow_period = 2, ma_type = 0;
+	zval *price_in;
+	double *result, *price;
+	int startidx = 0, endidx, outbegidx, outnbeelem;
+	long fast_period, slow_period, ma_type = 0;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "d|lll", &price, &fast_period, &slow_period, &ma_type) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &price_in, &fast_period, &slow_period, &ma_type) == FAILURE) {
 		return;
 	}
 
-	if (TA_APO(startidx, endidx, &price, (int)fast_period, (int)slow_period, (int)ma_type, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+	TA_SET_PERIOD(2, 100000, fast_period)
+	TA_SET_PERIOD(2, 100000, slow_period)
+	/* XXX check ma type */
+
+	endidx = zend_hash_num_elements(Z_ARRVAL_P(price_in));
+
+	TA_DBL_ZARR_TO_ARR(price_in, price)
+	result = emalloc(sizeof(double)*endidx);
+
+	if (TA_APO(startidx, endidx, price, (int)fast_period, (int)slow_period, (int)ma_type, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
+		efree(price);
+		efree(result);
 		RETURN_FALSE;
 	}
 
-	TA_RETURN_DOUBLE(result);
+	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
 
+	efree(price);
+	efree(result);
 }
 /*}}}*/
 

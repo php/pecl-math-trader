@@ -105,6 +105,10 @@ ZEND_END_MODULE_GLOBALS(ta)
 		} \
 	} while(0);
 
+#define TA_SET_PERIOD(min, max, val) \
+	if (val < min || val > max) { \
+		val = min; \
+	} 
 
 #endif	/* PHP_TA_H */
 
