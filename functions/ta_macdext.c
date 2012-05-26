@@ -43,7 +43,7 @@ PHP_FUNCTION(ta_macdext)
 	zval *zinReal, *zoutMACD, *zoutMACDSignal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInFastPeriod = 2, optInFastMAType, optInSlowPeriod = 2, optInSlowMAType, optInSignalPeriod = 1, optInSignalMAType;
+	long optInFastPeriod = 2, optInFastMAType = 0, optInSlowPeriod = 2, optInSlowMAType = 0, optInSignalPeriod = 1, optInSignalMAType = 0;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|llllll", &zinReal, &optInFastPeriod, &optInFastMAType, &optInSlowPeriod, &optInSlowMAType, &optInSignalPeriod, &optInSignalMAType) == FAILURE) {

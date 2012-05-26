@@ -43,7 +43,7 @@ PHP_FUNCTION(ta_bbands)
 	zval *zinReal, *zoutRealUpperBand, *zoutRealMiddleBand;
 	double *inReal, *outRealUpperBand, *outRealMiddleBand, *outRealLowerBand;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInTimePeriod = 2, optInMAType;
+	long optInTimePeriod = 2, optInMAType = 0;
 	double optInNbDevUp = TA_REAL_MIN, optInNbDevDn = TA_REAL_MIN;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lddl", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn, &optInMAType) == FAILURE) {

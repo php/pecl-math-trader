@@ -43,7 +43,7 @@ PHP_FUNCTION(ta_stoch)
 	zval *zinHigh, *zinLow, *zinClose, *zoutSlowK;
 	double *inHigh, *inLow, *inClose, *outSlowK, *outSlowD;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInFastK_Period = 1, optInSlowK_Period = 1, optInSlowK_MAType, optInSlowD_Period = 1, optInSlowD_MAType;
+	long optInFastK_Period = 1, optInSlowK_Period = 1, optInSlowK_MAType = 0, optInSlowD_Period = 1, optInSlowD_MAType = 0;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lllll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInSlowK_Period, &optInSlowK_MAType, &optInSlowD_Period, &optInSlowD_MAType) == FAILURE) {

@@ -43,7 +43,7 @@ PHP_FUNCTION(ta_stochrsi)
 	zval *zinReal, *zoutFastK;
 	double *inReal, *outFastK, *outFastD;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInTimePeriod = 2, optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType;
+	long optInTimePeriod = 2, optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType = 0;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|llll", &zinReal, &optInTimePeriod, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {

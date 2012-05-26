@@ -43,7 +43,7 @@ PHP_FUNCTION(ta_ppo)
 	zval *zinReal;
 	double *inReal, *outReal;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInFastPeriod = 2, optInSlowPeriod = 2, optInMAType;
+	long optInFastPeriod = 2, optInSlowPeriod = 2, optInMAType = 0;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInMAType) == FAILURE) {
