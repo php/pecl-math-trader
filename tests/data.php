@@ -1,6 +1,6 @@
 <?php
 
-$data = array(
+$data0 = array(
 	array("open" => 92.5, "high" => 93.25, "low" => 90.75, "close" => 91.5, "volume" => 4077500),
 	array("open" => 91.5, "high" => 94.94, "low" => 91.405, "close" => 94.815, "volume" => 4955900),
 	array("open" => 95.155, "high" => 96.375, "low" => 94.25, "close" => 94.375, "volume" => 4775300),
@@ -253,5 +253,13 @@ $data = array(
 	array("open" => 110.44, "high" => 110.5, "low" => 108.75, "close" => 109, "volume" => 2685200),
 	array("open" => 109.69, "high" => 110.5, "low" => 108.56, "close" => 108.75, "volume" => 3438000),
 	array("open" => 109.19, "high" => 109.5, "low" => 106.62, "close" => 107.87, "volume" => 2870500),
+);
+
+$data1 = array(
+	array("high" => 62.34, "low" => 61.37, "close" => 62.15, "volume" => 7849),
+	array("high" => 62.05, "low" => 60.69, "close" => 60.81, "volume" => 11692),
+	array("high" => 62.28, "low" => 60.1, "close" => 60.45, "volume" => 10575),
+	array("high" => 60.79, "low" => 58.61, "close" => 59.18, "volume" => 13059),
+	array("high" => 59.93, "low" => 58.71, "close" => 59.24, "volume" => 20734),
 );
 

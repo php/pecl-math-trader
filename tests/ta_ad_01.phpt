@@ -5,9 +5,8 @@ if (!extension_loaded("ta")) die("skip");
 --FILE--
 <?php
 
-include "tests/data.php";
-include "tests/func.php";
+include "data.php";
+include "func.php";
 
-echo ta_ad(62.05, 60.69, 60.81, 11.692);
+var_dump(ta_ad(get_data("high", $data1), get_data("low", $data1), get_data("close", $data1), get_data("volume", $data1)));
 --EXPECT--
--9.628
