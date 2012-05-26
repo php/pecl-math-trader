@@ -133,7 +133,7 @@ foreach ($func as $name => $defs) {
 	$php_long_defs = array();
 	foreach ($defs['params'] as $p) {
 		if (('int' == $p['type']  || 'TA_MAType' == $p['type']) && $p['opt']) {
-			$php_long_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
+			$php_long_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : ' = 0');
 		}
 	}
 	$php_long_defs_repl = count($php_long_defs) ? 'long ' . implode(', ', $php_long_defs) . ';' : '';
