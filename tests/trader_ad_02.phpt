@@ -11,5 +11,4 @@ include "func.php";
 
 var_dump(trader_ad(array(), array(), array(), array()));
 --EXPECT--
-array(0) {
-}
+bool(false)
