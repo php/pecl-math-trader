@@ -111,7 +111,7 @@ foreach ($func as $name => $defs) {
 
 	$func_arr_defs = array();
 	foreach ($defs['params'] as $p) {
-		if ($p['array']) {
+		if (('double' == $p['type'] || 'const double' == $p['type']) && $p['array']) {
 			$func_arr_defs[] = "*$p[name]";
 		}
 	}
@@ -120,8 +120,9 @@ foreach ($func as $name => $defs) {
 
 	$func_int_defs = array();
 	foreach ($defs['params'] as $p) {
-		if ('int' == $p['type'] && !$p['opt']) {
-			$func_int_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
+		if (('int' == $p['type'] || 'TA_MAType' == $p['type']) && !$p['opt']) {
+			$ar = $p['array'] ? '*' : '';
+			$func_int_defs[] = "$ar$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
 		}
 	}
 	$tpl = str_replace('MY_FUNC_INT_PARA_DEFS', 'int ' . implode(', ', $func_int_defs) . ';', $tpl);
@@ -131,12 +132,21 @@ foreach ($func as $name => $defs) {
 
 	$php_long_defs = array();
 	foreach ($defs['params'] as $p) {
-		if ('int' == $p['type'] && $p['opt']) {
+		if (('int' == $p['type']  || 'TA_MAType' == $p['type']) && $p['opt']) {
 			$php_long_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
 		}
 	}
 	$php_long_defs_repl = count($php_long_defs) ? 'long ' . implode(', ', $php_long_defs) . ';' : '';
 	$tpl = str_replace('MY_IN_PHP_LONG_DEFS', $php_long_defs_repl, $tpl);
+
+	$php_dbl_defs = array();
+	foreach ($defs['params'] as $p) {
+		if ('double' == $p['type'] && $p['opt']) {
+			$php_dbl_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
+		}
+	}
+	$php_dbl_defs_repl = count($php_dbl_defs) ? 'double ' . implode(', ', $php_dbl_defs) . ';' : '';
+	$tpl = str_replace('MY_IN_PHP_DOUBLE_DEFS', $php_dbl_defs_repl, $tpl);
 
 
 	$func_set_boundable = array();
@@ -148,45 +158,72 @@ foreach ($func as $name => $defs) {
 	$tpl = str_replace('MY_FUNC_SET_BOUNDABLE', implode("\n\t", $func_set_boundable), $tpl);
 
 
-	$zend_param_str = $zend_param_str_a = $zend_param_str_l = $zend_param_str_d = '';
-	$zend_param_list = '';
-	$zend_param_list_a = $zend_param_list_l = $zend_param_list_d = array();
-	$func_param_list_a = $func_param_list_l = $func_param_list_d = array();
+	$zend_param_str = '';
+	$zend_param_list = array();
+	$func_param_list = array();
+	$ar_count = 0;
+	$ar_breaks = false;
+	$pipe_set = false;
+	$last_was_ar = true;
 	foreach ($defs['params'] as $p) {
-		if ($p['array']) {
-			$zend_param_str_a .= 'a';
-			$zend_param_list_a[] = "&{$p['name']}";
-			$func_param_list_a[] = $p['name'];
-		} else if ($p['opt'] && 'int' == $p['type']) {
-			$zend_param_str_l .= 'l';
-			$zend_param_list_l[] = "&{$p['name']}";
-			$func_param_list_l[] = "(int){$p['name']}";
+		if (in_array($p['name'], array('startIdx', 'endIdx'))) {
+			$func_param_list[] = $p['name'];
+		} else if (in_array($p['name'], array('outBegIdx', 'outNBElement'))) {
+			$func_param_list[] = "&{$p['name']}";
+		} else if ($p['array']) {
+			$last_was_ar = true;
+			$zend_param_str .= 'a';
+
+			$ar_count++;
+			$zend_param_list[] = "&z{$p['name']}";
+
+			$func_param_list[] = $p['name'];
+		} else if ($p['opt'] && ('int' == $p['type'] || 'TA_MAType' == $p['type'])) {
+			$last_was_ar = false;
+			if(!$pipe_set && !$ar_breaks && $ar_count > 0) {
+				$zend_param_str .= '|';
+				$pipe_set = true;
+			}
+			$zend_param_str .= 'l';
+			
+			$ar_breaks = true;
+			$ar_count = 0;
+			$zend_param_list[] = "&{$p['name']}";
+
+			$func_param_list[] = "(int){$p['name']}";
 		} else if ($p['opt'] && 'double' == $p['type']) {
-			$zend_param_str_d .= 'd';
-			$zend_param_list_d[] = "&{$p['name']}";
-			$func_param_list_d[] = ($p['byref'] ? '&' : '') . $p['name'];
+			$last_was_ar = false;
+			if(!$pipe_set && !$ar_breaks && $ar_count > 0) {
+				$zend_param_str .= '|';
+				$pipe_set = true;
+			}
+			$zend_param_str .= 'd';
+
+			$ar_breaks = true;
+			$ar_count = 0;
+			$zend_param_list[] = "&{$p['name']}";
+
+			$func_param_list[] = ($p['byref'] ? '&' : '') . $p['name'];
 		}
 	}
-	$zend_param_str = substr($zend_param_str_a, 0, strlen($zend_param_str_a)-1);
-	if (strlen($zend_param_str_l) || strlen($zend_param_str_d)) {
-		$zend_param_str = "$zend_param_str|$zend_param_str_l$zend_param_str_d";
-	}
+	$zend_param_str = substr($zend_param_str, 0, strlen($zend_param_str) - ($ar_breaks ? $ar_count : 1));
 	$tpl = str_replace('MY_ZEND_PARAMS_STR', "\"$zend_param_str\"", $tpl);
-	array_pop($zend_param_list_a);
-	$result_arr = array_pop($func_param_list_a);
-	$zend_param_list = implode(', ', $zend_param_list_a);
-	$func_params = 'startIdx, endIdx, ' . implode(', ', $func_param_list_a);
-	if (count($zend_param_list_l)) {
-		$zend_param_list .= ', ' . implode(', ', $zend_param_list_l);
-		$func_params .= ', ' . implode(', ', $func_param_list_l);
+
+	if ($ar_breaks) {
+		$zpl = $zend_param_list;
+		end($zpl);
+		while (false !== ($k = key($zpl)) && $ar_count > 0) {
+			unset($zend_param_list[$k]);
+			$ar_count--;
+			prev($zpl);
+		}
+	} else {
+		array_pop($zend_param_list);
 	}
-	if (count($zend_param_list_d)) {
-		$zend_param_list .= ', ' . implode(', ', $zend_param_list_d);
-		$func_params .= ', ' . implode(', ', $func_param_list_d);
-	}
-	/* XXX that order mightbe wrong ) */
-	$tpl = str_replace('MY_ZEND_PARAM_LIST', $zend_param_list, $tpl);
-	$tpl = str_replace('MY_FUNC_PARAMS', $func_params . ', &outBegIdx, &outNBElement, ' . $result_arr , $tpl);
+	$zend_params = implode(', ', $zend_param_list);
+	$tpl = str_replace('MY_ZEND_PARAM_LIST', $zend_params, $tpl);
+	$func_params = implode(', ', $func_param_list);
+	$tpl = str_replace('MY_FUNC_PARAMS', $func_params, $tpl);
 
 
 	$func_arr_allocs = array();
@@ -205,11 +242,12 @@ foreach ($func as $name => $defs) {
 	$func_arr_allocs_str = "$result_arr = emalloc(sizeof(double)*(endIdx+1));"
 			. "\n\t" . implode("\n\t", $func_arr_allocs);
 	$tpl = str_replace('MY_FUNC_ARRAY_PARA_ALLOCS', $func_arr_allocs_str, $tpl);
+	/* XXX it can return multiple arrays */
 	$tpl = str_replace('MY_PHP_MAKE_RETURN',
-		"TA_DBL_ARR_TO_ZARR($result_arr, return_value, endIdx, outBegIdx, outNBElement)", $tpl);
+		"TA_DBL_ARR_TO_ZARR1($result_arr, return_value, endIdx, outBegIdx, outNBElement)", $tpl);
 
 	foreach ($func_min_end_idx_arr as &$item) {
-		$item = "zend_hash_num_elements(Z_ARRVAL_P($item))";
+		$item = "zend_hash_num_elements(Z_ARRVAL_P(z$item))";
 	}
 	unset($item);
 	$tpl = str_replace('MY_FUNC_SET_MIN_END_IDX',
@@ -218,4 +256,52 @@ foreach ($func as $name => $defs) {
 	file_put_contents('functions/' . strtolower($name) . '.c', $tpl);
 	//break;
 }
+
+
+$func_header = array();
+$tpl = file_get_contents('functions/ta_php_func.h.tpl');
+foreach ($func as $name => $defs) {
+	$func_header[] = 'PHP_FUNCTION(' . strtolower($name) . ');';
+}
+$tpl = str_replace('HEADER_CONTENT', implode("\n", $func_header), $tpl);
+file_put_contents('functions/ta_php_func.h', $tpl);
+
+
+$fe_header = array();
+$tpl = file_get_contents('functions/ta_php_fe.h.tpl');
+foreach ($func as $name => $defs) {
+	$php_func = strtolower($name);
+	$fe_header[] = "\tPHP_FE($php_func, arg_info_$php_func)";
+	//$fe_header[] = "\tPHP_FE($php_func, NULL)";
+}
+$tpl = str_replace('HEADER_CONTENT', implode("\n", $fe_header), $tpl);
+file_put_contents('functions/ta_php_fe.h', $tpl);
+
+
+$arginfo_header = array();
+$tpl = file_get_contents('functions/ta_php_arginfo.h.tpl');
+foreach ($func as $name => $defs) {
+	$php_func = strtolower($name);
+	$tmp = '';
+	
+	$mandatory_pcnt = 0;
+	foreach ($defs['params'] as $p) {
+		if (in_array($p['name'], array('startIdx', 'endIdx'))) {
+			continue;
+		}
+		if ('outBegIdx' == $p['name']) {
+			break;
+		}
+		if (!$p['opt']) {
+			$mandatory_pcnt++;
+		}
+		$tmp .= "\tZEND_ARG_INFO(0, {$p['name']})\n";
+	}
+
+	$tmp .= "ZEND_END_ARG_INFO();";
+	$tmp = "ZEND_BEGIN_ARG_INFO_EX(arg_info_$php_func, 0, 0, $mandatory_pcnt)\n$tmp";
+	$arginfo_header[] = $tmp;
+}
+$tpl = str_replace('HEADER_CONTENT', implode("\n\n", $arginfo_header), $tpl);
+file_put_contents('functions/ta_php_arginfo.h', $tpl);
 
