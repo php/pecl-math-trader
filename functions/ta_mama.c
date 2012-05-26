@@ -64,16 +64,16 @@ PHP_FUNCTION(ta_mama)
 	if (TA_MAMA(startIdx, endIdx, inReal, optInFastLimit, optInSlowLimit, &outBegIdx, &outNBElement, outMAMA, outFAMA) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outMAMA);
-		efree(outFAMA);;
+		efree(outFAMA);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outFAMA, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outFAMA, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMAMA);
-	efree(outFAMA);;
+	efree(outFAMA);
 }
 /*}}}*/
 

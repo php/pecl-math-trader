@@ -60,15 +60,15 @@ PHP_FUNCTION(ta_maxindex)
 
 	if (TA_MAXINDEX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outInteger) != TA_SUCCESS) {
 		efree(inReal);
-		efree(outInteger);;
+		efree(outInteger);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outInteger, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outInteger, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
-	efree(outInteger);;
+	efree(outInteger);
 }
 /*}}}*/
 

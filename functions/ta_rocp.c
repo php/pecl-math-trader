@@ -60,15 +60,15 @@ PHP_FUNCTION(ta_rocp)
 
 	if (TA_ROCP(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
-		efree(outReal);;
+		efree(outReal);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
-	efree(outReal);;
+	efree(outReal);
 }
 /*}}}*/
 

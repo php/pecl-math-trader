@@ -63,16 +63,16 @@ PHP_FUNCTION(ta_ht_sine)
 	if (TA_HT_SINE(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outSine, outLeadSine) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outSine);
-		efree(outLeadSine);;
+		efree(outLeadSine);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outLeadSine, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outLeadSine, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outSine);
-	efree(outLeadSine);;
+	efree(outLeadSine);
 }
 /*}}}*/
 

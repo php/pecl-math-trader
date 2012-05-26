@@ -68,17 +68,17 @@ PHP_FUNCTION(ta_bbands)
 		efree(inReal);
 		efree(outRealUpperBand);
 		efree(outRealMiddleBand);
-		efree(outRealLowerBand);;
+		efree(outRealLowerBand);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outRealUpperBand);
 	efree(outRealMiddleBand);
-	efree(outRealLowerBand);;
+	efree(outRealLowerBand);
 }
 /*}}}*/
 

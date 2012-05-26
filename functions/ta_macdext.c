@@ -68,17 +68,17 @@ PHP_FUNCTION(ta_macdext)
 		efree(inReal);
 		efree(outMACD);
 		efree(outMACDSignal);
-		efree(outMACDHist);;
+		efree(outMACDHist);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outMACDHist, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMACD);
 	efree(outMACDSignal);
-	efree(outMACDHist);;
+	efree(outMACDHist);
 }
 /*}}}*/
 

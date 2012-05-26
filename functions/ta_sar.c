@@ -64,16 +64,16 @@ PHP_FUNCTION(ta_sar)
 	if (TA_SAR(startIdx, endIdx, inHigh, inLow, optInAcceleration, optInMaximum, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);
-		efree(outReal);;
+		efree(outReal);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);
-	efree(outReal);;
+	efree(outReal);
 }
 /*}}}*/
 

@@ -63,16 +63,16 @@ PHP_FUNCTION(ta_minmax)
 	if (TA_MINMAX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outMin, outMax) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outMin);
-		efree(outMax);;
+		efree(outMax);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outMax, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outMax, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMin);
-	efree(outMax);;
+	efree(outMax);
 }
 /*}}}*/
 

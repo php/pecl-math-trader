@@ -65,16 +65,16 @@ PHP_FUNCTION(ta_stochrsi)
 	if (TA_STOCHRSI(startIdx, endIdx, inReal, (int)optInTimePeriod, (int)optInFastK_Period, (int)optInFastD_Period, (int)optInFastD_MAType, &outBegIdx, &outNBElement, outFastK, outFastD) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outFastK);
-		efree(outFastD);;
+		efree(outFastD);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outFastD, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outFastD, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outFastK);
-	efree(outFastD);;
+	efree(outFastD);
 }
 /*}}}*/
 

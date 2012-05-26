@@ -60,15 +60,15 @@ PHP_FUNCTION(ta_ln)
 
 	if (TA_LN(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
-		efree(outReal);;
+		efree(outReal);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
-	efree(outReal);;
+	efree(outReal);
 }
 /*}}}*/
 

@@ -71,18 +71,18 @@ PHP_FUNCTION(ta_stoch)
 		efree(inLow);
 		efree(inClose);
 		efree(outSlowK);
-		efree(outSlowD);;
+		efree(outSlowD);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outSlowD, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outSlowD, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);
 	efree(inClose);
 	efree(outSlowK);
-	efree(outSlowD);;
+	efree(outSlowD);
 }
 /*}}}*/
 

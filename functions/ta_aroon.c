@@ -66,17 +66,17 @@ PHP_FUNCTION(ta_aroon)
 		efree(inHigh);
 		efree(inLow);
 		efree(outAroonDown);
-		efree(outAroonUp);;
+		efree(outAroonUp);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outAroonUp, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outAroonUp, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);
 	efree(outAroonDown);
-	efree(outAroonUp);;
+	efree(outAroonUp);
 }
 /*}}}*/
 

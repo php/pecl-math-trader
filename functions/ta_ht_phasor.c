@@ -63,16 +63,16 @@ PHP_FUNCTION(ta_ht_phasor)
 	if (TA_HT_PHASOR(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outInPhase, outQuadrature) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outInPhase);
-		efree(outQuadrature);;
+		efree(outQuadrature);
 
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outQuadrature, return_value, endIdx, outBegIdx, outNBElement)
+	TA_DBL_ARR_TO_ZARR1(outQuadrature, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outInPhase);
-	efree(outQuadrature);;
+	efree(outQuadrature);
 }
 /*}}}*/
 
