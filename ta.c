@@ -255,24 +255,41 @@ PHP_FUNCTION(ta_adosc)
 }
 /*}}}*/
 
-/*{{{ proto float ta_adx(float high, float low, float close, int time_period) 
+/*{{{ proto float ta_adx(float high, float low, float close [, int time_period]) 
  	Directional Movement - Average Index */
 PHP_FUNCTION(ta_adx)
 {
-	double result;
-	double high, low, close, vol;
-	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+	zval *high_in, *low_in, *close_in;
+	double *high, *low, *close, *result;
+	int startidx = 0, endidx, outbegidx, outnbeelem;
 	long time_period = 2;
+	HashTable *zht;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &high, &low, &close, &time_period) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|l", &high_in, &low_in, &close_in, &time_period) == FAILURE) {
 		return;
 	}
 
-	if (TA_ADX(startidx, endidx, &high, &low, &close, (int)time_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+	endidx = TA_MINI3(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(close_in)))-1;
+
+	TA_DBL_ZARR_TO_ARR(high_in, high)
+	TA_DBL_ZARR_TO_ARR(low_in, low)
+	TA_DBL_ZARR_TO_ARR(close_in, close)
+	result = emalloc(sizeof(double)*endidx);
+
+	if (TA_ADX(startidx, endidx, high, low, close, (int)time_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
 		RETURN_FALSE;
 	}
 
-	TA_RETURN_DOUBLE(result);
+	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
+
+	/*printf("startidx %d, endidx %d, outbegidx %d, outnbeelem %d\n", startidx, endidx, outbegidx, outnbeelem);*/
+
+	efree(high);
+	efree(low);
+	efree(close);
+	efree(result);
 }
 /*}}}*/
 
@@ -297,6 +314,8 @@ PHP_FUNCTION(ta_adxr)
 }
 /*}}}*/
 
+/*{{{ proto ta_apo(float price, int fast_period, int slow_period, int ma_type)
+	Price Oscillator - Absolute */
 PHP_FUNCTION(ta_apo)
 {
 	double result, price;
@@ -314,6 +333,7 @@ PHP_FUNCTION(ta_apo)
 	TA_RETURN_DOUBLE(result);
 
 }
+/*}}}*/
 
 /*
  * Local variables:

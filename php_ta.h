@@ -74,6 +74,37 @@ ZEND_END_MODULE_GLOBALS(ta)
 #define TA_ROUND_DOUBLE(x) (((int)((x) * pow(10, (int)TA_G(real_precision)))) / pow(10.0, (int)TA_G(real_precision)))
 #define TA_RETURN_DOUBLE(x) RETURN_DOUBLE(TA_ROUND_DOUBLE(x))
 
+#define TA_DBL_ZARR_TO_ARR(zarr, arr) \
+		do { \
+			HashTable *ht = Z_ARRVAL_P(zarr); \
+			HashPosition hp; \
+			zval **data; \
+			int i; \
+\
+			ht = Z_ARRVAL_P(zarr); \
+			arr = emalloc(sizeof(double)*zend_hash_num_elements(ht)); \
+\
+			for (zend_hash_internal_pointer_reset_ex(ht, &hp), i = 0; \
+					zend_hash_get_current_data_ex(ht, (void **)&data, &hp) == SUCCESS; \
+					zend_hash_move_forward_ex(ht, &hp), i++) { \
+				convert_to_double(*data); \
+				arr[i] = Z_DVAL_PP(data); \
+			} \
+		} while (0);
+
+#define TA_MINI(x, y) ((x) < (y) ? (x) : (y))
+#define TA_MINI3(x, y, z) (TA_MINI(x, y) < (z) ? TA_MINI(x, y) : z)
+
+#define TA_DBL_ARR_TO_ZARR_RES(arr, zarr, endidx, outbegidx, outnbeelem) \
+	array_init(zarr); \
+	do { \
+		int i; \
+		for(i = outbegidx; i < outnbeelem; i++) { \
+			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - outbegidx])); \
+		} \
+	} while(0);
+
+
 #endif	/* PHP_TA_H */
 
 
