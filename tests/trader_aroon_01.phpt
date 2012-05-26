@@ -9,9 +9,9 @@ if (!extension_loaded("trader")) die("skip");
 include "data.php";
 include "func.php";
 
-$fast_period = 14;
+$period = 14;
 
-var_dump(trader_aroon(get_data("high", $data0), get_data("low", $data0), $fast_period));
+var_dump(trader_aroon(get_data("high", $data0), get_data("low", $data0), $period));
 --EXPECT--
 array(2) {
   [0]=>
