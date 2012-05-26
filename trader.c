@@ -35,15 +35,15 @@
 #include "php.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
-#include "php_ta.h"
+#include "php_trader.h"
 
-#include <trader_func.h>
-#include <trader_common.h>
+#include <ta_func.h>
+#include <ta_common.h>
 
-ZEND_DECLARE_MODULE_GLOBALS(ta)
+ZEND_DECLARE_MODULE_GLOBALS(trader)
 
 /* True global resources - no need for thread safety here */
-static int le_ta;
+static int le_trader;
 
 /* {{{ trader_arginfo */
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_acos, 0, 0, 1)
@@ -1222,8 +1222,8 @@ zend_module_entry trader_module_entry = {
 };
 /* }}} */
 
-#ifdef COMPILE_DL_TA
-ZEND_GET_MODULE(ta)
+#ifdef COMPILE_DL_TRADER
+ZEND_GET_MODULE(trader)
 #endif
 
 /* {{{ PHP_INI
@@ -1237,7 +1237,7 @@ PHP_INI_END()
  */
 static void php_trader_globals_ctor(zend_trader_globals *trader_globals)
 {
-	trader_globals->real_precision = TA_DEFAULT_REAL_PRECISION;
+	trader_globals->real_precision = TRADER_DEFAULT_REAL_PRECISION;
 }
 /* }}} */
 
@@ -1251,9 +1251,9 @@ static void php_trader_globals_dtor(zend_trader_globals *trader_globals)
 
 /* {{{ PHP_MINIT_FUNCTION
  */
-PHP_MINIT_FUNCTION(ta)
+PHP_MINIT_FUNCTION(trader)
 {
-	ZEND_INIT_MODULE_GLOBALS(ta, php_trader_globals_ctor, php_trader_globals_dtor);
+	ZEND_INIT_MODULE_GLOBALS(trader, php_trader_globals_ctor, php_trader_globals_dtor);
 
 	REGISTER_INI_ENTRIES();
 
@@ -1276,7 +1276,7 @@ PHP_MINIT_FUNCTION(ta)
 
 /* {{{ PHP_MSHUTDOWN_FUNCTION
  */
-PHP_MSHUTDOWN_FUNCTION(ta)
+PHP_MSHUTDOWN_FUNCTION(trader)
 {
 	UNREGISTER_INI_ENTRIES();
 #ifdef ZTS
@@ -1292,7 +1292,7 @@ PHP_MSHUTDOWN_FUNCTION(ta)
 /* Remove if there's nothing to do at request start */
 /* {{{ PHP_RINIT_FUNCTION
  */
-PHP_RINIT_FUNCTION(ta)
+PHP_RINIT_FUNCTION(trader)
 {
 	return SUCCESS;
 }
@@ -1301,7 +1301,7 @@ PHP_RINIT_FUNCTION(ta)
 /* Remove if there's nothing to do at request end */
 /* {{{ PHP_RSHUTDOWN_FUNCTION
  */
-PHP_RSHUTDOWN_FUNCTION(ta)
+PHP_RSHUTDOWN_FUNCTION(trader)
 {
 	return SUCCESS;
 }
@@ -1309,11 +1309,11 @@ PHP_RSHUTDOWN_FUNCTION(ta)
 
 /* {{{ PHP_MINFO_FUNCTION
  */
-PHP_MINFO_FUNCTION(ta)
+PHP_MINFO_FUNCTION(trader)
 {
 	php_info_print_table_start();
 	php_info_print_table_header(2, "Technical Analysis Library Support", "enabled");
-	php_info_print_table_header(2, "Version", TA_PHP_VERSION);
+	php_info_print_table_header(2, "Version", TRADER_PHP_VERSION);
 	php_info_print_table_header(2, "TA-Lib version", TA_GetVersionString());
 	php_info_print_table_end();
 

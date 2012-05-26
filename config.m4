@@ -9,7 +9,7 @@ if test "$PHP_TA" != "no"; then
   PHP_ADD_INCLUDE(ta-lib/src/ta_common)
   PHP_ADD_INCLUDE(functions)
 
-  TA_LIB_SOURCES="ta-lib/src/ta_common/ta_global.c \
+  TRADER_LIB_SOURCES="ta-lib/src/ta_common/ta_global.c \
     ta-lib/src/ta_common/ta_retcode.c \
     ta-lib/src/ta_common/ta_version.c \
 	ta-lib/src/ta_func/ta_utility.c \

@@ -43,10 +43,10 @@ PHP_FUNCTION(trader_bbands)
 	zval *zinReal, *zoutRealUpperBand, *zoutRealMiddleBand;
 	double *inReal, *outRealUpperBand, *outRealMiddleBand, *outRealLowerBand;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInTimePeriod = 2;
+	long optInTimePeriod = 2, optInMAType = 0;
 	double optInNbDevUp = TA_REAL_MIN, optInNbDevDn = TA_REAL_MIN;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|ldd", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lddl", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn, &optInMAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
@@ -62,7 +62,7 @@ PHP_FUNCTION(trader_bbands)
 	outRealLowerBand = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	if (TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand) != TA_SUCCESS) {
+	if (TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outRealUpperBand);
 		efree(outRealMiddleBand);

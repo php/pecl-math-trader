@@ -121,7 +121,7 @@ foreach ($func as $name => $defs) {
 
 	$func_int_defs = array();
 	foreach ($defs['params'] as $p) {
-		if (('int' == $p['type'] || 'TRADER_MAType' == $p['type']) && !$p['opt']) {
+		if (('int' == $p['type'] || 'TA_MAType' == $p['type']) && !$p['opt']) {
 			$ar = $p['array'] ? '*' : '';
 			$func_int_defs[] = "$ar$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
 		}
@@ -133,7 +133,7 @@ foreach ($func as $name => $defs) {
 
 	$php_long_defs = array();
 	foreach ($defs['params'] as $p) {
-		if (('int' == $p['type']  || 'TRADER_MAType' == $p['type']) && $p['opt']) {
+		if (('int' == $p['type']  || 'TA_MAType' == $p['type']) && $p['opt']) {
 			$php_long_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : ' = 0');
 		}
 	}
@@ -179,7 +179,7 @@ foreach ($func as $name => $defs) {
 			$zend_param_list[] = "&z{$p['name']}";
 
 			$func_param_list[] = $p['name'];
-		} else if ($p['opt'] && ('int' == $p['type'] || 'TRADER_MAType' == $p['type'])) {
+		} else if ($p['opt'] && ('int' == $p['type'] || 'TA_MAType' == $p['type'])) {
 			$last_was_ar = false;
 			if(!$pipe_set && !$ar_breaks && $ar_count > 0) {
 				$zend_param_str .= '|';

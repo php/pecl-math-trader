@@ -43,10 +43,10 @@ PHP_FUNCTION(trader_apo)
 	zval *zinReal;
 	double *inReal, *outReal;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInFastPeriod = 2, optInSlowPeriod = 2;
+	long optInFastPeriod = 2, optInSlowPeriod = 2, optInMAType = 0;
 	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|ll", &zinReal, &optInFastPeriod, &optInSlowPeriod) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInMAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
@@ -59,7 +59,7 @@ PHP_FUNCTION(trader_apo)
 	outReal = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	if (TA_APO(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInSlowPeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	if (TA_APO(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInSlowPeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outReal);
 

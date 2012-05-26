@@ -29,16 +29,16 @@
 /* $Id$ */
 
 #include "php.h"
-#include "php_ta.h"
+#include "php_trader.h"
 
 #include <ta_func.h>
 #include <ta_common.h>
 
-ZEND_EXTERN_MODULE_GLOBALS(ta)
+ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array ta_ma(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ma(MY_FUNC_DOC_PARAMS)
 	Moving average */
-PHP_FUNCTION(ta_ma)
+PHP_FUNCTION(trader_ma)
 {
 	zval *zinReal;
 	double *inReal, *outReal;
@@ -50,13 +50,13 @@ PHP_FUNCTION(ta_ma)
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	TA_SET_BOUNDABLE(1, 100000, optInTimePeriod);	
+	TRADER_SET_BOUNDABLE(1, 100000, optInTimePeriod);	
 
-	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
+	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
 	outReal = emalloc(sizeof(double)*(endIdx+1));
-	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
+	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
 	if (TA_MA(startIdx, endIdx, inReal, (int)optInTimePeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
@@ -65,7 +65,7 @@ PHP_FUNCTION(ta_ma)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outReal);

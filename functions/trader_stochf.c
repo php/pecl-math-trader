@@ -43,10 +43,10 @@ PHP_FUNCTION(trader_stochf)
 	zval *zinHigh, *zinLow, *zinClose, *zoutFastK;
 	double *inHigh, *inLow, *inClose, *outFastK, *outFastD;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInFastK_Period = 1, optInFastD_Period = 1;
+	long optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType = 0;
 	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|ll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInFastD_Period) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
@@ -64,7 +64,7 @@ PHP_FUNCTION(trader_stochf)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
-	if (TA_STOCHF(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInFastD_Period, &outBegIdx, &outNBElement, outFastK, outFastD) != TA_SUCCESS) {
+	if (TA_STOCHF(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInFastD_Period, (int)optInFastD_MAType, &outBegIdx, &outNBElement, outFastK, outFastD) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);
 		efree(inClose);

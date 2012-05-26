@@ -43,10 +43,10 @@ PHP_FUNCTION(trader_mavp)
 	zval *zinReal, *zinPeriods;
 	double *inReal, *inPeriods, *outReal;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInMinPeriod = 2, optInMaxPeriod = 2;
+	long optInMinPeriod = 2, optInMaxPeriod = 2, optInMAType = 0;
 	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|ll", &zinReal, &zinPeriods, &optInMinPeriod, &optInMaxPeriod) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|lll", &zinReal, &zinPeriods, &optInMinPeriod, &optInMaxPeriod, &optInMAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
@@ -61,7 +61,7 @@ PHP_FUNCTION(trader_mavp)
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 	TRADER_DBL_ZARR_TO_ARR(zinPeriods, inPeriods)
 
-	if (TA_MAVP(startIdx, endIdx, inReal, inPeriods, (int)optInMinPeriod, (int)optInMaxPeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	if (TA_MAVP(startIdx, endIdx, inReal, inPeriods, (int)optInMinPeriod, (int)optInMaxPeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
 		efree(inPeriods);
 		efree(outReal);

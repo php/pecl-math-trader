@@ -43,10 +43,10 @@ PHP_FUNCTION(trader_macdext)
 	zval *zinReal, *zoutMACD, *zoutMACDSignal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
 	int startIdx, endIdx, outBegIdx, outNBElement;
-	long optInFastPeriod = 2, optInSlowPeriod = 2, optInSignalPeriod = 1;
+	long optInFastPeriod = 2, optInFastMAType = 0, optInSlowPeriod = 2, optInSlowMAType = 0, optInSignalPeriod = 1, optInSignalMAType = 0;
 	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInSignalPeriod) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|llllll", &zinReal, &optInFastPeriod, &optInFastMAType, &optInSlowPeriod, &optInSlowMAType, &optInSignalPeriod, &optInSignalMAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
@@ -62,7 +62,7 @@ PHP_FUNCTION(trader_macdext)
 	outMACDHist = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	if (TA_MACDEXT(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInSlowPeriod, (int)optInSignalPeriod, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist) != TA_SUCCESS) {
+	if (TA_MACDEXT(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInFastMAType, (int)optInSlowPeriod, (int)optInSlowMAType, (int)optInSignalPeriod, (int)optInSignalMAType, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outMACD);
 		efree(outMACDSignal);

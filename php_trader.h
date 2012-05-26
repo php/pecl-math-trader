@@ -35,11 +35,11 @@ extern zend_module_entry trader_module_entry;
 #define phpext_trader_ptr &trader_module_entry
 
 #ifdef PHP_WIN32
-#	define PHP_TA_API __declspec(dllexport)
+#	define PHP_TRADER_API __declspec(dllexport)
 #elif defined(__GNUC__) && __GNUC__ >= 4
-#	define PHP_TA_API __attribute__ ((visibility("default")))
+#	define PHP_TRADER_API __attribute__ ((visibility("default")))
 #else
-#	define PHP_TA_API
+#	define PHP_TRADER_API
 #endif
 
 #ifdef ZTS
@@ -49,11 +49,11 @@ extern zend_module_entry trader_module_entry;
 #define TRADER_DEFAULT_REAL_PRECISION 3
 #define TRADER_PHP_VERSION "0.12"
 
-PHP_MINIT_FUNCTION(ta);
-PHP_MSHUTDOWN_FUNCTION(ta);
-PHP_RINIT_FUNCTION(ta);
-PHP_RSHUTDOWN_FUNCTION(ta);
-PHP_MINFO_FUNCTION(ta);
+PHP_MINIT_FUNCTION(trader);
+PHP_MSHUTDOWN_FUNCTION(trader);
+PHP_RINIT_FUNCTION(trader);
+PHP_RSHUTDOWN_FUNCTION(trader);
+PHP_MINFO_FUNCTION(trader);
 
 PHP_FUNCTION(trader_acos);
 PHP_FUNCTION(trader_ad);
@@ -225,7 +225,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 #endif
 
 #define TRADER_ROUND_DOUBLE(x) (((int)((x) * pow(10, (int)TRADER_G(real_precision)))) / pow(10.0, (int)TRADER_G(real_precision)))
-#define TRADER_RETURN_DOUBLE(x) RETURN_DOUBLE(TA_ROUND_DOUBLE(x))
+#define TRADER_RETURN_DOUBLE(x) RETURN_DOUBLE(TRADER_ROUND_DOUBLE(x))
 
 #define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \
 		do { \
@@ -275,7 +275,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 	do { \
 		int i; \
 		for(i = (outbegidx); i < (outnbelem); i++) { \
-			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - (outbegidx)])); \
+			add_index_double(zarr, i, TRADER_ROUND_DOUBLE(arr[i - (outbegidx)])); \
 		} \
 	} while(0);
 
