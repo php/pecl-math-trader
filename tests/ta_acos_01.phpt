@@ -1,6 +1,7 @@
 --TEST--
-ta_ad() basic test
+ta_acos() basic test
 --SKIPIF--
+<?php
 if (!extension_loaded("ta")) die("skip");
 --FILE--
 <?php

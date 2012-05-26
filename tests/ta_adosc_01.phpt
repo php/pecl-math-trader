@@ -1,5 +1,8 @@
 --TEST--
 ta_adosc() basic test
+--SKIPIF--
+<?php
+if (!extension_loaded("ta")) die("skip");
 --INI--
 ta.real_precision=2
 --FILE--

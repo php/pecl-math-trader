@@ -1,6 +1,7 @@
 --TEST--
 ta_ad() fail test
 --SKIPIF--
+<?php
 if (!extension_loaded("ta")) die("skip");
 --FILE--
 <?php

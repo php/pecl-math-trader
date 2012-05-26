@@ -1,6 +1,7 @@
 --TEST--
 ta_apo() basic test
 --SKIPIF--
+<?php
 if (!extension_loaded("ta")) die("skip");
 --FILE--
 <?php
