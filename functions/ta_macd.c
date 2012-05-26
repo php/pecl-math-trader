@@ -36,36 +36,49 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(ta)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array ta_macd(MY_FUNC_DOC_PARAMS)
+	Moving Average Convergence/Divergence */
+PHP_FUNCTION(ta_macd)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinReal, *zoutMACD, *zoutMACDSignal;
+	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	long optInFastPeriod = 2, optInSlowPeriod = 2, optInSignalPeriod = 1;
+	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInSignalPeriod) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+	TA_SET_BOUNDABLE(2, 100000, optInFastPeriod);
+	TA_SET_BOUNDABLE(2, 100000, optInSlowPeriod);
+	TA_SET_BOUNDABLE(1, 100000, optInSignalPeriod);	
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TA_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
+		zend_hash_num_elements(Z_ARRVAL_P(zoutMACD)),
+		zend_hash_num_elements(Z_ARRVAL_P(zoutMACDSignal)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outMACDHist = emalloc(sizeof(double)*(endIdx+1));
+	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
+	TA_DBL_ZARR_TO_ARR(zoutMACD, outMACD)
+	TA_DBL_ZARR_TO_ARR(zoutMACDSignal, outMACDSignal)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_MACD(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInSlowPeriod, (int)optInSignalPeriod, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist) != TA_SUCCESS) {
+		efree(inReal);
+		efree(outMACD);
+		efree(outMACDSignal);
+		efree(outMACDHist);;
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TA_DBL_ARR_TO_ZARR1(outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inReal);
+	efree(outMACD);
+	efree(outMACDSignal);
+	efree(outMACDHist);;
 }
 /*}}}*/
 

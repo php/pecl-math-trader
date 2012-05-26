@@ -36,36 +36,52 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(ta)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array ta_stochf(MY_FUNC_DOC_PARAMS)
+	Stochastic Fast */
+PHP_FUNCTION(ta_stochf)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinHigh, *zinLow, *zinClose, *zoutFastK;
+	double *inHigh, *inLow, *inClose, *outFastK, *outFastD;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	long optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType;
+	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+	TA_SET_BOUNDABLE(1, 100000, optInFastK_Period);
+	TA_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TA_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinClose)),
+		zend_hash_num_elements(Z_ARRVAL_P(zoutFastK)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outFastD = emalloc(sizeof(double)*(endIdx+1));
+	TA_DBL_ZARR_TO_ARR(zinHigh, inHigh)
+	TA_DBL_ZARR_TO_ARR(zinLow, inLow)
+	TA_DBL_ZARR_TO_ARR(zinClose, inClose)
+	TA_DBL_ZARR_TO_ARR(zoutFastK, outFastK)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_STOCHF(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInFastD_Period, (int)optInFastD_MAType, &outBegIdx, &outNBElement, outFastK, outFastD) != TA_SUCCESS) {
+		efree(inHigh);
+		efree(inLow);
+		efree(inClose);
+		efree(outFastK);
+		efree(outFastD);;
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TA_DBL_ARR_TO_ZARR1(outFastD, return_value, endIdx, outBegIdx, outNBElement)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inHigh);
+	efree(inLow);
+	efree(inClose);
+	efree(outFastK);
+	efree(outFastD);;
 }
 /*}}}*/
 

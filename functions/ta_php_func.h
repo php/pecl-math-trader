@@ -28,32 +28,8 @@
 
 /* $Id$ */
 
-#ifndef PHP_TA_H
-#define PHP_TA_H
-
-extern zend_module_entry ta_module_entry;
-#define phpext_ta_ptr &ta_module_entry
-
-#ifdef PHP_WIN32
-#	define PHP_TA_API __declspec(dllexport)
-#elif defined(__GNUC__) && __GNUC__ >= 4
-#	define PHP_TA_API __attribute__ ((visibility("default")))
-#else
-#	define PHP_TA_API
-#endif
-
-#ifdef ZTS
-#include "TSRM.h"
-#endif
-
-#define TA_DEFAULT_REAL_PRECISION 3
-#define TA_PHP_VERSION "0.12"
-
-PHP_MINIT_FUNCTION(ta);
-PHP_MSHUTDOWN_FUNCTION(ta);
-PHP_RINIT_FUNCTION(ta);
-PHP_RSHUTDOWN_FUNCTION(ta);
-PHP_MINFO_FUNCTION(ta);
+#ifndef TA_PHP_FUNC_H
+#define TA_PHP_FUNC_H
 
 PHP_FUNCTION(ta_acos);
 PHP_FUNCTION(ta_ad);
@@ -214,87 +190,5 @@ PHP_FUNCTION(ta_wclprice);
 PHP_FUNCTION(ta_willr);
 PHP_FUNCTION(ta_wma);
 
-ZEND_BEGIN_MODULE_GLOBALS(ta)
-	long real_precision;
-ZEND_END_MODULE_GLOBALS(ta)
+#endif /* TA_PHP_FUNC_H */
 
-#ifdef ZTS
-#define TA_G(v) TSRMG(ta_globals_id, zend_ta_globals *, v)
-#else
-#define TA_G(v) (ta_globals.v)
-#endif
-
-#define TA_ROUND_DOUBLE(x) (((int)((x) * pow(10, (int)TA_G(real_precision)))) / pow(10.0, (int)TA_G(real_precision)))
-#define TA_RETURN_DOUBLE(x) RETURN_DOUBLE(TA_ROUND_DOUBLE(x))
-
-#define TA_DBL_ZARR_TO_ARR(zarr, arr) \
-		do { \
-			HashTable *ht = Z_ARRVAL_P(zarr); \
-			HashPosition hp; \
-			zval **data; \
-			int i; \
-\
-			ht = Z_ARRVAL_P(zarr); \
-			arr = emalloc(sizeof(double)*zend_hash_num_elements(ht)); \
-\
-			for (zend_hash_internal_pointer_reset_ex(ht, &hp), i = 0; \
-					zend_hash_get_current_data_ex(ht, (void **)&data, &hp) == SUCCESS; \
-					zend_hash_move_forward_ex(ht, &hp), i++) { \
-				convert_to_double(*data); \
-				arr[i] = Z_DVAL_PP(data); \
-			} \
-		} while (0);
-
-#define TA_SET_MIN_INT1(t, x) t = (int)(x); 
-
-#define TA_SET_MIN_INT2(t, x, y) \
-	do { \
-		int a = (int)(x); \
-		int b = (int)(y); \
-		t = a < b ? a : b; \
-	} while (0);		
-
-#define TA_SET_MIN_INT3(t, x, y, z) \
-	do { \
-		int a; \
-		TA_SET_MIN_INT2(a, x, y) \
-		int b = (z); \
-		t = a < b ? a : b; \
-	} while (0);		
-
-#define TA_SET_MIN_INT4(t, x, y, z, k) \
-	do { \
-		int a; \
-		TA_SET_MIN_INT3(a, x, y, z) \
-		int b = (k); \
-		t = a < b ? a : b; \
-	} while (0);		
-
-#define TA_DBL_ARR_TO_ZARR1(arr, zarr, endidx, outbegidx, outnbeelem) \
-	array_init(zarr); \
-	do { \
-		int i; \
-		for(i = outbegidx; i <= outnbeelem; i++) { \
-			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - outbegidx])); \
-		} \
-	} while(0);
-
-#define TA_DBL_ARR_TO_ZARR2(arr, zarr, endidx, outbegidx, outnbeelem)
-#define TA_DBL_ARR_TO_ZARR3(arr, zarr, endidx, outbegidx, outnbeelem)
-
-#define TA_SET_BOUNDABLE(min, max, val) \
-	if (val < min || val > max) { \
-		val = min; \
-	} 
-
-#endif	/* PHP_TA_H */
-
-
-/*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */

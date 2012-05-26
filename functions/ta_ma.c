@@ -36,36 +36,39 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(ta)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array ta_ma(MY_FUNC_DOC_PARAMS)
+	Moving average */
+PHP_FUNCTION(ta_ma)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinReal;
+	double *inReal, *outReal;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	long optInTimePeriod = 1, optInMAType;
+	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|ll", &zinReal, &optInTimePeriod, &optInMAType) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+	TA_SET_BOUNDABLE(1, 100000, optInTimePeriod);	
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outReal = emalloc(sizeof(double)*(endIdx+1));
+	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_MA(startIdx, endIdx, inReal, (int)optInTimePeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+		efree(inReal);
+		efree(outReal);;
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TA_DBL_ARR_TO_ZARR1(outReal, return_value, endIdx, outBegIdx, outNBElement)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inReal);
+	efree(outReal);;
 }
 /*}}}*/
 

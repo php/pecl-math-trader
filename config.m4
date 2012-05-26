@@ -7,6 +7,7 @@ PHP_ARG_ENABLE(ta, whether to enable ta support,
 if test "$PHP_TA" != "no"; then
   PHP_ADD_INCLUDE(ta-lib/include)
   PHP_ADD_INCLUDE(ta-lib/src/ta_common)
+  PHP_ADD_INCLUDE(functions)
 
   TA_LIB_SOURCES="ta-lib/src/ta_common/ta_global.c \
     ta-lib/src/ta_common/ta_retcode.c \
@@ -169,7 +170,165 @@ if test "$PHP_TA" != "no"; then
 	ta-lib/src/ta_func/ta_VAR.c \
 	ta-lib/src/ta_func/ta_WCLPRICE.c \
 	ta-lib/src/ta_func/ta_WILLR.c \
-	ta-lib/src/ta_func/ta_WMA.c"
+	ta-lib/src/ta_func/ta_WMA.c \
+	functions/ta_acos.c \
+	functions/ta_ad.c \
+	functions/ta_add.c \
+	functions/ta_adosc.c \
+	functions/ta_adx.c \
+	functions/ta_adxr.c \
+	functions/ta_apo.c \
+	functions/ta_aroon.c \
+	functions/ta_aroonosc.c \
+	functions/ta_asin.c \
+	functions/ta_atan.c \
+	functions/ta_atr.c \
+	functions/ta_avgprice.c \
+	functions/ta_bbands.c \
+	functions/ta_beta.c \
+	functions/ta_bop.c \
+	functions/ta_cci.c \
+	functions/ta_cdl2crows.c \
+	functions/ta_cdl3blackcrows.c \
+	functions/ta_cdl3inside.c \
+	functions/ta_cdl3linestrike.c \
+	functions/ta_cdl3outside.c \
+	functions/ta_cdl3starsinsouth.c \
+	functions/ta_cdl3whitesoldiers.c \
+	functions/ta_cdlabandonedbaby.c \
+	functions/ta_cdladvanceblock.c \
+	functions/ta_cdlbelthold.c \
+	functions/ta_cdlbreakaway.c \
+	functions/ta_cdlclosingmarubozu.c \
+	functions/ta_cdlconcealbabyswall.c \
+	functions/ta_cdlcounterattack.c \
+	functions/ta_cdldarkcloudcover.c \
+	functions/ta_cdldoji.c \
+	functions/ta_cdldojistar.c \
+	functions/ta_cdldragonflydoji.c \
+	functions/ta_cdlengulfing.c \
+	functions/ta_cdleveningdojistar.c \
+	functions/ta_cdleveningstar.c \
+	functions/ta_cdlgapsidesidewhite.c \
+	functions/ta_cdlgravestonedoji.c \
+	functions/ta_cdlhammer.c \
+	functions/ta_cdlhangingman.c \
+	functions/ta_cdlharami.c \
+	functions/ta_cdlharamicross.c \
+	functions/ta_cdlhighwave.c \
+	functions/ta_cdlhikkake.c \
+	functions/ta_cdlhikkakemod.c \
+	functions/ta_cdlhomingpigeon.c \
+	functions/ta_cdlidentical3crows.c \
+	functions/ta_cdlinneck.c \
+	functions/ta_cdlinvertedhammer.c \
+	functions/ta_cdlkickingbylength.c \
+	functions/ta_cdlkicking.c \
+	functions/ta_cdlladderbottom.c \
+	functions/ta_cdllongleggeddoji.c \
+	functions/ta_cdllongline.c \
+	functions/ta_cdlmarubozu.c \
+	functions/ta_cdlmatchinglow.c \
+	functions/ta_cdlmathold.c \
+	functions/ta_cdlmorningdojistar.c \
+	functions/ta_cdlmorningstar.c \
+	functions/ta_cdlonneck.c \
+	functions/ta_cdlpiercing.c \
+	functions/ta_cdlrickshawman.c \
+	functions/ta_cdlrisefall3methods.c \
+	functions/ta_cdlseparatinglines.c \
+	functions/ta_cdlshootingstar.c \
+	functions/ta_cdlshortline.c \
+	functions/ta_cdlspinningtop.c \
+	functions/ta_cdlstalledpattern.c \
+	functions/ta_cdlsticksandwich.c \
+	functions/ta_cdltakuri.c \
+	functions/ta_cdltasukigap.c \
+	functions/ta_cdlthrusting.c \
+	functions/ta_cdltristar.c \
+	functions/ta_cdlunique3river.c \
+	functions/ta_cdlupsidegap2crows.c \
+	functions/ta_cdlxsidegap3methods.c \
+	functions/ta_ceil.c \
+	functions/ta_cmo.c \
+	functions/ta_correl.c \
+	functions/ta_cos.c \
+	functions/ta_cosh.c \
+	functions/ta_dema.c \
+	functions/ta_div.c \
+	functions/ta_dx.c \
+	functions/ta_ema.c \
+	functions/ta_exp.c \
+	functions/ta_floor.c \
+	functions/ta_ht_dcperiod.c \
+	functions/ta_ht_dcphase.c \
+	functions/ta_ht_phasor.c \
+	functions/ta_ht_sine.c \
+	functions/ta_ht_trendline.c \
+	functions/ta_ht_trendmode.c \
+	functions/ta_kama.c \
+	functions/ta_linearreg_angle.c \
+	functions/ta_linearreg.c \
+	functions/ta_linearreg_intercept.c \
+	functions/ta_linearreg_slope.c \
+	functions/ta_ln.c \
+	functions/ta_log10.c \
+	functions/ta_ma.c \
+	functions/ta_macd.c \
+	functions/ta_macdext.c \
+	functions/ta_macdfix.c \
+	functions/ta_mama.c \
+	functions/ta_mavp.c \
+	functions/ta_max.c \
+	functions/ta_maxindex.c \
+	functions/ta_medprice.c \
+	functions/ta_mfi.c \
+	functions/ta_midpoint.c \
+	functions/ta_midprice.c \
+	functions/ta_min.c \
+	functions/ta_minindex.c \
+	functions/ta_minmax.c \
+	functions/ta_minmaxindex.c \
+	functions/ta_minus_di.c \
+	functions/ta_minus_dm.c \
+	functions/ta_mom.c \
+	functions/ta_mult.c \
+	functions/ta_natr.c \
+	functions/ta_obv.c \
+	functions/ta_plus_di.c \
+	functions/ta_plus_dm.c \
+	functions/ta_ppo.c \
+	functions/ta_roc.c \
+	functions/ta_rocp.c \
+	functions/ta_rocr100.c \
+	functions/ta_rocr.c \
+	functions/ta_rsi.c \
+	functions/ta_sar.c \
+	functions/ta_sarext.c \
+	functions/ta_sin.c \
+	functions/ta_sinh.c \
+	functions/ta_sma.c \
+	functions/ta_sqrt.c \
+	functions/ta_stddev.c \
+	functions/ta_stoch.c \
+	functions/ta_stochf.c \
+	functions/ta_stochrsi.c \
+	functions/ta_sub.c \
+	functions/ta_sum.c \
+	functions/ta_t3.c \
+	functions/ta_tan.c \
+	functions/ta_tanh.c \
+	functions/ta_tema.c \
+	functions/ta_trange.c \
+	functions/ta_trima.c \
+	functions/ta_trix.c \
+	functions/ta_tsf.c \
+	functions/ta_typprice.c \
+	functions/ta_ultosc.c \
+	functions/ta_var.c \
+	functions/ta_wclprice.c \
+	functions/ta_willr.c \
+	functions/ta_wma.c"
 
   PHP_NEW_EXTENSION(ta, $TA_LIB_SOURCES ta.c, $ext_shared)
 fi

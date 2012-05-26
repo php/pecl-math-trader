@@ -36,36 +36,43 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(ta)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array ta_ht_sine(MY_FUNC_DOC_PARAMS)
+	Hilbert Transform - SineWave */
+PHP_FUNCTION(ta_ht_sine)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinReal, *zoutSine;
+	double *inReal, *outSine, *outLeadSine;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	
+	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinReal, &zoutSine) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+		
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
+		zend_hash_num_elements(Z_ARRVAL_P(zoutSine)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outLeadSine = emalloc(sizeof(double)*(endIdx+1));
+	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
+	TA_DBL_ZARR_TO_ARR(zoutSine, outSine)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_HT_SINE(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outSine, outLeadSine) != TA_SUCCESS) {
+		efree(inReal);
+		efree(outSine);
+		efree(outLeadSine);;
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TA_DBL_ARR_TO_ZARR1(outLeadSine, return_value, endIdx, outBegIdx, outNBElement)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inReal);
+	efree(outSine);
+	efree(outLeadSine);;
 }
 /*}}}*/
 

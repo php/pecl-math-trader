@@ -36,36 +36,44 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(ta)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array ta_mama(MY_FUNC_DOC_PARAMS)
+	MESA Adaptive Moving Average */
+PHP_FUNCTION(ta_mama)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinReal, *zoutMAMA;
+	double *inReal, *outMAMA, *outFAMA;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	
+	double optInFastLimit = 0.01, optInSlowLimit = 0.01;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|dd", &zinReal, &optInFastLimit, &optInSlowLimit) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+	TA_SET_BOUNDABLE(0.01, 0.99, optInFastLimit);
+	TA_SET_BOUNDABLE(0.01, 0.99, optInSlowLimit);	
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
+		zend_hash_num_elements(Z_ARRVAL_P(zoutMAMA)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outFAMA = emalloc(sizeof(double)*(endIdx+1));
+	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
+	TA_DBL_ZARR_TO_ARR(zoutMAMA, outMAMA)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_MAMA(startIdx, endIdx, inReal, optInFastLimit, optInSlowLimit, &outBegIdx, &outNBElement, outMAMA, outFAMA) != TA_SUCCESS) {
+		efree(inReal);
+		efree(outMAMA);
+		efree(outFAMA);;
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TA_DBL_ARR_TO_ZARR1(outFAMA, return_value, endIdx, outBegIdx, outNBElement)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inReal);
+	efree(outMAMA);
+	efree(outFAMA);;
 }
 /*}}}*/
 
