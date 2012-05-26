@@ -274,8 +274,8 @@ ZEND_END_MODULE_GLOBALS(ta)
 	array_init(zarr); \
 	do { \
 		int i; \
-		for(i = outbegidx; i <= outnbeelem; i++) { \
-			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - outbegidx])); \
+		for(i = (outbegidx); i < (outnbeelem); i++) { \
+			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - (outbegidx)])); \
 		} \
 	} while(0);
 

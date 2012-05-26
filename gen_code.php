@@ -105,8 +105,8 @@ foreach ($func as $name => $defs) {
 			$func_arr_deallocs[] = "efree({$p['name']});";
 		}
 	}
-	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS1', implode("\n\t", $func_arr_deallocs) . ';', $tpl);
-	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS2', implode("\n\t\t", $func_arr_deallocs) . ';', $tpl);
+	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS1', implode("\n\t", $func_arr_deallocs), $tpl);
+	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS2', implode("\n\t\t", $func_arr_deallocs), $tpl);
 
 
 	$func_arr_defs = array();
@@ -244,7 +244,7 @@ foreach ($func as $name => $defs) {
 	$tpl = str_replace('MY_FUNC_ARRAY_PARA_ALLOCS', $func_arr_allocs_str, $tpl);
 	/* XXX it can return multiple arrays */
 	$tpl = str_replace('MY_PHP_MAKE_RETURN',
-		"TA_DBL_ARR_TO_ZARR1($result_arr, return_value, endIdx, outBegIdx, outNBElement)", $tpl);
+		"TA_DBL_ARR_TO_ZARR1($result_arr, return_value, endIdx, outBegIdx, outNBElement-1)", $tpl);
 
 	foreach ($func_min_end_idx_arr as &$item) {
 		$item = "zend_hash_num_elements(Z_ARRVAL_P(z$item))";
