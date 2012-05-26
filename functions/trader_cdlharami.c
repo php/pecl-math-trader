@@ -36,36 +36,51 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array trader_cdlharami(MY_FUNC_DOC_PARAMS)
+	Harami Pattern */
+PHP_FUNCTION(trader_cdlharami)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinOpen, *zinHigh, *zinLow, *zinClose;
+	double *inOpen, *inHigh, *inLow, *inClose;
+	int startIdx, endIdx, outBegIdx, outNBElement, *outInteger;
+	
+	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa", &zinOpen, &zinHigh, &zinLow, &zinClose) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+		
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinOpen)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinClose)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outInteger = emalloc(sizeof(double)*(endIdx+1));
+	TRADER_DBL_ZARR_TO_ARR(zinOpen, inOpen)
+	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
+	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
+	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_CDLHARAMI(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger) != TA_SUCCESS) {
+		efree(inOpen);
+		efree(inHigh);
+		efree(inLow);
+		efree(inClose);
+		efree(outInteger);
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TRADER_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement-1)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inOpen);
+	efree(inHigh);
+	efree(inLow);
+	efree(inClose);
+	efree(outInteger);
 }
 /*}}}*/
 

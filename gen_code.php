@@ -6,7 +6,7 @@ $c = file_get_contents($path);
 
 /* got function defs with headers */
 preg_match_all(',^/\*\s*\* TA\_.*\*/.*TA_RetCode.*\(.*\)\;$,smU', $c, $m, PREG_PATTERN_ORDER);
-//preg_match_all(',^/\*\s*.*?\*/\s*TA_.*?\(.*?\)\;,sm', $c, $m);
+//preg_match_all(',^/\*\s*.*?\*/\s*TRADER_.*?\(.*?\)\;,sm', $c, $m);
 //preg_match_all(',^/\*\s\n(.*?)\n\s\*/$,sm', $c, $m);
 //preg_match_all(',/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/,s', $c, $m);
 
@@ -85,7 +85,8 @@ foreach ($m[0] as $f) {
 foreach ($func as $name => $defs) {
 	$tpl = file_get_contents('functions/function.tpl');
 
-	$tpl = str_replace('MY_FUNC_NAME_LOWER', strtolower($name), $tpl);
+	$php_func = str_replace('ta_', 'trader_', strtolower($name)); 
+	$tpl = str_replace('MY_FUNC_NAME_LOWER', $php_func, $tpl);
 	$tpl = str_replace('MY_FUNC_NAME', $name, $tpl);
 	$tpl = str_replace('MY_FUNC_DESC', $defs['desc'], $tpl);
 
@@ -120,7 +121,7 @@ foreach ($func as $name => $defs) {
 
 	$func_int_defs = array();
 	foreach ($defs['params'] as $p) {
-		if (('int' == $p['type'] || 'TA_MAType' == $p['type']) && !$p['opt']) {
+		if (('int' == $p['type'] || 'TRADER_MAType' == $p['type']) && !$p['opt']) {
 			$ar = $p['array'] ? '*' : '';
 			$func_int_defs[] = "$ar$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
 		}
@@ -132,7 +133,7 @@ foreach ($func as $name => $defs) {
 
 	$php_long_defs = array();
 	foreach ($defs['params'] as $p) {
-		if (('int' == $p['type']  || 'TA_MAType' == $p['type']) && $p['opt']) {
+		if (('int' == $p['type']  || 'TRADER_MAType' == $p['type']) && $p['opt']) {
 			$php_long_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : ' = 0');
 		}
 	}
@@ -152,7 +153,7 @@ foreach ($func as $name => $defs) {
 	$func_set_boundable = array();
 	foreach ($defs['params'] as $p) {
 		if (NULL != $p['bounds']['min'] && NULL != $p['bounds']['max']) {
-			$func_set_boundable[] = "TA_SET_BOUNDABLE({$p['bounds']['min']}, {$p['bounds']['max']}, {$p['name']});";
+			$func_set_boundable[] = "TRADER_SET_BOUNDABLE({$p['bounds']['min']}, {$p['bounds']['max']}, {$p['name']});";
 		}
 	}
 	$tpl = str_replace('MY_FUNC_SET_BOUNDABLE', implode("\n\t", $func_set_boundable), $tpl);
@@ -178,7 +179,7 @@ foreach ($func as $name => $defs) {
 			$zend_param_list[] = "&z{$p['name']}";
 
 			$func_param_list[] = $p['name'];
-		} else if ($p['opt'] && ('int' == $p['type'] || 'TA_MAType' == $p['type'])) {
+		} else if ($p['opt'] && ('int' == $p['type'] || 'TRADER_MAType' == $p['type'])) {
 			$last_was_ar = false;
 			if(!$pipe_set && !$ar_breaks && $ar_count > 0) {
 				$zend_param_str .= '|';
@@ -242,7 +243,7 @@ foreach ($func as $name => $defs) {
 	}
 	$count_rets = count($rets) ;
 	$tpl = str_replace('MY_PHP_MAKE_RETURN',
-		"TA_DBL_ARR_TO_ZRET$count_rets(" . implode(', ', $rets) 
+		"TRADER_DBL_ARR_TO_ZRET$count_rets(" . implode(', ', $rets) 
 		. ", return_value, endIdx, outBegIdx, outNBElement-1)", $tpl);
 	
 	$func_arr_allocs = array();
@@ -258,7 +259,7 @@ foreach ($func as $name => $defs) {
 	}
 	$func_min_end_idx_arr = $func_arr_allocs;
 	foreach ($func_arr_allocs as &$item) {
-		$item = "TA_DBL_ZARR_TO_ARR(z$item, $item)";
+		$item = "TRADER_DBL_ZARR_TO_ARR(z$item, $item)";
 	}
 	unset($item);
 	$func_arr_allocs_str = '';
@@ -273,35 +274,35 @@ foreach ($func as $name => $defs) {
 	}
 	unset($item);
 	$tpl = str_replace('MY_FUNC_SET_MIN_END_IDX',
-		"TA_SET_MIN_INT" . count($func_min_end_idx_arr) . "(endIdx, " . implode(",\n\t\t", $func_min_end_idx_arr) . ')', $tpl);
+		"TRADER_SET_MIN_INT" . count($func_min_end_idx_arr) . "(endIdx, " . implode(",\n\t\t", $func_min_end_idx_arr) . ')', $tpl);
 
-	file_put_contents('functions/' . strtolower($name) . '.c', $tpl);
+	file_put_contents('functions/' . $php_func . '.c', $tpl);
 	//break;
 }
 
 
 $func_header = array();
-$tpl = file_get_contents('functions/ta_php_func.h.tpl');
+$tpl = file_get_contents('functions/trader_php_func.h.tpl');
 foreach ($func as $name => $defs) {
 	$func_header[] = 'PHP_FUNCTION(' . strtolower($name) . ');';
 }
 $tpl = str_replace('HEADER_CONTENT', implode("\n", $func_header), $tpl);
-file_put_contents('functions/ta_php_func.h', $tpl);
+file_put_contents('functions/trader_php_func.h', $tpl);
 
 
 $fe_header = array();
-$tpl = file_get_contents('functions/ta_php_fe.h.tpl');
+$tpl = file_get_contents('functions/trader_php_fe.h.tpl');
 foreach ($func as $name => $defs) {
 	$php_func = strtolower($name);
 	$fe_header[] = "\tPHP_FE($php_func, arg_info_$php_func)";
 	//$fe_header[] = "\tPHP_FE($php_func, NULL)";
 }
 $tpl = str_replace('HEADER_CONTENT', implode("\n", $fe_header), $tpl);
-file_put_contents('functions/ta_php_fe.h', $tpl);
+file_put_contents('functions/trader_php_fe.h', $tpl);
 
 
 $arginfo_header = array();
-$tpl = file_get_contents('functions/ta_php_arginfo.h.tpl');
+$tpl = file_get_contents('functions/trader_php_arginfo.h.tpl');
 foreach ($func as $name => $defs) {
 	$php_func = strtolower($name);
 	$tmp = '';
@@ -325,5 +326,5 @@ foreach ($func as $name => $defs) {
 	$arginfo_header[] = $tmp;
 }
 $tpl = str_replace('HEADER_CONTENT', implode("\n\n", $arginfo_header), $tpl);
-file_put_contents('functions/ta_php_arginfo.h', $tpl);
+file_put_contents('functions/trader_php_arginfo.h', $tpl);
 

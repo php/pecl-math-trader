@@ -36,36 +36,47 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array trader_bbands(MY_FUNC_DOC_PARAMS)
+	Bollinger Bands */
+PHP_FUNCTION(trader_bbands)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinReal, *zoutRealUpperBand, *zoutRealMiddleBand;
+	double *inReal, *outRealUpperBand, *outRealMiddleBand, *outRealLowerBand;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	long optInTimePeriod = 2;
+	double optInNbDevUp = TA_REAL_MIN, optInNbDevDn = TA_REAL_MIN;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|ldd", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);
+	TRADER_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDevUp);
+	TRADER_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDevDn);	
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outRealUpperBand = emalloc(sizeof(double)*(endIdx+1));
+	outRealMiddleBand = emalloc(sizeof(double)*(endIdx+1));
+	outRealLowerBand = emalloc(sizeof(double)*(endIdx+1));
+	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand) != TA_SUCCESS) {
+		efree(inReal);
+		efree(outRealUpperBand);
+		efree(outRealMiddleBand);
+		efree(outRealLowerBand);
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TRADER_DBL_ARR_TO_ZRET3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inReal);
+	efree(outRealUpperBand);
+	efree(outRealMiddleBand);
+	efree(outRealLowerBand);
 }
 /*}}}*/
 

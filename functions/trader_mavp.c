@@ -36,36 +36,44 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array MY_FUNC_NAME_LOWER(MY_FUNC_DOC_PARAMS)
-	MY_FUNC_DESC */
-PHP_FUNCTION(MY_FUNC_NAME_LOWER)
+/*{{{ proto array trader_mavp(MY_FUNC_DOC_PARAMS)
+	Moving average with variable period */
+PHP_FUNCTION(trader_mavp)
 {
-	MY_IN_PHP_ARRAY_DEFS
-	MY_FUNC_ARRAY_PARA_DEFS
-	MY_FUNC_INT_PARA_DEFS
-	MY_IN_PHP_LONG_DEFS
-	MY_IN_PHP_DOUBLE_DEFS
+	zval *zinReal, *zinPeriods;
+	double *inReal, *inPeriods, *outReal;
+	int startIdx, endIdx, outBegIdx, outNBElement;
+	long optInMinPeriod = 2, optInMaxPeriod = 2;
+	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|ll", &zinReal, &zinPeriods, &optInMinPeriod, &optInMaxPeriod) == FAILURE) {
 		RETURN_FALSE
 	}
 	/* XXX check ma type if any*/
-	MY_FUNC_SET_BOUNDABLE	
+	TRADER_SET_BOUNDABLE(2, 100000, optInMinPeriod);
+	TRADER_SET_BOUNDABLE(2, 100000, optInMaxPeriod);	
 
-	MY_FUNC_SET_MIN_END_IDX
-	MY_FUNC_SET_START_IDX
+	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinPeriods)))
+	startIdx = 0;
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	outReal = emalloc(sizeof(double)*(endIdx+1));
+	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	TRADER_DBL_ZARR_TO_ARR(zinPeriods, inPeriods)
 
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+	if (TA_MAVP(startIdx, endIdx, inReal, inPeriods, (int)optInMinPeriod, (int)optInMaxPeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+		efree(inReal);
+		efree(inPeriods);
+		efree(outReal);
 
 		RETURN_FALSE
 	}
 
-	MY_PHP_MAKE_RETURN
+	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
 
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
+	efree(inReal);
+	efree(inPeriods);
+	efree(outReal);
 }
 /*}}}*/
 
