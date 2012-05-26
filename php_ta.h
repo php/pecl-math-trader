@@ -46,6 +46,9 @@ extern zend_module_entry ta_module_entry;
 #include "TSRM.h"
 #endif
 
+/* XXX put that into ini */
+#define TA_ROUND_PRECISION 3
+
 PHP_MINIT_FUNCTION(ta);
 PHP_MSHUTDOWN_FUNCTION(ta);
 PHP_RINIT_FUNCTION(ta);
@@ -54,6 +57,7 @@ PHP_MINFO_FUNCTION(ta);
 
 PHP_FUNCTION(ta_ad);
 PHP_FUNCTION(ta_adosc);
+PHP_FUNCTION(ta_adx);
 
 /* 
   	Declare any global variables you may need between the BEGIN
@@ -70,6 +74,9 @@ ZEND_END_MODULE_GLOBALS(ta)
 #else
 #define TA_G(v) (ta_globals.v)
 #endif
+
+#define TA_ROUND_DOUBLE(x) (((int)((x) * pow(10, TA_ROUND_PRECISION))) / pow(10.0, TA_ROUND_PRECISION))
+#define TA_RETURN_DOUBLE(x) RETURN_DOUBLE(TA_ROUND_DOUBLE(x))
 
 #endif	/* PHP_TA_H */
 

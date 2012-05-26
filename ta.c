@@ -62,6 +62,13 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_adosc, 0, 0, 4)
 	ZEND_ARG_INFO(0, fast_period)
 	ZEND_ARG_INFO(0, slow_period)
 ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_adx, 0, 0, 3)
+	ZEND_ARG_INFO(0, high)
+	ZEND_ARG_INFO(0, low)
+	ZEND_ARG_INFO(0, close)
+	ZEND_ARG_INFO(0, time_period)
+ZEND_END_ARG_INFO();
 /* }}} */
 
 /* {{{ ta_functions[]
@@ -71,6 +78,7 @@ ZEND_END_ARG_INFO();
 const zend_function_entry ta_functions[] = {
 	PHP_FE(ta_ad, arg_info_ta_ad)
 	PHP_FE(ta_adosc, arg_info_ta_adosc)
+	PHP_FE(ta_adx, arg_info_ta_adx)
 	PHP_FE_END
 };
 /* }}} */
@@ -182,16 +190,15 @@ PHP_FUNCTION(ta_ad)
 	double high, low, close, vol;
 	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS( ) TSRMLS_CC, "dddd", &high, &low, &close, &vol) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "dddd", &high, &low, &close, &vol) == FAILURE) {
 		return;
 	}
 
 	TA_AD(startidx, endidx, &high, &low, &close, &vol, &outbegidx, &outnbeelem, &result);
 	
-	RETURN_DOUBLE(result);
+	TA_RETURN_DOUBLE(result);
 }
 /*}}}*/
-
 
 /*{{{ proto float ta_adosc(float high, float low, float close, float folume, int fast_period, int slow_period)
 	Accumulation/Distribution Oscillator */
@@ -202,13 +209,32 @@ PHP_FUNCTION(ta_adosc)
 	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
 	long fast_period = 0, slow_period = 0;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS( ) TSRMLS_CC, "dddd|ll", &high, &low, &close, &vol, &fast_period, &slow_period) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "dddd|ll", &high, &low, &close, &vol, &fast_period, &slow_period) == FAILURE) {
 		return;
 	}
 
 	TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, fast_period, slow_period, &outbegidx, &outnbeelem, &result);
 
-	RETURN_DOUBLE(result);
+	TA_RETURN_DOUBLE(result);
+}
+/*}}}*/
+
+/*{{{*/
+PHP_FUNCTION(ta_adx)
+{
+
+	double result;
+	double high, low, close, vol;
+	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+	long time_period = 0;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &high, &low, &close, &time_period) == FAILURE) {
+		return;
+	}
+
+	TA_ADX(startidx, endidx, &high, &low, &close, time_period, &outbegidx, &outnbeelem, &result);
+
+	TA_RETURN_DOUBLE(result);
 }
 /*}}}*/
 
