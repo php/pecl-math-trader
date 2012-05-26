@@ -27,6 +27,8 @@
 #include "ext/standard/info.h"
 #include "php_ta.h"
 
+#include <ta_func.h>
+
 /* If you declare any globals in php_ta.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(ta)
 */
@@ -40,6 +42,7 @@ static int le_ta;
  */
 const zend_function_entry ta_functions[] = {
 	PHP_FE(confirm_ta_compiled,	NULL)		/* For testing, remove later. */
+	PHP_FE(ta_ad, NULL)
 	PHP_FE_END	/* Must be the last line in ta_functions[] */
 };
 /* }}} */
@@ -171,6 +174,20 @@ PHP_FUNCTION(confirm_ta_compiled)
    follow this convention for the convenience of others editing your code.
 */
 
+PHP_FUNCTION(ta_ad)
+{
+	double result;
+	double high, low, close, vol;
+	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS( ) TSRMLS_CC, "dddd", &high, &low, &close, &vol) == FAILURE) {
+		return;
+	}
+
+	TA_AD(startidx, endidx, &high, &low, &close, &vol, &outbegidx, &outnbeelem, &result);
+	
+	RETURN_DOUBLE(result);
+}
 
 /*
  * Local variables:

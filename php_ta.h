@@ -43,6 +43,7 @@ PHP_RSHUTDOWN_FUNCTION(ta);
 PHP_MINFO_FUNCTION(ta);
 
 PHP_FUNCTION(confirm_ta_compiled);	/* For testing, remove later. */
+PHP_FUNCTION(ta_ad);
 
 /* 
   	Declare any global variables you may need between the BEGIN
