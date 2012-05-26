@@ -1,5 +1,6 @@
 <?php
 
+/* original ta-lib data */
 $data0 = array(
 	array("open" => 92.5, "high" => 93.25, "low" => 90.75, "close" => 91.5, "volume" => 4077500),
 	array("open" => 91.5, "high" => 94.94, "low" => 91.405, "close" => 94.815, "volume" => 4955900),
@@ -255,11 +256,37 @@ $data0 = array(
 	array("open" => 109.19, "high" => 109.5, "low" => 106.62, "close" => 107.87, "volume" => 2870500),
 );
 
+/* source: http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:accumulation_distribution_line */
 $data1 = array(
 	array("high" => 62.34, "low" => 61.37, "close" => 62.15, "volume" => 7849),
 	array("high" => 62.05, "low" => 60.69, "close" => 60.81, "volume" => 11692),
-	array("high" => 62.28, "low" => 60.1, "close" => 60.45, "volume" => 10575),
+	array("high" => 62.28, "low" => 60.10, "close" => 60.45, "volume" => 10575),
 	array("high" => 60.79, "low" => 58.61, "close" => 59.18, "volume" => 13059),
 	array("high" => 59.93, "low" => 58.71, "close" => 59.24, "volume" => 20734),
+	array("high" => 61.75, "low" => 59.86, "close" => 60.20, "volume" => 29630),
+	array("high" => 60.00, "low" => 57.97, "close" => 58.48, "volume" => 17705),
+	array("high" => 59.00, "low" => 58.02, "close" => 58.24, "volume" => 7259),
+	array("high" => 59.07, "low" => 57.48, "close" => 58.69, "volume" => 10475),
+	array("high" => 59.22, "low" => 58.30, "close" => 58.65, "volume" => 5204),
+	array("high" => 58.75, "low" => 57.83, "close" => 58.47, "volume" => 3423),
+	array("high" => 58.65, "low" => 57.86, "close" => 58.02, "volume" => 3962),
+	array("high" => 58.47, "low" => 57.91, "close" => 58.17, "volume" => 4096),
+	array("high" => 58.25, "low" => 57.83, "close" => 58.07, "volume" => 3766),
+	array("high" => 58.35, "low" => 57.53, "close" => 58.13, "volume" => 4239),
+	array("high" => 59.86, "low" => 58.58, "close" => 58.94, "volume" => 8040),
+	array("high" => 59.53, "low" => 58.30, "close" => 59.10, "volume" => 6957),
+	array("high" => 62.10, "low" => 58.53, "close" => 61.92, "volume" => 18172),
+	array("high" => 62.16, "low" => 59.80, "close" => 61.37, "volume" => 22116),
+	array("high" => 62.67, "low" => 60.93, "close" => 61.68, "volume" => 14614),
+	array("high" => 62.38, "low" => 60.15, "close" => 62.09, "volume" => 12320),
+	array("high" => 63.73, "low" => 62.26, "close" => 62.89, "volume" => 15008),
+	array("high" => 63.85, "low" => 63.00, "close" => 63.53, "volume" => 8880),
+	array("high" => 66.15, "low" => 63.58, "close" => 64.01, "volume" => 22694),
+	array("high" => 66.34, "low" => 64.07, "close" => 64.77, "volume" => 10192),
+	array("high" => 66.48, "low" => 65.20, "close" => 65.22, "volume" => 10074),
+	array("high" => 65.23, "low" => 63.21, "close" => 63.28, "volume" => 9412),
+	array("high" => 63.40, "low" => 61.88, "close" => 62.40, "volume" => 10392),
+	array("high" => 63.18, "low" => 61.11, "close" => 61.55, "volume" => 8927),
+	array("high" => 62.70, "low" => 61.25, "close" => 62.69, "volume" => 7460),
 );
 
