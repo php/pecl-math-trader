@@ -1,8 +1,8 @@
 --TEST--
-ta_apo() basic test
+trader_apo() basic test
 --SKIPIF--
 <?php
-if (!extension_loaded("ta")) die("skip");
+if (!extension_loaded("trader")) die("skip");
 --FILE--
 <?php
 
@@ -11,7 +11,7 @@ include "func.php";
 
 $fast_period = 14;
 
-var_dump(ta_apo(get_data("high", $data0), $fast_period));
+var_dump(trader_apo(get_data("high", $data0), $fast_period));
 --EXPECT--
 array(226) {
   [13]=>

@@ -1,17 +1,17 @@
 --TEST--
-ta_adosc() basic test
+trader_adosc() basic test
 --SKIPIF--
 <?php
-if (!extension_loaded("ta")) die("skip");
+if (!extension_loaded("trader")) die("skip");
 --INI--
-ta.real_precision=2
+trader.real_precision=2
 --FILE--
 <?php
 
 include "data.php";
 include "func.php";
 
-var_dump(ta_adosc(
+var_dump(trader_adosc(
 	get_data("high", $data0),
 	get_data("low", $data0),
 	get_data("close", $data0),

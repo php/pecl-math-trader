@@ -1,10 +1,10 @@
 --TEST--
-ta_adx() basic test
+trader_adx() basic test
 --SKIPIF--
 <?php
-if (!extension_loaded("ta")) die("skip");
+if (!extension_loaded("trader")) die("skip");
 --INI--
-ta.real_precision=2
+trader.real_precision=2
 --FILE--
 <?php
 
@@ -13,7 +13,7 @@ include "func.php";
 
 $time_period = 14;
 
-var_dump(ta_adx(get_data("high", $data0), get_data("low", $data0), get_data("close", $data0), $time_period)) . "\n";
+var_dump(trader_adx(get_data("high", $data0), get_data("low", $data0), get_data("close", $data0), $time_period)) . "\n";
 --EXPECT--
 array(198) {
   [27]=>

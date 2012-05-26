@@ -1,15 +1,15 @@
 --TEST--
-ta_acos() basic test
+trader_acos() basic test
 --SKIPIF--
 <?php
-if (!extension_loaded("ta")) die("skip");
+if (!extension_loaded("trader")) die("skip");
 --FILE--
 <?php
 
 include "data.php";
 include "func.php";
 
-var_dump(ta_acos($trig_cos));
+var_dump(trader_acos($trig_cos));
 --EXPECT--
 array(199) {
   [0]=>
