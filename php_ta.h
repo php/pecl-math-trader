@@ -47,7 +47,8 @@ extern zend_module_entry ta_module_entry;
 #endif
 
 /* XXX put that into ini */
-#define TA_ROUND_PRECISION 3
+#define TA_DEFAULT_REAL_PRECISION 3
+#define TA_PHP_VERSION "0.1"
 
 PHP_MINIT_FUNCTION(ta);
 PHP_MSHUTDOWN_FUNCTION(ta);
@@ -59,15 +60,9 @@ PHP_FUNCTION(ta_ad);
 PHP_FUNCTION(ta_adosc);
 PHP_FUNCTION(ta_adx);
 
-/* 
-  	Declare any global variables you may need between the BEGIN
-	and END macros here:     
-
 ZEND_BEGIN_MODULE_GLOBALS(ta)
-	long  global_value;
-	char *global_string;
+	long real_precision;
 ZEND_END_MODULE_GLOBALS(ta)
-*/
 
 #ifdef ZTS
 #define TA_G(v) TSRMG(ta_globals_id, zend_ta_globals *, v)
@@ -75,7 +70,7 @@ ZEND_END_MODULE_GLOBALS(ta)
 #define TA_G(v) (ta_globals.v)
 #endif
 
-#define TA_ROUND_DOUBLE(x) (((int)((x) * pow(10, TA_ROUND_PRECISION))) / pow(10.0, TA_ROUND_PRECISION))
+#define TA_ROUND_DOUBLE(x) (((int)((x) * pow(10, (int)TA_G(real_precision)))) / pow(10.0, (int)TA_G(real_precision)))
 #define TA_RETURN_DOUBLE(x) RETURN_DOUBLE(TA_ROUND_DOUBLE(x))
 
 #endif	/* PHP_TA_H */

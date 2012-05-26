@@ -38,10 +38,9 @@
 #include "php_ta.h"
 
 #include <ta_func.h>
+#include <ta_common.h>
 
-/* If you declare any globals in php_ta.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(ta)
-*/
 
 /* True global resources - no need for thread safety here */
 static int le_ta;
@@ -109,32 +108,35 @@ ZEND_GET_MODULE(ta)
 
 /* {{{ PHP_INI
  */
-/* Remove comments and fill if you need to have entries in php.ini
 PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("ta.global_value",      "42", PHP_INI_ALL, OnUpdateLong, global_value, zend_ta_globals, ta_globals)
-    STD_PHP_INI_ENTRY("ta.global_string", "foobar", PHP_INI_ALL, OnUpdateString, global_string, zend_ta_globals, ta_globals)
+    STD_PHP_INI_ENTRY("ta.real_precision", "3", PHP_INI_ALL, OnUpdateLong, real_precision, zend_ta_globals, ta_globals)
 PHP_INI_END()
-*/
 /* }}} */
 
-/* {{{ php_ta_init_globals
+/* {{{ php_ta_globals_ctor
  */
-/* Uncomment this function if you have INI entries
-static void php_ta_init_globals(zend_ta_globals *ta_globals)
+static void php_ta_globals_ctor(zend_ta_globals *ta_globals)
 {
-	ta_globals->global_value = 0;
-	ta_globals->global_string = NULL;
+	ta_globals->real_precision = TA_DEFAULT_REAL_PRECISION;
 }
-*/
+/* }}} */
+
+/* {{{ php_ta_globals_dtor
+ */
+static void php_ta_globals_dtor(zend_ta_globals *ta_globals)
+{
+	/* pass */
+}
 /* }}} */
 
 /* {{{ PHP_MINIT_FUNCTION
  */
 PHP_MINIT_FUNCTION(ta)
 {
-	/* If you have INI entries, uncomment these lines 
+	ZEND_INIT_MODULE_GLOBALS(ta, php_ta_globals_ctor, php_ta_globals_dtor);
+
 	REGISTER_INI_ENTRIES();
-	*/
+
 	return SUCCESS;
 }
 /* }}} */
@@ -143,9 +145,13 @@ PHP_MINIT_FUNCTION(ta)
  */
 PHP_MSHUTDOWN_FUNCTION(ta)
 {
-	/* uncomment this line if you have INI entries
 	UNREGISTER_INI_ENTRIES();
-	*/
+#ifdef ZTS
+	    ts_free_id(ta_globals_id);
+#else
+		php_ta_globals_dtor(&ta_globals TSRMLS_CC);
+#endif
+
 	return SUCCESS;
 }
 /* }}} */
@@ -173,12 +179,12 @@ PHP_RSHUTDOWN_FUNCTION(ta)
 PHP_MINFO_FUNCTION(ta)
 {
 	php_info_print_table_start();
-	php_info_print_table_header(2, "ta support", "enabled");
+	php_info_print_table_header(2, "Technical Analysis Library Support", "enabled");
+	php_info_print_table_header(2, "Version", TA_PHP_VERSION);
+	php_info_print_table_header(2, "TA-Lib version", TA_GetVersionString());
 	php_info_print_table_end();
 
-	/* Remove comments if you have entries in php.ini
 	DISPLAY_INI_ENTRIES();
-	*/
 }
 /* }}} */
 
@@ -223,7 +229,8 @@ PHP_FUNCTION(ta_adosc)
 }
 /*}}}*/
 
-/*{{{*/
+/*{{{ proto float ta_adx(float high, float low, float close, int time_period) 
+ 	Directional Movement - Average Index */
 PHP_FUNCTION(ta_adx)
 {
 
