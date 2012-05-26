@@ -12,7 +12,7 @@ $fast_period = 14;
 
 var_dump(ta_apo(get_data("high", $data0), $fast_period));
 --EXPECT--
-array(228) {
+array(226) {
   [13]=>
   float(0.711)
   [14]=>
@@ -465,8 +465,4 @@ array(228) {
   float(6.092)
   [238]=>
   float(1.1)
-  [239]=>
-  float(0.202)
-  [240]=>
-  float(-2.412)
 }

@@ -10,4 +10,5 @@ include "func.php";
 
 var_dump(ta_ad(array(), array(), array(), array()));
 --EXPECT--
-bool(false)
+array(0) {
+}

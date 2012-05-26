@@ -12,7 +12,7 @@ $time_period = 14;
 
 var_dump(ta_adxr(get_data("high", $data0), get_data("low", $data0), get_data("close", $data0), $time_period)) . "\n";
 --EXPECT--
-array(173) {
+array(172) {
   [40]=>
   float(19.86)
   [41]=>
@@ -357,6 +357,4 @@ array(173) {
   float(32.33)
   [211]=>
   float(32.8)
-  [212]=>
-  float(33.47)
 }
