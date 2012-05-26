@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_macdext(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_macdext(array real [, int fastPeriod [, int fastMAType [, int slowPeriod [, int slowMAType [, int signalPeriod [, int signalMAType]]]]]])
 	MACD with controllable MA type */
 PHP_FUNCTION(trader_macdext)
 {

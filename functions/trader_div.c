@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_div(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_div(array real0, array real1)
 	Vector Arithmetic Div */
 PHP_FUNCTION(trader_div)
 {

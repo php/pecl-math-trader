@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ceil(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ceil(array real)
 	Vector Ceil */
 PHP_FUNCTION(trader_ceil)
 {

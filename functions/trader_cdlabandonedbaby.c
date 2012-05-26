@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlabandonedbaby(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlabandonedbaby(array open, array high, array low, array close [, float penetration])
 	Abandoned Baby */
 PHP_FUNCTION(trader_cdlabandonedbaby)
 {

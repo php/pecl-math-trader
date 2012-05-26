@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlshortline(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlshortline(array open, array high, array low, array close)
 	Short Line Candle */
 PHP_FUNCTION(trader_cdlshortline)
 {

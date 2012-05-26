@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_mama(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_mama(array real [, float fastLimit [, float slowLimit]])
 	MESA Adaptive Moving Average */
 PHP_FUNCTION(trader_mama)
 {

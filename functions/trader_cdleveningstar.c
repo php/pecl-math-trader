@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdleveningstar(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdleveningstar(array open, array high, array low, array close [, float penetration])
 	Evening Star */
 PHP_FUNCTION(trader_cdleveningstar)
 {

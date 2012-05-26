@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_rsi(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_rsi(array real [, int timePeriod])
 	Relative Strength Index */
 PHP_FUNCTION(trader_rsi)
 {

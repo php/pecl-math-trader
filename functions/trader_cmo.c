@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cmo(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cmo(array real [, int timePeriod])
 	Chande Momentum Oscillator */
 PHP_FUNCTION(trader_cmo)
 {

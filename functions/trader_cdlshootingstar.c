@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlshootingstar(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlshootingstar(array open, array high, array low, array close)
 	Shooting Star */
 PHP_FUNCTION(trader_cdlshootingstar)
 {

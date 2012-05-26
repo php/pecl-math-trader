@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_aroon(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_aroon(array high, array low [, int timePeriod])
 	Aroon */
 PHP_FUNCTION(trader_aroon)
 {

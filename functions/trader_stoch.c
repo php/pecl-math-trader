@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_stoch(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_stoch(array high, array low, array close [, int fastK_Period [, int slowK_Period [, int slowK_MAType [, int slowD_Period [, int slowD_MAType]]]]])
 	Stochastic */
 PHP_FUNCTION(trader_stoch)
 {

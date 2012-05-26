@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_dcphase(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ht_dcphase(array real)
 	Hilbert Transform - Dominant Cycle Phase */
 PHP_FUNCTION(trader_ht_dcphase)
 {

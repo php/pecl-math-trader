@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cci(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cci(array high, array low, array close [, int timePeriod])
 	Commodity Channel Index */
 PHP_FUNCTION(trader_cci)
 {

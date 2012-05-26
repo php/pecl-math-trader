@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_sin(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_sin(array real)
 	Vector Trigonometric Sin */
 PHP_FUNCTION(trader_sin)
 {

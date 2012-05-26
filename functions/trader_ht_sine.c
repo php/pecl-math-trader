@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_sine(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ht_sine(array real)
 	Hilbert Transform - SineWave */
 PHP_FUNCTION(trader_ht_sine)
 {

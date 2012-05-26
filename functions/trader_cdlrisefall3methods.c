@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlrisefall3methods(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlrisefall3methods(array open, array high, array low, array close)
 	Rising/Falling Three Methods */
 PHP_FUNCTION(trader_cdlrisefall3methods)
 {

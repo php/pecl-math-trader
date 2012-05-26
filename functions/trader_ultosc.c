@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ultosc(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ultosc(array high, array low, array close [, int timePeriod1 [, int timePeriod2 [, int timePeriod3]]])
 	Ultimate Oscillator */
 PHP_FUNCTION(trader_ultosc)
 {

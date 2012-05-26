@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_t3(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_t3(array real [, int timePeriod [, float vFactor]])
 	Triple Exponential Moving Average (T3) */
 PHP_FUNCTION(trader_t3)
 {

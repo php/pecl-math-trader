@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_trendmode(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ht_trendmode(array real)
 	Hilbert Transform - Trend vs Cycle Mode */
 PHP_FUNCTION(trader_ht_trendmode)
 {

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_tsf(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_tsf(array real [, int timePeriod])
 	Time Series Forecast */
 PHP_FUNCTION(trader_tsf)
 {

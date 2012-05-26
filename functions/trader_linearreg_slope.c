@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_linearreg_slope(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_linearreg_slope(array real [, int timePeriod])
 	Linear Regression Slope */
 PHP_FUNCTION(trader_linearreg_slope)
 {

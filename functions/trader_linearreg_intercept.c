@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_linearreg_intercept(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_linearreg_intercept(array real [, int timePeriod])
 	Linear Regression Intercept */
 PHP_FUNCTION(trader_linearreg_intercept)
 {

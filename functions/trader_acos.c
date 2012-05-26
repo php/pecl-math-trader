@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_acos(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_acos(array real)
 	Vector Trigonometric ACos */
 PHP_FUNCTION(trader_acos)
 {

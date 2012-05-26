@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_phasor(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ht_phasor(array real)
 	Hilbert Transform - Phasor Components */
 PHP_FUNCTION(trader_ht_phasor)
 {

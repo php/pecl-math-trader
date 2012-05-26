@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlcounterattack(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlcounterattack(array open, array high, array low, array close)
 	Counterattack */
 PHP_FUNCTION(trader_cdlcounterattack)
 {

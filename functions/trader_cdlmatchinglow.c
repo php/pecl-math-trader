@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlmatchinglow(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlmatchinglow(array open, array high, array low, array close)
 	Matching Low */
 PHP_FUNCTION(trader_cdlmatchinglow)
 {

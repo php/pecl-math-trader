@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlrickshawman(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlrickshawman(array open, array high, array low, array close)
 	Rickshaw Man */
 PHP_FUNCTION(trader_cdlrickshawman)
 {

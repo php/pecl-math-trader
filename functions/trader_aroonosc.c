@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_aroonosc(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_aroonosc(array high, array low [, int timePeriod])
 	Aroon Oscillator */
 PHP_FUNCTION(trader_aroonosc)
 {

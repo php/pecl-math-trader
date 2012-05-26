@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_linearreg_angle(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_linearreg_angle(array real [, int timePeriod])
 	Linear Regression Angle */
 PHP_FUNCTION(trader_linearreg_angle)
 {

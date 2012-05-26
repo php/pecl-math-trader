@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_sum(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_sum(array real [, int timePeriod])
 	Summation */
 PHP_FUNCTION(trader_sum)
 {

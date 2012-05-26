@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_tanh(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_tanh(array real)
 	Vector Trigonometric Tanh */
 PHP_FUNCTION(trader_tanh)
 {

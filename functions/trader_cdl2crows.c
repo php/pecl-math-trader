@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdl2crows(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdl2crows(array open, array high, array low, array close)
 	Two Crows */
 PHP_FUNCTION(trader_cdl2crows)
 {

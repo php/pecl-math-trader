@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_maxindex(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_maxindex(array real [, int timePeriod])
 	Index of highest value over a specified period */
 PHP_FUNCTION(trader_maxindex)
 {

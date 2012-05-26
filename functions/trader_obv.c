@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_obv(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_obv(array real, array volume)
 	On Balance Volume */
 PHP_FUNCTION(trader_obv)
 {

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlengulfing(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlengulfing(array open, array high, array low, array close)
 	Engulfing Pattern */
 PHP_FUNCTION(trader_cdlengulfing)
 {

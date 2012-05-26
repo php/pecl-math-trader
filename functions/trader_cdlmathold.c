@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlmathold(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlmathold(array open, array high, array low, array close [, float penetration])
 	Mat Hold */
 PHP_FUNCTION(trader_cdlmathold)
 {

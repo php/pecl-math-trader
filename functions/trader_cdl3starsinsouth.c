@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdl3starsinsouth(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdl3starsinsouth(array open, array high, array low, array close)
 	Three Stars In The South */
 PHP_FUNCTION(trader_cdl3starsinsouth)
 {

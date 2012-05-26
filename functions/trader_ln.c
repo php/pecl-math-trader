@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ln(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_ln(array real)
 	Vector Log Natural */
 PHP_FUNCTION(trader_ln)
 {

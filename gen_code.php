@@ -280,6 +280,34 @@ foreach ($func as $name => $defs) {
 	//$min_end_idx_str .= "\n\tendIdx = (endIdx < 0) ? 0 : endIdx;";
 	$tpl = str_replace('MY_FUNC_SET_MIN_END_IDX', $min_end_idx_str, $tpl);
 
+	$opt_pcnt = 0;
+	$doc_args = array();
+	foreach ($defs['params'] as $p) {
+		if (in_array($p['name'], array('startIdx', 'endIdx'))) {
+			continue;
+		}
+		if ('outBegIdx' == $p['name']) {
+			break;
+		}
+		if ($p['opt']) {
+			$opt_pcnt++;
+		}
+		$arg_name = '';
+		$arg_name .= $p['array'] ? 'array' : ($p['type'] == 'int' || $p['type'] == 'TA_MAType' ? 'int' : 'float');
+		$arg_name .= ' ' . lcfirst($p['opt'] ? substr($p['name'], 5) : substr($p['name'], 2));
+		$doc_args[] =  $arg_name;
+	}
+	$mandatory_pcnt = count($doc_args) - $opt_pcnt;
+	$arg_doc_line = '';
+	for ($k = 0; $k < count($doc_args); $k++) {
+		$pref = $k < $mandatory_pcnt ? ($k > 0 ? ', ' : '') : ($k > 0 ? ' [, ' : ' [ ');
+		$arg_doc_line .= $pref . $doc_args[$k];
+	}
+	if ($opt_pcnt > 0) {
+		$arg_doc_line .= str_repeat(']', $opt_pcnt);
+	}
+	$tpl = str_replace('MY_FUNC_DOC_PARAMS', $arg_doc_line, $tpl);
+
 	file_put_contents('functions/' . $php_func . '.c', $tpl);
 	//break;
 }

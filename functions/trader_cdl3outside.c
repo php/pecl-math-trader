@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdl3outside(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdl3outside(array open, array high, array low, array close)
 	Three Outside Up/Down */
 PHP_FUNCTION(trader_cdl3outside)
 {

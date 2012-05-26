@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdldragonflydoji(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdldragonflydoji(array open, array high, array low, array close)
 	Dragonfly Doji */
 PHP_FUNCTION(trader_cdldragonflydoji)
 {

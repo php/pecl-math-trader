@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlkickingbylength(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlkickingbylength(array open, array high, array low, array close)
 	Kicking - bull/bear determined by the longer marubozu */
 PHP_FUNCTION(trader_cdlkickingbylength)
 {

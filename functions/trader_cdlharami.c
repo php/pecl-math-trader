@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlharami(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlharami(array open, array high, array low, array close)
 	Harami Pattern */
 PHP_FUNCTION(trader_cdlharami)
 {

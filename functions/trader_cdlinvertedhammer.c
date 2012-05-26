@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlinvertedhammer(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_cdlinvertedhammer(array open, array high, array low, array close)
 	Inverted Hammer */
 PHP_FUNCTION(trader_cdlinvertedhammer)
 {

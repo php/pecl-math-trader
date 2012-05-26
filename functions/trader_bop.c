@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_bop(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_bop(array open, array high, array low, array close)
 	Balance Of Power */
 PHP_FUNCTION(trader_bop)
 {

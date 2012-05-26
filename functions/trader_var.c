@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_var(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_var(array real [, int timePeriod [, float nbDev]])
 	Variance */
 PHP_FUNCTION(trader_var)
 {

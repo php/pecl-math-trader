@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_roc(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_roc(array real [, int timePeriod])
 	Rate of change : ((price/prevPrice)-1)*100 */
 PHP_FUNCTION(trader_roc)
 {

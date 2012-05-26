@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_minus_dm(MY_FUNC_DOC_PARAMS)
+/*{{{ proto array trader_minus_dm(array high, array low [, int timePeriod])
 	Minus Directional Movement */
 PHP_FUNCTION(trader_minus_dm)
 {
