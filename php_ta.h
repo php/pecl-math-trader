@@ -93,13 +93,14 @@ ZEND_END_MODULE_GLOBALS(ta)
 		} while (0);
 
 #define TA_MINI(x, y) ((x) < (y) ? (x) : (y))
-#define TA_MINI3(x, y, z) (TA_MINI(x, y) < (z) ? TA_MINI(x, y) : z)
+#define TA_MINI3(x, y, z) (TA_MINI(x, y) < (z) ? TA_MINI(x, y) : (z))
+#define TA_MINI4(x, y, z, k) (TA_MINI3(x, y, z) < (k) ? TA_MINI3(x, y, z) : (k))
 
 #define TA_DBL_ARR_TO_ZARR_RES(arr, zarr, endidx, outbegidx, outnbeelem) \
 	array_init(zarr); \
 	do { \
 		int i; \
-		for(i = outbegidx; i < outnbeelem; i++) { \
+		for(i = outbegidx; i <= outnbeelem; i++) { \
 			add_index_double(zarr, i, TA_ROUND_DOUBLE(arr[i - outbegidx])); \
 		} \
 	} while(0);

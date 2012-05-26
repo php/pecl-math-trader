@@ -214,23 +214,40 @@ PHP_MINFO_FUNCTION(ta)
 }
 /* }}} */
 
-/*{{{ proto float ta_ad(float high, float low, float close, float volume)
+/*{{{ proto float ta_ad(array high, array low, array close, array volume)
 	Accumulation/Distribution Line (AD) */
 PHP_FUNCTION(ta_ad)
 {
-	double result;
-	double high, low, close, vol;
-	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+	zval *high_in, *low_in, *close_in, *vol_in;
+	double *high, *low, *close, *vol, *result;
+	int startidx = 0, endidx, outbegidx, outnbeelem;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "dddd", &high, &low, &close, &vol) == FAILURE) {
-		return;
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa", &high_in, &low_in, &close_in, &vol_in) == FAILURE) {
+		RETURN_FALSE
 	}
 
-	if (TA_AD(startidx, endidx, &high, &low, &close, &vol, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
-		RETURN_FALSE;
+	endidx = TA_MINI4(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(low_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(close_in)),
+				zend_hash_num_elements(Z_ARRVAL_P(vol_in)))-1;
+
+	TA_DBL_ZARR_TO_ARR(high_in, high)
+	TA_DBL_ZARR_TO_ARR(low_in, low)
+	TA_DBL_ZARR_TO_ARR(close_in, close)
+	TA_DBL_ZARR_TO_ARR(vol_in, vol)
+	result = emalloc(sizeof(double)*(endidx+1));
+
+	if (TA_AD(startidx, endidx, high, low, close, vol, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
+		RETURN_FALSE
 	}
 	
-	TA_RETURN_DOUBLE(result);
+	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem-1)
+
+	efree(high);
+	efree(low);
+	efree(close);
+	efree(vol);
+	efree(result);
 }
 /*}}}*/
 
@@ -248,14 +265,14 @@ PHP_FUNCTION(ta_adosc)
 	}
 
 	if (TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, (int)fast_period, (int)slow_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
-		RETURN_FALSE;
+		RETURN_FALSE
 	}
 
 	TA_RETURN_DOUBLE(result);
 }
 /*}}}*/
 
-/*{{{ proto float ta_adx(float high, float low, float close [, int time_period]) 
+/*{{{ proto float ta_adx(array high, array low, array close [, int time_period]) 
  	Directional Movement - Average Index */
 PHP_FUNCTION(ta_adx)
 {
@@ -266,7 +283,7 @@ PHP_FUNCTION(ta_adx)
 	HashTable *zht;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|l", &high_in, &low_in, &close_in, &time_period) == FAILURE) {
-		return;
+		RETURN_FALSE
 	}
 
 	endidx = TA_MINI3(zend_hash_num_elements(Z_ARRVAL_P(high_in)),
@@ -279,7 +296,7 @@ PHP_FUNCTION(ta_adx)
 	result = emalloc(sizeof(double)*endidx);
 
 	if (TA_ADX(startidx, endidx, high, low, close, (int)time_period, &outbegidx, &outnbeelem, result) != TA_SUCCESS) {
-		RETURN_FALSE;
+		RETURN_FALSE
 	}
 
 	TA_DBL_ARR_TO_ZARR_RES(result, return_value, endidx, outbegidx, outnbeelem)
