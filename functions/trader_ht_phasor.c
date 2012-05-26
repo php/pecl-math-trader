@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_ht_phasor)
 {
 	zval *zinReal, *zoutInPhase;
 	double *inReal, *outInPhase, *outQuadrature;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	
 	
 
@@ -53,7 +53,8 @@ PHP_FUNCTION(trader_ht_phasor)
 		
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outInPhase = emalloc(sizeof(double)*(endIdx+1));
 	outQuadrature = emalloc(sizeof(double)*(endIdx+1));
@@ -67,7 +68,7 @@ PHP_FUNCTION(trader_ht_phasor)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET2(outInPhase, outQuadrature, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET2(outInPhase, outQuadrature, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(outInPhase);

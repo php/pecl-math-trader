@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_cdlhangingman)
 {
 	zval *zinOpen, *zinHigh, *zinLow, *zinClose;
 	double *inOpen, *inHigh, *inLow, *inClose;
-	int startIdx, endIdx, outBegIdx, outNBElement, *outInteger;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0, *outInteger = 0;
 	
 	
 
@@ -56,7 +56,8 @@ PHP_FUNCTION(trader_cdlhangingman)
 		zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinClose)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outInteger = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinOpen, inOpen)
@@ -74,7 +75,7 @@ PHP_FUNCTION(trader_cdlhangingman)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inOpen);
 	efree(inHigh);

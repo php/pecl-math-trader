@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_ht_sine)
 {
 	zval *zinReal, *zoutSine;
 	double *inReal, *outSine, *outLeadSine;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	
 	
 
@@ -53,7 +53,8 @@ PHP_FUNCTION(trader_ht_sine)
 		
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outSine = emalloc(sizeof(double)*(endIdx+1));
 	outLeadSine = emalloc(sizeof(double)*(endIdx+1));
@@ -67,7 +68,7 @@ PHP_FUNCTION(trader_ht_sine)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET2(outSine, outLeadSine, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET2(outSine, outLeadSine, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(outSine);

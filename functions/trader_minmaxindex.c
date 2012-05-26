@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_minmaxindex)
 {
 	zval *zinReal, *zoutMinIdx;
 	double *inReal;
-	int startIdx, endIdx, outBegIdx, outNBElement, *outMinIdx, *outMaxIdx;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0, *outMinIdx = 0, *outMaxIdx = 0;
 	long optInTimePeriod = 2;
 	
 
@@ -53,7 +53,8 @@ PHP_FUNCTION(trader_minmaxindex)
 	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outMinIdx = emalloc(sizeof(double)*(endIdx+1));
 	outMaxIdx = emalloc(sizeof(double)*(endIdx+1));
@@ -67,7 +68,7 @@ PHP_FUNCTION(trader_minmaxindex)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET2(outMinIdx, outMaxIdx, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET2(outMinIdx, outMaxIdx, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(outMinIdx);

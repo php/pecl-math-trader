@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_macdext)
 {
 	zval *zinReal, *zoutMACD, *zoutMACDSignal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	long optInFastPeriod = 2, optInFastMAType = 0, optInSlowPeriod = 2, optInSlowMAType = 0, optInSignalPeriod = 1, optInSignalMAType = 0;
 	
 
@@ -55,7 +55,8 @@ PHP_FUNCTION(trader_macdext)
 	TRADER_SET_BOUNDABLE(1, 100000, optInSignalPeriod);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outMACD = emalloc(sizeof(double)*(endIdx+1));
 	outMACDSignal = emalloc(sizeof(double)*(endIdx+1));
@@ -71,7 +72,7 @@ PHP_FUNCTION(trader_macdext)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(outMACD);

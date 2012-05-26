@@ -230,45 +230,26 @@ ZEND_END_MODULE_GLOBALS(trader)
 #define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \
 		do { \
 			HashTable *ht = Z_ARRVAL_P(zarr); \
-			HashPosition hp; \
 			zval **data; \
 			int i; \
 \
 			ht = Z_ARRVAL_P(zarr); \
-			arr = emalloc(sizeof(double)*zend_hash_num_elements(ht)); \
+			arr = emalloc(sizeof(double)*(zend_hash_num_elements(ht)+1)); \
 \
-			for (zend_hash_internal_pointer_reset_ex(ht, &hp), i = 0; \
-					zend_hash_get_current_data_ex(ht, (void **)&data, &hp) == SUCCESS; \
-					zend_hash_move_forward_ex(ht, &hp), i++) { \
+			for (zend_hash_internal_pointer_reset(ht), i = 0; \
+					zend_hash_get_current_data(ht, (void **)&data) == SUCCESS; \
+					zend_hash_move_forward(ht), i++) { \
 				convert_to_double(*data); \
 				arr[i] = Z_DVAL_PP(data); \
 			} \
 		} while (0);
 
+/* XXX fix this because if function call passed it would cause multiple functions calls */
+#define TRADER_MIN_INT(x, y) ((int)(x) < (int)(y) ? (int)(x) : (int)(y))
 #define TRADER_SET_MIN_INT1(t, x) t = (int)(x); 
-
-#define TRADER_SET_MIN_INT2(t, x, y) \
-	do { \
-		int a = (int)(x); \
-		int b = (int)(y); \
-		t = a < b ? a : b; \
-	} while (0);		
-
-#define TRADER_SET_MIN_INT3(t, x, y, z) \
-	do { \
-		int a; \
-		TRADER_SET_MIN_INT2(a, x, y) \
-		int b = (z); \
-		t = a < b ? a : b; \
-	} while (0);		
-
-#define TRADER_SET_MIN_INT4(t, x, y, z, k) \
-	do { \
-		int a; \
-		TRADER_SET_MIN_INT3(a, x, y, z) \
-		int b = (k); \
-		t = a < b ? a : b; \
-	} while (0);		
+#define TRADER_SET_MIN_INT2(t, x, y) t = TRADER_MIN_INT(x, y);
+#define TRADER_SET_MIN_INT3(t, x, y, z) t = TRADER_MIN_INT(x, TRADER_MIN_INT(y, z));
+#define TRADER_SET_MIN_INT4(t, x, y, z, k) t = TRADER_MIN_INT(x, TRADER_MIN_INT(y, TRADER_MIN_INT(z, k)));
 
 #define TRADER_DBL_ARR_TO_ZRET1(arr, zarr, endidx, outbegidx, outnbelem) \
 	array_init(zarr); \

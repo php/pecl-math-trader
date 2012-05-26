@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_stochrsi)
 {
 	zval *zinReal, *zoutFastK;
 	double *inReal, *outFastK, *outFastD;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	long optInTimePeriod = 2, optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType = 0;
 	
 
@@ -55,7 +55,8 @@ PHP_FUNCTION(trader_stochrsi)
 	TRADER_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outFastK = emalloc(sizeof(double)*(endIdx+1));
 	outFastD = emalloc(sizeof(double)*(endIdx+1));
@@ -69,7 +70,7 @@ PHP_FUNCTION(trader_stochrsi)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET2(outFastK, outFastD, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET2(outFastK, outFastD, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(outFastK);

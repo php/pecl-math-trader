@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_stoch)
 {
 	zval *zinHigh, *zinLow, *zinClose, *zoutSlowK;
 	double *inHigh, *inLow, *inClose, *outSlowK, *outSlowD;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	long optInFastK_Period = 1, optInSlowK_Period = 1, optInSlowK_MAType = 0, optInSlowD_Period = 1, optInSlowD_MAType = 0;
 	
 
@@ -57,7 +57,8 @@ PHP_FUNCTION(trader_stoch)
 	TRADER_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinClose)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outSlowK = emalloc(sizeof(double)*(endIdx+1));
 	outSlowD = emalloc(sizeof(double)*(endIdx+1));
@@ -75,7 +76,7 @@ PHP_FUNCTION(trader_stoch)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inHigh);
 	efree(inLow);

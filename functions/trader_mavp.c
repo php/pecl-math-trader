@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_mavp)
 {
 	zval *zinReal, *zinPeriods;
 	double *inReal, *inPeriods, *outReal;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	long optInMinPeriod = 2, optInMaxPeriod = 2, optInMAType = 0;
 	
 
@@ -55,7 +55,8 @@ PHP_FUNCTION(trader_mavp)
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinPeriods)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outReal = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
@@ -69,7 +70,7 @@ PHP_FUNCTION(trader_mavp)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(inPeriods);

@@ -42,7 +42,7 @@ PHP_FUNCTION(trader_bbands)
 {
 	zval *zinReal, *zoutRealUpperBand, *zoutRealMiddleBand;
 	double *inReal, *outRealUpperBand, *outRealMiddleBand, *outRealLowerBand;
-	int startIdx, endIdx, outBegIdx, outNBElement;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	long optInTimePeriod = 2, optInMAType = 0;
 	double optInNbDevUp = TA_REAL_MIN, optInNbDevDn = TA_REAL_MIN;
 
@@ -55,7 +55,8 @@ PHP_FUNCTION(trader_bbands)
 	TRADER_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDevDn);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
-	startIdx = 0;
+	endIdx--; /* it's <= in the ta-lib */
+	
 
 	outRealUpperBand = emalloc(sizeof(double)*(endIdx+1));
 	outRealMiddleBand = emalloc(sizeof(double)*(endIdx+1));
@@ -71,7 +72,7 @@ PHP_FUNCTION(trader_bbands)
 		RETURN_FALSE
 	}
 
-	TRADER_DBL_ARR_TO_ZRET3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
+	TRADER_DBL_ARR_TO_ZRET3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement)
 
 	efree(inReal);
 	efree(outRealUpperBand);
