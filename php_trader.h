@@ -47,7 +47,7 @@ extern zend_module_entry trader_module_entry;
 #endif
 
 #define TRADER_DEFAULT_REAL_PRECISION 3
-#define TRADER_PHP_VERSION "0.12"
+#define TRADER_PHP_VERSION "0.2"
 
 PHP_MINIT_FUNCTION(trader);
 PHP_MSHUTDOWN_FUNCTION(trader);
