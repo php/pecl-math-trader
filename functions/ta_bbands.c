@@ -54,15 +54,13 @@ PHP_FUNCTION(ta_bbands)
 	TA_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDevUp);
 	TA_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDevDn);	
 
-	TA_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutRealUpperBand)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutRealMiddleBand)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outRealUpperBand = emalloc(sizeof(double)*(endIdx+1));
+	outRealMiddleBand = emalloc(sizeof(double)*(endIdx+1));
 	outRealLowerBand = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutRealUpperBand, outRealUpperBand)
-	TA_DBL_ZARR_TO_ARR(zoutRealMiddleBand, outRealMiddleBand)
 
 	if (TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand) != TA_SUCCESS) {
 		efree(inReal);
@@ -73,7 +71,7 @@ PHP_FUNCTION(ta_bbands)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outRealUpperBand);

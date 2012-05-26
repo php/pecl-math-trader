@@ -226,6 +226,25 @@ foreach ($func as $name => $defs) {
 	$tpl = str_replace('MY_FUNC_PARAMS', $func_params, $tpl);
 
 
+	$rets = array();
+	$rets_start = false;
+	foreach ($defs['params'] as $p) {
+		if (!$rets_start) {
+			if ('outNBElement' != $p['name']) {
+				continue;
+			} else {
+				$rets_start = true;
+			}
+		}
+		if ('outNBElement' != $p['name']) {
+			$rets[] = $p['name'];
+		}
+	}
+	$count_rets = count($rets) ;
+	$tpl = str_replace('MY_PHP_MAKE_RETURN',
+		"TA_DBL_ARR_TO_ZARR$count_rets(" . implode(', ', $rets) 
+		. ", return_value, endIdx, outBegIdx, outNBElement-1)", $tpl);
+	
 	$func_arr_allocs = array();
 	$func_arr_allocs_str = '';
 	foreach ($defs['params'] as $p) {
@@ -233,18 +252,21 @@ foreach ($func as $name => $defs) {
 			$func_arr_allocs[] = $p['name'];
 		}
 	}
-	$result_arr = array_pop($func_arr_allocs);
+	while ($count_rets > 0) {
+		array_pop($func_arr_allocs);
+		$count_rets--;
+	}
 	$func_min_end_idx_arr = $func_arr_allocs;
 	foreach ($func_arr_allocs as &$item) {
 		$item = "TA_DBL_ZARR_TO_ARR(z$item, $item)";
 	}
 	unset($item);
-	$func_arr_allocs_str = "$result_arr = emalloc(sizeof(double)*(endIdx+1));"
-			. "\n\t" . implode("\n\t", $func_arr_allocs);
+	$func_arr_allocs_str = '';
+	foreach($rets as $ret) {
+		$func_arr_allocs_str .= "$ret = emalloc(sizeof(double)*(endIdx+1));\n\t";
+	}
+	$func_arr_allocs_str .= implode("\n\t", $func_arr_allocs);
 	$tpl = str_replace('MY_FUNC_ARRAY_PARA_ALLOCS', $func_arr_allocs_str, $tpl);
-	/* XXX it can return multiple arrays */
-	$tpl = str_replace('MY_PHP_MAKE_RETURN',
-		"TA_DBL_ARR_TO_ZARR1($result_arr, return_value, endIdx, outBegIdx, outNBElement-1)", $tpl);
 
 	foreach ($func_min_end_idx_arr as &$item) {
 		$item = "zend_hash_num_elements(Z_ARRVAL_P(z$item))";

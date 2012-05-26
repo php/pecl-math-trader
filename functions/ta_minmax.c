@@ -52,13 +52,12 @@ PHP_FUNCTION(ta_minmax)
 	/* XXX check ma type if any*/
 	TA_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
-	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutMin)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outMin = emalloc(sizeof(double)*(endIdx+1));
 	outMax = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutMin, outMin)
 
 	if (TA_MINMAX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outMin, outMax) != TA_SUCCESS) {
 		efree(inReal);
@@ -68,7 +67,7 @@ PHP_FUNCTION(ta_minmax)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outMax, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outMin, outMax, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMin);

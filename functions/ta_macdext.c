@@ -54,15 +54,13 @@ PHP_FUNCTION(ta_macdext)
 	TA_SET_BOUNDABLE(2, 100000, optInSlowPeriod);
 	TA_SET_BOUNDABLE(1, 100000, optInSignalPeriod);	
 
-	TA_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutMACD)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutMACDSignal)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outMACD = emalloc(sizeof(double)*(endIdx+1));
+	outMACDSignal = emalloc(sizeof(double)*(endIdx+1));
 	outMACDHist = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutMACD, outMACD)
-	TA_DBL_ZARR_TO_ARR(zoutMACDSignal, outMACDSignal)
 
 	if (TA_MACDEXT(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInFastMAType, (int)optInSlowPeriod, (int)optInSlowMAType, (int)optInSignalPeriod, (int)optInSignalMAType, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist) != TA_SUCCESS) {
 		efree(inReal);
@@ -73,7 +71,7 @@ PHP_FUNCTION(ta_macdext)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outMACDHist, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMACD);

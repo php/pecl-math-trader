@@ -279,8 +279,8 @@ ZEND_END_MODULE_GLOBALS(ta)
 		} \
 	} while(0);
 
-#define TA_DBL_ARR_TO_ZARR2(arr, zarr, endidx, outbegidx, outnbeelem)
-#define TA_DBL_ARR_TO_ZARR3(arr, zarr, endidx, outbegidx, outnbeelem)
+#define TA_DBL_ARR_TO_ZARR2(arr1, arr2, zarr, endidx, outbegidx, outnbeelem)
+#define TA_DBL_ARR_TO_ZARR3(arr1, arr2, arr3, zarr, endidx, outbegidx, outnbeelem)
 
 #define TA_SET_BOUNDABLE(min, max, val) \
 	if (val < min || val > max) { \

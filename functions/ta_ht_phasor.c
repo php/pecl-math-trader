@@ -52,13 +52,12 @@ PHP_FUNCTION(ta_ht_phasor)
 	/* XXX check ma type if any*/
 		
 
-	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutInPhase)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outInPhase = emalloc(sizeof(double)*(endIdx+1));
 	outQuadrature = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutInPhase, outInPhase)
 
 	if (TA_HT_PHASOR(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outInPhase, outQuadrature) != TA_SUCCESS) {
 		efree(inReal);
@@ -68,7 +67,7 @@ PHP_FUNCTION(ta_ht_phasor)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outQuadrature, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outInPhase, outQuadrature, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outInPhase);

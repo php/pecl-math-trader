@@ -54,17 +54,16 @@ PHP_FUNCTION(ta_stoch)
 	TA_SET_BOUNDABLE(1, 100000, optInSlowK_Period);
 	TA_SET_BOUNDABLE(1, 100000, optInSlowD_Period);	
 
-	TA_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
+	TA_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
-		zend_hash_num_elements(Z_ARRVAL_P(zinClose)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutSlowK)))
+		zend_hash_num_elements(Z_ARRVAL_P(zinClose)))
 	startIdx = 0;
 
+	outSlowK = emalloc(sizeof(double)*(endIdx+1));
 	outSlowD = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TA_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TA_DBL_ZARR_TO_ARR(zinClose, inClose)
-	TA_DBL_ZARR_TO_ARR(zoutSlowK, outSlowK)
 
 	if (TA_STOCH(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInSlowK_Period, (int)optInSlowK_MAType, (int)optInSlowD_Period, (int)optInSlowD_MAType, &outBegIdx, &outNBElement, outSlowK, outSlowD) != TA_SUCCESS) {
 		efree(inHigh);
@@ -76,7 +75,7 @@ PHP_FUNCTION(ta_stoch)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outSlowD, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);

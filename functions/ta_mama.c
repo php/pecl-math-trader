@@ -53,13 +53,12 @@ PHP_FUNCTION(ta_mama)
 	TA_SET_BOUNDABLE(0.01, 0.99, optInFastLimit);
 	TA_SET_BOUNDABLE(0.01, 0.99, optInSlowLimit);	
 
-	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutMAMA)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outMAMA = emalloc(sizeof(double)*(endIdx+1));
 	outFAMA = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutMAMA, outMAMA)
 
 	if (TA_MAMA(startIdx, endIdx, inReal, optInFastLimit, optInSlowLimit, &outBegIdx, &outNBElement, outMAMA, outFAMA) != TA_SUCCESS) {
 		efree(inReal);
@@ -69,7 +68,7 @@ PHP_FUNCTION(ta_mama)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outFAMA, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outMAMA, outFAMA, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outMAMA);

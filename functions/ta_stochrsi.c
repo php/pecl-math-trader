@@ -54,13 +54,12 @@ PHP_FUNCTION(ta_stochrsi)
 	TA_SET_BOUNDABLE(1, 100000, optInFastK_Period);
 	TA_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
 
-	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutFastK)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outFastK = emalloc(sizeof(double)*(endIdx+1));
 	outFastD = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutFastK, outFastK)
 
 	if (TA_STOCHRSI(startIdx, endIdx, inReal, (int)optInTimePeriod, (int)optInFastK_Period, (int)optInFastD_Period, (int)optInFastD_MAType, &outBegIdx, &outNBElement, outFastK, outFastD) != TA_SUCCESS) {
 		efree(inReal);
@@ -70,7 +69,7 @@ PHP_FUNCTION(ta_stochrsi)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outFastD, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outFastK, outFastD, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outFastK);

@@ -52,15 +52,14 @@ PHP_FUNCTION(ta_aroon)
 	/* XXX check ma type if any*/
 	TA_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
-	TA_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
-		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutAroonDown)))
+	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
+		zend_hash_num_elements(Z_ARRVAL_P(zinLow)))
 	startIdx = 0;
 
+	outAroonDown = emalloc(sizeof(double)*(endIdx+1));
 	outAroonUp = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TA_DBL_ZARR_TO_ARR(zinLow, inLow)
-	TA_DBL_ZARR_TO_ARR(zoutAroonDown, outAroonDown)
 
 	if (TA_AROON(startIdx, endIdx, inHigh, inLow, (int)optInTimePeriod, &outBegIdx, &outNBElement, outAroonDown, outAroonUp) != TA_SUCCESS) {
 		efree(inHigh);
@@ -71,7 +70,7 @@ PHP_FUNCTION(ta_aroon)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outAroonUp, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outAroonDown, outAroonUp, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inHigh);
 	efree(inLow);

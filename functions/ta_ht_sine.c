@@ -52,13 +52,12 @@ PHP_FUNCTION(ta_ht_sine)
 	/* XXX check ma type if any*/
 		
 
-	TA_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
-		zend_hash_num_elements(Z_ARRVAL_P(zoutSine)))
+	TA_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	startIdx = 0;
 
+	outSine = emalloc(sizeof(double)*(endIdx+1));
 	outLeadSine = emalloc(sizeof(double)*(endIdx+1));
 	TA_DBL_ZARR_TO_ARR(zinReal, inReal)
-	TA_DBL_ZARR_TO_ARR(zoutSine, outSine)
 
 	if (TA_HT_SINE(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outSine, outLeadSine) != TA_SUCCESS) {
 		efree(inReal);
@@ -68,7 +67,7 @@ PHP_FUNCTION(ta_ht_sine)
 		RETURN_FALSE
 	}
 
-	TA_DBL_ARR_TO_ZARR1(outLeadSine, return_value, endIdx, outBegIdx, outNBElement-1)
+	TA_DBL_ARR_TO_ZARR2(outSine, outLeadSine, return_value, endIdx, outBegIdx, outNBElement-1)
 
 	efree(inReal);
 	efree(outSine);
