@@ -92,7 +92,7 @@ ZEND_END_MODULE_GLOBALS(ta)
 			} \
 		} while (0);
 
-#define TA_SET_MIN_INT(t, x, y) \
+#define TA_SET_MIN_INT1(t, x, y) \
 	do { \
 		int a = (int)(x); \
 		int b = (int)(y); \
@@ -102,7 +102,7 @@ ZEND_END_MODULE_GLOBALS(ta)
 #define TA_SET_MIN_INT3(t, x, y, z) \
 	do { \
 		int a; \
-		TA_SET_MIN_INT(a, x, y) \
+		TA_SET_MIN_INT1(a, x, y) \
 		int b = (z); \
 		t = a < b ? a : b; \
 	} while (0);		
@@ -124,16 +124,10 @@ ZEND_END_MODULE_GLOBALS(ta)
 		} \
 	} while(0);
 
-#define TA_SET_PERIOD(min, max, val) \
+#define TA_SET_BOUNDABLE(min, max, val) \
 	if (val < min || val > max) { \
 		val = min; \
 	} 
-
-#define TA_EFREE2(one, two) efree(one);efree(two);
-#define TA_EFREE3(one, two, three) efree(one);TA_EFREE2(two, three)
-#define TA_EFREE4(one, two, three, four) efree(one);TA_EFREE3(two, three, four)
-#define TA_EFREE5(one, two, three, four, five) efree(one);TA_EFREE4(two, three, four, five)
-
 
 #endif	/* PHP_TA_H */
 
