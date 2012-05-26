@@ -46,7 +46,6 @@ extern zend_module_entry ta_module_entry;
 #include "TSRM.h"
 #endif
 
-/* XXX put that into ini */
 #define TA_DEFAULT_REAL_PRECISION 3
 #define TA_PHP_VERSION "0.1"
 
@@ -59,6 +58,8 @@ PHP_MINFO_FUNCTION(ta);
 PHP_FUNCTION(ta_ad);
 PHP_FUNCTION(ta_adosc);
 PHP_FUNCTION(ta_adx);
+PHP_FUNCTION(ta_adxr);
+PHP_FUNCTION(ta_apo);
 
 ZEND_BEGIN_MODULE_GLOBALS(ta)
 	long real_precision;

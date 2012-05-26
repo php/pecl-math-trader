@@ -68,6 +68,20 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_adx, 0, 0, 3)
 	ZEND_ARG_INFO(0, close)
 	ZEND_ARG_INFO(0, time_period)
 ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_adxr, 0, 0, 3)
+	ZEND_ARG_INFO(0, high)
+	ZEND_ARG_INFO(0, low)
+	ZEND_ARG_INFO(0, close)
+	ZEND_ARG_INFO(0, time_period)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_apo, 0, 0, 1)
+	ZEND_ARG_INFO(0, high)
+	ZEND_ARG_INFO(0, fast_period)
+	ZEND_ARG_INFO(0, slow_period)
+	ZEND_ARG_INFO(0, ma_type)
+ZEND_END_ARG_INFO();
 /* }}} */
 
 /* {{{ ta_functions[]
@@ -78,6 +92,8 @@ const zend_function_entry ta_functions[] = {
 	PHP_FE(ta_ad, arg_info_ta_ad)
 	PHP_FE(ta_adosc, arg_info_ta_adosc)
 	PHP_FE(ta_adx, arg_info_ta_adx)
+	PHP_FE(ta_adxr, arg_info_ta_adxr)
+	PHP_FE(ta_apo, arg_info_ta_apo)
 	PHP_FE_END
 };
 /* }}} */
@@ -136,6 +152,16 @@ PHP_MINIT_FUNCTION(ta)
 	ZEND_INIT_MODULE_GLOBALS(ta, php_ta_globals_ctor, php_ta_globals_dtor);
 
 	REGISTER_INI_ENTRIES();
+
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_SMA", TA_MAType_SMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_EMA", TA_MAType_EMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_WMA", TA_MAType_WMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_DEMA", TA_MAType_DEMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_TEMA", TA_MAType_TEMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_TRIMA", TA_MAType_TRIMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_KAMA", TA_MAType_KAMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_MAMA", TA_MAType_MAMA, CONST_CS | CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("TA_MA_TYPE_T3", TA_MAType_T3, CONST_CS | CONST_PERSISTENT);
 
 	return SUCCESS;
 }
@@ -215,13 +241,13 @@ PHP_FUNCTION(ta_adosc)
 	double result;
 	double high, low, close, vol;
 	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
-	long fast_period = 0, slow_period = 0;
+	long fast_period = 2, slow_period = 2;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "dddd|ll", &high, &low, &close, &vol, &fast_period, &slow_period) == FAILURE) {
 		return;
 	}
 
-	if (TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, fast_period, slow_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+	if (TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, (int)fast_period, (int)slow_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
 		RETURN_FALSE;
 	}
 
@@ -233,23 +259,61 @@ PHP_FUNCTION(ta_adosc)
  	Directional Movement - Average Index */
 PHP_FUNCTION(ta_adx)
 {
-
 	double result;
 	double high, low, close, vol;
 	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
-	long time_period = 0;
+	long time_period = 2;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &high, &low, &close, &time_period) == FAILURE) {
 		return;
 	}
 
-	if (TA_ADX(startidx, endidx, &high, &low, &close, time_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+	if (TA_ADX(startidx, endidx, &high, &low, &close, (int)time_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
 		RETURN_FALSE;
 	}
 
 	TA_RETURN_DOUBLE(result);
 }
 /*}}}*/
+
+/*{{{ proto float ta_adxr(float high, float low, float closa, int time_period) 
+	Directional Movement - Average Index Rating */
+PHP_FUNCTION(ta_adxr)
+{
+	double result;
+	double high, low, close, vol;
+	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+	long time_period = 2;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ddd|l", &high, &low, &close, &time_period) == FAILURE) {
+		return;
+	}
+
+	if (TA_ADXR(startidx, endidx, &high, &low, &close, (int)time_period, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+		RETURN_FALSE;
+	}
+
+	TA_RETURN_DOUBLE(result);
+}
+/*}}}*/
+
+PHP_FUNCTION(ta_apo)
+{
+	double result, price;
+	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+	long fast_period = 2, slow_period = 2, ma_type = 0;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "d|lll", &price, &fast_period, &slow_period, &ma_type) == FAILURE) {
+		return;
+	}
+
+	if (TA_APO(startidx, endidx, &price, (int)fast_period, (int)slow_period, (int)ma_type, &outbegidx, &outnbeelem, &result) != TA_SUCCESS) {
+		RETURN_FALSE;
+	}
+
+	TA_RETURN_DOUBLE(result);
+
+}
 
 /*
  * Local variables:
