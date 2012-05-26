@@ -1,19 +1,29 @@
 /*
-  +----------------------------------------------------------------------+
-  | PHP Version 5                                                        |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2012 The PHP Group                                |
-  +----------------------------------------------------------------------+
-  | This source file is subject to version 3.01 of the PHP license,      |
-  | that is bundled with this package in the file LICENSE, and is        |
-  | available through the world-wide-web at the following url:           |
-  | http://www.php.net/license/3_01.txt                                  |
-  | If you did not receive a copy of the PHP license and are unable to   |
-  | obtain it through the world-wide-web, please send a note to          |
-  | license@php.net so we can mail you a copy immediately.               |
-  +----------------------------------------------------------------------+
-  | Author:                                                              |
-  +----------------------------------------------------------------------+
+	Copyright (c) 2012, Anatoliy Belsky <ab@php.net>
+	All rights reserved.
+
+	Redistribution and use in source and binary forms, with or without
+	modification, are permitted provided that the following conditions
+	are met:
+
+	- Redistributions of source code must retain the above copyright
+	notice, this list of conditions and the following disclaimer.
+
+	- Redistributions in binary form must reproduce the above copyright
+	notice, this list of conditions and the following disclaimer in the
+	documentation and/or other materials provided with the distribution.
+
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+	A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+	HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+	LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+	DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /* $Id$ */
@@ -36,14 +46,32 @@ ZEND_DECLARE_MODULE_GLOBALS(ta)
 /* True global resources - no need for thread safety here */
 static int le_ta;
 
+/* {{{ ta_arginfo */
+ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_ad, 0, 0, 4)
+	ZEND_ARG_INFO(0, high)
+	ZEND_ARG_INFO(0, low)
+	ZEND_ARG_INFO(0, close)
+	ZEND_ARG_INFO(0, volume)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_ta_adosc, 0, 0, 4)
+	ZEND_ARG_INFO(0, high)
+	ZEND_ARG_INFO(0, low)
+	ZEND_ARG_INFO(0, close)
+	ZEND_ARG_INFO(0, volume)
+	ZEND_ARG_INFO(0, fast_period)
+	ZEND_ARG_INFO(0, slow_period)
+ZEND_END_ARG_INFO();
+/* }}} */
+
 /* {{{ ta_functions[]
  *
  * Every user visible function must have an entry in ta_functions[].
  */
 const zend_function_entry ta_functions[] = {
-	PHP_FE(confirm_ta_compiled,	NULL)		/* For testing, remove later. */
-	PHP_FE(ta_ad, NULL)
-	PHP_FE_END	/* Must be the last line in ta_functions[] */
+	PHP_FE(ta_ad, arg_info_ta_ad)
+	PHP_FE(ta_adosc, arg_info_ta_adosc)
+	PHP_FE_END
 };
 /* }}} */
 
@@ -146,34 +174,8 @@ PHP_MINFO_FUNCTION(ta)
 }
 /* }}} */
 
-
-/* Remove the following function when you have succesfully modified config.m4
-   so that your module can be compiled into PHP, it exists only for testing
-   purposes. */
-
-/* Every user-visible function in PHP should document itself in the source */
-/* {{{ proto string confirm_ta_compiled(string arg)
-   Return a string to confirm that the module is compiled in */
-PHP_FUNCTION(confirm_ta_compiled)
-{
-	char *arg = NULL;
-	int arg_len, len;
-	char *strg;
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &arg, &arg_len) == FAILURE) {
-		return;
-	}
-
-	len = spprintf(&strg, 0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now compiled into PHP.", "ta", arg);
-	RETURN_STRINGL(strg, len, 0);
-}
-/* }}} */
-/* The previous line is meant for vim and emacs, so it can correctly fold and 
-   unfold functions in source code. See the corresponding marks just before 
-   function definition, where the functions purpose is also documented. Please 
-   follow this convention for the convenience of others editing your code.
-*/
-
+/*{{{ proto float ta_ad(float high, float low, float close, float volume)
+	Accumulation/Distribution Line (AD) */
 PHP_FUNCTION(ta_ad)
 {
 	double result;
@@ -188,6 +190,27 @@ PHP_FUNCTION(ta_ad)
 	
 	RETURN_DOUBLE(result);
 }
+/*}}}*/
+
+
+/*{{{ proto float ta_adosc(float high, float low, float close, float folume, int fast_period, int slow_period)
+	Accumulation/Distribution Oscillator */
+PHP_FUNCTION(ta_adosc)
+{
+	double result;
+	double high, low, close, vol;
+	int startidx = 0, endidx = 0, outbegidx, outnbeelem;
+	long fast_period = 0, slow_period = 0;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS( ) TSRMLS_CC, "dddd|ll", &high, &low, &close, &vol, &fast_period, &slow_period) == FAILURE) {
+		return;
+	}
+
+	TA_ADOSC(startidx, endidx, &high, &low, &close, &vol, fast_period, slow_period, &outbegidx, &outnbeelem, &result);
+
+	RETURN_DOUBLE(result);
+}
+/*}}}*/
 
 /*
  * Local variables:
