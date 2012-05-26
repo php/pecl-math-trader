@@ -123,11 +123,12 @@ foreach ($func as $name => $defs) {
 	foreach ($defs['params'] as $p) {
 		if (('int' == $p['type'] || 'TA_MAType' == $p['type']) && !$p['opt']) {
 			$ar = $p['array'] ? '*' : '';
-			$func_int_defs[] = "$ar$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : '');
+			$func_int_defs[] = "$ar$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : ' = 0');
 		}
 	}
 	$tpl = str_replace('MY_FUNC_INT_PARA_DEFS', 'int ' . implode(', ', $func_int_defs) . ';', $tpl);
-	$tpl = str_replace('MY_FUNC_SET_START_IDX', 'startIdx = 0;', $tpl); // not nice
+	/*$tpl = str_replace('MY_FUNC_SET_START_IDX', 'startIdx = 0;', $tpl);*/ // not nice
+	$tpl = str_replace('MY_FUNC_SET_START_IDX', '', $tpl);
 	/* XXX doubles need to walk in the same way */
 
 
@@ -244,7 +245,7 @@ foreach ($func as $name => $defs) {
 	$count_rets = count($rets) ;
 	$tpl = str_replace('MY_PHP_MAKE_RETURN',
 		"TRADER_DBL_ARR_TO_ZRET$count_rets(" . implode(', ', $rets) 
-		. ", return_value, endIdx, outBegIdx, outNBElement-1)", $tpl);
+		. ", return_value, endIdx, outBegIdx, outNBElement)", $tpl);
 	
 	$func_arr_allocs = array();
 	$func_arr_allocs_str = '';
@@ -273,8 +274,11 @@ foreach ($func as $name => $defs) {
 		$item = "zend_hash_num_elements(Z_ARRVAL_P(z$item))";
 	}
 	unset($item);
-	$tpl = str_replace('MY_FUNC_SET_MIN_END_IDX',
-		"TRADER_SET_MIN_INT" . count($func_min_end_idx_arr) . "(endIdx, " . implode(",\n\t\t", $func_min_end_idx_arr) . ')', $tpl);
+	$min_end_idx_str = "TRADER_SET_MIN_INT" . count($func_min_end_idx_arr)
+					 . "(endIdx, " . implode(",\n\t\t", $func_min_end_idx_arr) . ')';
+	$min_end_idx_str .= "\n\tendIdx--; /* it's <= in the ta-lib */";
+	//$min_end_idx_str .= "\n\tendIdx = (endIdx < 0) ? 0 : endIdx;";
+	$tpl = str_replace('MY_FUNC_SET_MIN_END_IDX', $min_end_idx_str, $tpl);
 
 	file_put_contents('functions/' . $php_func . '.c', $tpl);
 	//break;
