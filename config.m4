@@ -5,10 +5,6 @@ PHP_ARG_ENABLE(trader, whether to enable trader support,
 [  --enable-trader           Enable trader support])
 
 if test "$PHP_TA" != "no"; then
-  PHP_ADD_INCLUDE(ta-lib/include)
-  PHP_ADD_INCLUDE(ta-lib/src/ta_common)
-  PHP_ADD_INCLUDE(functions)
-
   TRADER_LIB_SOURCES="ta-lib/src/ta_common/ta_global.c \
     ta-lib/src/ta_common/ta_retcode.c \
     ta-lib/src/ta_common/ta_version.c \
@@ -331,4 +327,8 @@ if test "$PHP_TA" != "no"; then
 	functions/trader_wma.c"
 
   PHP_NEW_EXTENSION(trader, $TRADER_LIB_SOURCES trader.c, $ext_shared)
+
+  PHP_ADD_INCLUDE($ext_srcdir/ta-lib/include)
+  PHP_ADD_INCLUDE($ext_srcdir/ta-lib/src/ta_common)
+  PHP_ADD_INCLUDE($ext_srcdir/functions)
 fi
