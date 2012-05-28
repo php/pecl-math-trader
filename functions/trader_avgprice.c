@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_avgprice(array open, array high, array low, array close)
+/* {{{ proto array trader_avgprice(array open, array high, array low, array close)
 	Average Price */
 PHP_FUNCTION(trader_avgprice)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_avgprice)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

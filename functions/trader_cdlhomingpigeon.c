@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlhomingpigeon(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlhomingpigeon(array open, array high, array low, array close)
 	Homing Pigeon */
 PHP_FUNCTION(trader_cdlhomingpigeon)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlhomingpigeon)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

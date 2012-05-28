@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_adosc(array high, array low, array close, array volume [, int fastPeriod [, int slowPeriod]])
+/* {{{ proto array trader_adosc(array high, array low, array close, array volume [, int fastPeriod [, int slowPeriod]])
 	Chaikin A/D Oscillator */
 PHP_FUNCTION(trader_adosc)
 {
@@ -84,5 +84,5 @@ PHP_FUNCTION(trader_adosc)
 	efree(inVolume);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

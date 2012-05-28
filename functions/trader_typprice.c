@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_typprice(array high, array low, array close)
+/* {{{ proto array trader_typprice(array high, array low, array close)
 	Typical Price */
 PHP_FUNCTION(trader_typprice)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_typprice)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

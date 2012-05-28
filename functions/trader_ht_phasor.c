@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_phasor(array real)
+/* {{{ proto array trader_ht_phasor(array real)
 	Hilbert Transform - Phasor Components */
 PHP_FUNCTION(trader_ht_phasor)
 {
@@ -74,5 +74,5 @@ PHP_FUNCTION(trader_ht_phasor)
 	efree(outInPhase);
 	efree(outQuadrature);
 }
-/*}}}*/
+/* }}} */
 

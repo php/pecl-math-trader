@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_stddev(array real [, int timePeriod [, float nbDev]])
+/* {{{ proto array trader_stddev(array real [, int timePeriod [, float nbDev]])
 	Standard Deviation */
 PHP_FUNCTION(trader_stddev)
 {
@@ -72,5 +72,5 @@ PHP_FUNCTION(trader_stddev)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

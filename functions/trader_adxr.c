@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_adxr(array high, array low, array close [, int timePeriod])
+/* {{{ proto array trader_adxr(array high, array low, array close [, int timePeriod])
 	Average Directional Movement Index Rating */
 PHP_FUNCTION(trader_adxr)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_adxr)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

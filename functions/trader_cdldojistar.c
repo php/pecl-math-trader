@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdldojistar(array open, array high, array low, array close)
+/* {{{ proto array trader_cdldojistar(array open, array high, array low, array close)
 	Doji Star */
 PHP_FUNCTION(trader_cdldojistar)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdldojistar)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

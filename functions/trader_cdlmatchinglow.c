@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlmatchinglow(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlmatchinglow(array open, array high, array low, array close)
 	Matching Low */
 PHP_FUNCTION(trader_cdlmatchinglow)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlmatchinglow)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

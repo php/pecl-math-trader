@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlhikkakemod(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlhikkakemod(array open, array high, array low, array close)
 	Modified Hikkake Pattern */
 PHP_FUNCTION(trader_cdlhikkakemod)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlhikkakemod)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

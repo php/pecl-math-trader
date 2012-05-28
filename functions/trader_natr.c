@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_natr(array high, array low, array close [, int timePeriod])
+/* {{{ proto array trader_natr(array high, array low, array close [, int timePeriod])
 	Normalized Average True Range */
 PHP_FUNCTION(trader_natr)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_natr)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

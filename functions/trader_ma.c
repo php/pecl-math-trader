@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ma(array real [, int timePeriod [, int mAType]])
+/* {{{ proto array trader_ma(array real [, int timePeriod [, int mAType]])
 	Moving average */
 PHP_FUNCTION(trader_ma)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_ma)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_dcperiod(array real)
+/* {{{ proto array trader_ht_dcperiod(array real)
 	Hilbert Transform - Dominant Cycle Period */
 PHP_FUNCTION(trader_ht_dcperiod)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_ht_dcperiod)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

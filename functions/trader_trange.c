@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_trange(array high, array low, array close)
+/* {{{ proto array trader_trange(array high, array low, array close)
 	True Range */
 PHP_FUNCTION(trader_trange)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_trange)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

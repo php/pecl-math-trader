@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdladvanceblock(array open, array high, array low, array close)
+/* {{{ proto array trader_cdladvanceblock(array open, array high, array low, array close)
 	Advance Block */
 PHP_FUNCTION(trader_cdladvanceblock)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdladvanceblock)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

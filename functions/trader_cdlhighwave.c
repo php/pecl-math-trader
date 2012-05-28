@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlhighwave(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlhighwave(array open, array high, array low, array close)
 	High-Wave Candle */
 PHP_FUNCTION(trader_cdlhighwave)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlhighwave)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

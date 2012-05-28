@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdllongline(array open, array high, array low, array close)
+/* {{{ proto array trader_cdllongline(array open, array high, array low, array close)
 	Long Line Candle */
 PHP_FUNCTION(trader_cdllongline)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdllongline)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

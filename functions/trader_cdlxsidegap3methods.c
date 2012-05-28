@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlxsidegap3methods(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlxsidegap3methods(array open, array high, array low, array close)
 	Upside/Downside Gap Three Methods */
 PHP_FUNCTION(trader_cdlxsidegap3methods)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlxsidegap3methods)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

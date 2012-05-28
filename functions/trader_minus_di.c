@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_minus_di(array high, array low, array close [, int timePeriod])
+/* {{{ proto array trader_minus_di(array high, array low, array close [, int timePeriod])
 	Minus Directional Indicator */
 PHP_FUNCTION(trader_minus_di)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_minus_di)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

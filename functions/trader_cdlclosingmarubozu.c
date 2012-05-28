@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlclosingmarubozu(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlclosingmarubozu(array open, array high, array low, array close)
 	Closing Marubozu */
 PHP_FUNCTION(trader_cdlclosingmarubozu)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlclosingmarubozu)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

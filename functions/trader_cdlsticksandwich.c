@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlsticksandwich(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlsticksandwich(array open, array high, array low, array close)
 	Stick Sandwich */
 PHP_FUNCTION(trader_cdlsticksandwich)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlsticksandwich)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

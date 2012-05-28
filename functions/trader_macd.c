@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_macd(array real [, int fastPeriod [, int slowPeriod [, int signalPeriod]]])
+/* {{{ proto array trader_macd(array real [, int fastPeriod [, int slowPeriod [, int signalPeriod]]])
 	Moving Average Convergence/Divergence */
 PHP_FUNCTION(trader_macd)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_macd)
 	efree(outMACDSignal);
 	efree(outMACDHist);
 }
-/*}}}*/
+/* }}} */
 

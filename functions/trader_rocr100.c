@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_rocr100(array real [, int timePeriod])
+/* {{{ proto array trader_rocr100(array real [, int timePeriod])
 	Rate of change ratio 100 scale: (price/prevPrice)*100 */
 PHP_FUNCTION(trader_rocr100)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_rocr100)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_log10(array real)
+/* {{{ proto array trader_log10(array real)
 	Vector Log10 */
 PHP_FUNCTION(trader_log10)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_log10)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

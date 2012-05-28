@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlgapsidesidewhite(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlgapsidesidewhite(array open, array high, array low, array close)
 	Up/Down-gap side-by-side white lines */
 PHP_FUNCTION(trader_cdlgapsidesidewhite)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlgapsidesidewhite)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlidentical3crows(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlidentical3crows(array open, array high, array low, array close)
 	Identical Three Crows */
 PHP_FUNCTION(trader_cdlidentical3crows)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlidentical3crows)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

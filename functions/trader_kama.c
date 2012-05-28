@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_kama(array real [, int timePeriod])
+/* {{{ proto array trader_kama(array real [, int timePeriod])
 	Kaufman Adaptive Moving Average */
 PHP_FUNCTION(trader_kama)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_kama)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

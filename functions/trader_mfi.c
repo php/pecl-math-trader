@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_mfi(array high, array low, array close, array volume [, int timePeriod])
+/* {{{ proto array trader_mfi(array high, array low, array close, array volume [, int timePeriod])
 	Money Flow Index */
 PHP_FUNCTION(trader_mfi)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_mfi)
 	efree(inVolume);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

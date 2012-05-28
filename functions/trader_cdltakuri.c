@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdltakuri(array open, array high, array low, array close)
+/* {{{ proto array trader_cdltakuri(array open, array high, array low, array close)
 	Takuri (Dragonfly Doji with very long lower shadow) */
 PHP_FUNCTION(trader_cdltakuri)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdltakuri)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

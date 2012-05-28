@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_mult(array real0, array real1)
+/* {{{ proto array trader_mult(array real0, array real1)
 	Vector Arithmetic Mult */
 PHP_FUNCTION(trader_mult)
 {
@@ -75,5 +75,5 @@ PHP_FUNCTION(trader_mult)
 	efree(inReal1);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_stochrsi(array real [, int timePeriod [, int fastK_Period [, int fastD_Period [, int fastD_MAType]]]])
+/* {{{ proto array trader_stochrsi(array real [, int timePeriod [, int fastK_Period [, int fastD_Period [, int fastD_MAType]]]])
 	Stochastic Relative Strength Index */
 PHP_FUNCTION(trader_stochrsi)
 {
@@ -76,5 +76,5 @@ PHP_FUNCTION(trader_stochrsi)
 	efree(outFastK);
 	efree(outFastD);
 }
-/*}}}*/
+/* }}} */
 

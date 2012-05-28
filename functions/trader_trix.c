@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_trix(array real [, int timePeriod])
+/* {{{ proto array trader_trix(array real [, int timePeriod])
 	1-day Rate-Of-Change (ROC) of a Triple Smooth EMA */
 PHP_FUNCTION(trader_trix)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_trix)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

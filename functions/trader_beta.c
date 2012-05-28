@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_beta(array real0, array real1 [, int timePeriod])
+/* {{{ proto array trader_beta(array real0, array real1 [, int timePeriod])
 	Beta */
 PHP_FUNCTION(trader_beta)
 {
@@ -75,5 +75,5 @@ PHP_FUNCTION(trader_beta)
 	efree(inReal1);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_sqrt(array real)
+/* {{{ proto array trader_sqrt(array real)
 	Vector Square Root */
 PHP_FUNCTION(trader_sqrt)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_sqrt)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

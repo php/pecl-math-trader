@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlconcealbabyswall(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlconcealbabyswall(array open, array high, array low, array close)
 	Concealing Baby Swallow */
 PHP_FUNCTION(trader_cdlconcealbabyswall)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlconcealbabyswall)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

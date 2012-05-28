@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlupsidegap2crows(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlupsidegap2crows(array open, array high, array low, array close)
 	Upside Gap Two Crows */
 PHP_FUNCTION(trader_cdlupsidegap2crows)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlupsidegap2crows)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

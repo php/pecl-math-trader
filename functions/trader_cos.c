@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cos(array real)
+/* {{{ proto array trader_cos(array real)
 	Vector Trigonometric Cos */
 PHP_FUNCTION(trader_cos)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_cos)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

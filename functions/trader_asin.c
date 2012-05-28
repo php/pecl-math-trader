@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_asin(array real)
+/* {{{ proto array trader_asin(array real)
 	Vector Trigonometric ASin */
 PHP_FUNCTION(trader_asin)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_asin)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

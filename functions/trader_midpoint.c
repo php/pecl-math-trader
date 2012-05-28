@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_midpoint(array real [, int timePeriod])
+/* {{{ proto array trader_midpoint(array real [, int timePeriod])
 	MidPoint over period */
 PHP_FUNCTION(trader_midpoint)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_midpoint)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdldarkcloudcover(array open, array high, array low, array close [, float penetration])
+/* {{{ proto array trader_cdldarkcloudcover(array open, array high, array low, array close [, float penetration])
 	Dark Cloud Cover */
 PHP_FUNCTION(trader_cdldarkcloudcover)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdldarkcloudcover)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

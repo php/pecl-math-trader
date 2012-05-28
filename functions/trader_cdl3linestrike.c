@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdl3linestrike(array open, array high, array low, array close)
+/* {{{ proto array trader_cdl3linestrike(array open, array high, array low, array close)
 	Three-Line Strike  */
 PHP_FUNCTION(trader_cdl3linestrike)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdl3linestrike)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

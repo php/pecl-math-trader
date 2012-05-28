@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_apo(array real [, int fastPeriod [, int slowPeriod [, int mAType]]])
+/* {{{ proto array trader_apo(array real [, int fastPeriod [, int slowPeriod [, int mAType]]])
 	Absolute Price Oscillator */
 PHP_FUNCTION(trader_apo)
 {
@@ -72,5 +72,5 @@ PHP_FUNCTION(trader_apo)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

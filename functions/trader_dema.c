@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_dema(array real [, int timePeriod])
+/* {{{ proto array trader_dema(array real [, int timePeriod])
 	Double Exponential Moving Average */
 PHP_FUNCTION(trader_dema)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_dema)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

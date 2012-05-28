@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlbreakaway(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlbreakaway(array open, array high, array low, array close)
 	Breakaway */
 PHP_FUNCTION(trader_cdlbreakaway)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlbreakaway)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

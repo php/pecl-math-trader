@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlbelthold(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlbelthold(array open, array high, array low, array close)
 	Belt-hold */
 PHP_FUNCTION(trader_cdlbelthold)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlbelthold)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

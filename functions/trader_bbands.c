@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_bbands(array real [, int timePeriod [, float nbDevUp [, float nbDevDn [, int mAType]]]])
+/* {{{ proto array trader_bbands(array real [, int timePeriod [, float nbDevUp [, float nbDevDn [, int mAType]]]])
 	Bollinger Bands */
 PHP_FUNCTION(trader_bbands)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_bbands)
 	efree(outRealMiddleBand);
 	efree(outRealLowerBand);
 }
-/*}}}*/
+/* }}} */
 

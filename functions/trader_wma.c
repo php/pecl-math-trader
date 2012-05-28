@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_wma(array real [, int timePeriod])
+/* {{{ proto array trader_wma(array real [, int timePeriod])
 	Weighted Moving Average */
 PHP_FUNCTION(trader_wma)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_wma)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

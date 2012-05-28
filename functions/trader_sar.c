@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_sar(array high, array low [, float acceleration [, float maximum]])
+/* {{{ proto array trader_sar(array high, array low [, float acceleration [, float maximum]])
 	Parabolic SAR */
 PHP_FUNCTION(trader_sar)
 {
@@ -76,5 +76,5 @@ PHP_FUNCTION(trader_sar)
 	efree(inLow);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_exp(array real)
+/* {{{ proto array trader_exp(array real)
 	Vector Arithmetic Exp */
 PHP_FUNCTION(trader_exp)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_exp)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

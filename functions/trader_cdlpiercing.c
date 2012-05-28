@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlpiercing(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlpiercing(array open, array high, array low, array close)
 	Piercing Pattern */
 PHP_FUNCTION(trader_cdlpiercing)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlpiercing)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

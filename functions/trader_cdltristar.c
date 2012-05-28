@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdltristar(array open, array high, array low, array close)
+/* {{{ proto array trader_cdltristar(array open, array high, array low, array close)
 	Tristar Pattern */
 PHP_FUNCTION(trader_cdltristar)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdltristar)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_trima(array real [, int timePeriod])
+/* {{{ proto array trader_trima(array real [, int timePeriod])
 	Triangular Moving Average */
 PHP_FUNCTION(trader_trima)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_trima)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

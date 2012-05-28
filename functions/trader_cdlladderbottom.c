@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlladderbottom(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlladderbottom(array open, array high, array low, array close)
 	Ladder Bottom */
 PHP_FUNCTION(trader_cdlladderbottom)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlladderbottom)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

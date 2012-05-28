@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_floor(array real)
+/* {{{ proto array trader_floor(array real)
 	Vector Floor */
 PHP_FUNCTION(trader_floor)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_floor)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

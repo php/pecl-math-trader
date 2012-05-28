@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ad(array high, array low, array close, array volume)
+/* {{{ proto array trader_ad(array high, array low, array close, array volume)
 	Chaikin A/D Line */
 PHP_FUNCTION(trader_ad)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_ad)
 	efree(inVolume);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

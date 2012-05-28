@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_sarext(array high, array low [, float startValue [, float offsetOnReverse [, float accelerationInitLong [, float accelerationLong [, float accelerationMaxLong [, float accelerationInitShort [, float accelerationShort [, float accelerationMaxShort]]]]]]]])
+/* {{{ proto array trader_sarext(array high, array low [, float startValue [, float offsetOnReverse [, float accelerationInitLong [, float accelerationLong [, float accelerationMaxLong [, float accelerationInitShort [, float accelerationShort [, float accelerationMaxShort]]]]]]]])
 	Parabolic SAR - Extended */
 PHP_FUNCTION(trader_sarext)
 {
@@ -82,5 +82,5 @@ PHP_FUNCTION(trader_sarext)
 	efree(inLow);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

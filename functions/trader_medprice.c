@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_medprice(array high, array low)
+/* {{{ proto array trader_medprice(array high, array low)
 	Median Price */
 PHP_FUNCTION(trader_medprice)
 {
@@ -75,5 +75,5 @@ PHP_FUNCTION(trader_medprice)
 	efree(inLow);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

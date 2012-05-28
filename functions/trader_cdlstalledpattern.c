@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_cdlstalledpattern(array open, array high, array low, array close)
+/* {{{ proto array trader_cdlstalledpattern(array open, array high, array low, array close)
 	Stalled Pattern */
 PHP_FUNCTION(trader_cdlstalledpattern)
 {
@@ -83,5 +83,5 @@ PHP_FUNCTION(trader_cdlstalledpattern)
 	efree(inClose);
 	efree(outInteger);
 }
-/*}}}*/
+/* }}} */
 

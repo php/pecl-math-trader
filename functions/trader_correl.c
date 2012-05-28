@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_correl(array real0, array real1 [, int timePeriod])
+/* {{{ proto array trader_correl(array real0, array real1 [, int timePeriod])
 	Pearson's Correlation Coefficient (r) */
 PHP_FUNCTION(trader_correl)
 {
@@ -75,5 +75,5 @@ PHP_FUNCTION(trader_correl)
 	efree(inReal1);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

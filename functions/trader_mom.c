@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_mom(array real [, int timePeriod])
+/* {{{ proto array trader_mom(array real [, int timePeriod])
 	Momentum */
 PHP_FUNCTION(trader_mom)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_mom)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

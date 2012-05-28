@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_atr(array high, array low, array close [, int timePeriod])
+/* {{{ proto array trader_atr(array high, array low, array close [, int timePeriod])
 	Average True Range */
 PHP_FUNCTION(trader_atr)
 {
@@ -79,5 +79,5 @@ PHP_FUNCTION(trader_atr)
 	efree(inClose);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

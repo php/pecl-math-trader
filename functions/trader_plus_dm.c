@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_plus_dm(array high, array low [, int timePeriod])
+/* {{{ proto array trader_plus_dm(array high, array low [, int timePeriod])
 	Plus Directional Movement */
 PHP_FUNCTION(trader_plus_dm)
 {
@@ -75,5 +75,5 @@ PHP_FUNCTION(trader_plus_dm)
 	efree(inLow);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 

@@ -36,7 +36,7 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/*{{{ proto array trader_ht_trendline(array real)
+/* {{{ proto array trader_ht_trendline(array real)
 	Hilbert Transform - Instantaneous Trendline */
 PHP_FUNCTION(trader_ht_trendline)
 {
@@ -71,5 +71,5 @@ PHP_FUNCTION(trader_ht_trendline)
 	efree(inReal);
 	efree(outReal);
 }
-/*}}}*/
+/* }}} */
 
