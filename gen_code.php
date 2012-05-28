@@ -316,7 +316,8 @@ foreach ($func as $name => $defs) {
 $func_header = array();
 $tpl = file_get_contents('functions/trader_php_func.h.tpl');
 foreach ($func as $name => $defs) {
-	$func_header[] = 'PHP_FUNCTION(' . strtolower($name) . ');';
+	$php_func = str_replace('ta_', 'trader_', strtolower($name));
+	$func_header[] = 'PHP_FUNCTION(' . $php_func . ');';
 }
 $tpl = str_replace('HEADER_CONTENT', implode("\n", $func_header), $tpl);
 file_put_contents('functions/trader_php_func.h', $tpl);
@@ -325,7 +326,7 @@ file_put_contents('functions/trader_php_func.h', $tpl);
 $fe_header = array();
 $tpl = file_get_contents('functions/trader_php_fe.h.tpl');
 foreach ($func as $name => $defs) {
-	$php_func = strtolower($name);
+	$php_func = str_replace('ta_', 'trader_', strtolower($name));
 	$fe_header[] = "\tPHP_FE($php_func, arg_info_$php_func)";
 	//$fe_header[] = "\tPHP_FE($php_func, NULL)";
 }
@@ -336,7 +337,7 @@ file_put_contents('functions/trader_php_fe.h', $tpl);
 $arginfo_header = array();
 $tpl = file_get_contents('functions/trader_php_arginfo.h.tpl');
 foreach ($func as $name => $defs) {
-	$php_func = strtolower($name);
+	$php_func = str_replace('ta_', 'trader_', strtolower($name));
 	$tmp = '';
 	
 	$mandatory_pcnt = 0;
@@ -350,7 +351,10 @@ foreach ($func as $name => $defs) {
 		if (!$p['opt']) {
 			$mandatory_pcnt++;
 		}
-		$tmp .= "\tZEND_ARG_INFO(0, {$p['name']})\n";
+		$type_hint = $p['array'] ? 'IS_ARRAY' : ($p['type'] == 'int' || $p['type'] == 'TA_MAType' ? 'IS_LONG' : 'IS_DOUBLE');
+		$arg_name = ' ' . lcfirst($p['opt'] ? substr($p['name'], 5) : substr($p['name'], 2));
+		$allow_null = (int)$p['opt'];
+		$tmp .= "\tZEND_ARG_TYPE_INFO(0, $arg_name, $type_hint, $allow_null)\n";
 	}
 
 	$tmp .= "ZEND_END_ARG_INFO();";
