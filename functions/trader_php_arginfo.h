@@ -52,41 +52,41 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_adosc, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  volume, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowPeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowPeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_adx, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_adxr, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_apo, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  mAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  mAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_aroon, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_aroonosc, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_asin, 0, 0, 1)
@@ -101,7 +101,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_atr, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_avgprice, 0, 0, 4)
@@ -113,16 +113,16 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_bbands, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  nbDevUp, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  nbDevDn, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  mAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  nbDevUp, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  nbDevDn, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  mAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_beta, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  real0, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  real1, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_bop, 0, 0, 4)
@@ -136,7 +136,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cci, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdl2crows, 0, 0, 4)
@@ -193,7 +193,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlabandonedbaby, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdladvanceblock, 0, 0, 4)
@@ -243,7 +243,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdldarkcloudcover, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdldoji, 0, 0, 4)
@@ -279,7 +279,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdleveningdojistar, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdleveningstar, 0, 0, 4)
@@ -287,7 +287,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdleveningstar, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlgapsidesidewhite, 0, 0, 4)
@@ -435,7 +435,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlmathold, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlmorningdojistar, 0, 0, 4)
@@ -443,7 +443,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlmorningdojistar, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlmorningstar, 0, 0, 4)
@@ -451,7 +451,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlmorningstar, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  penetration, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  penetration, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cdlonneck, 0, 0, 4)
@@ -579,13 +579,13 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cmo, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_correl, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  real0, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  real1, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_cos, 0, 0, 1)
@@ -598,7 +598,7 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_dema, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_div, 0, 0, 2)
@@ -610,12 +610,12 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_dx, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ema, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_exp, 0, 0, 1)
@@ -652,27 +652,27 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_kama, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_linearreg, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_linearreg_angle, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_linearreg_intercept, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_linearreg_slope, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ln, 0, 0, 1)
@@ -685,54 +685,54 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ma, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  mAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  mAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_macd, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  signalPeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  signalPeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_macdext, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  fastMAType, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowMAType, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  signalPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  signalMAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastMAType, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowMAType, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  signalPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  signalMAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_macdfix, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  signalPeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  signalPeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_mama, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastLimit, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowLimit, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastLimit, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowLimit, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_mavp, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  periods, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  minPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  maxPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  mAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  minPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  maxPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  mAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_max, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_maxindex, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_medprice, 0, 0, 2)
@@ -745,56 +745,56 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_mfi, 0, 0, 4)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  volume, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_midpoint, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_midprice, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_min, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_minindex, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_minmax, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_minmaxindex, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_minus_di, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_minus_dm, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_mom, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_mult, 0, 0, 2)
@@ -806,7 +806,7 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_natr, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_obv, 0, 0, 2)
@@ -818,65 +818,65 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_plus_di, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_plus_dm, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ppo, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowPeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  mAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowPeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  mAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_roc, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_rocp, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_rocr, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_rocr100, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_rsi, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sar, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  acceleration, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  maximum, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  acceleration, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  maximum, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sarext, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  startValue, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  offsetOnReverse, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  accelerationInitLong, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  accelerationLong, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  accelerationMaxLong, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  accelerationInitShort, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  accelerationShort, IS_DOUBLE, 1)
-	ZEND_ARG_TYPE_INFO(0,  accelerationMaxShort, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  startValue, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  offsetOnReverse, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  accelerationInitLong, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  accelerationLong, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  accelerationMaxLong, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  accelerationInitShort, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  accelerationShort, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  accelerationMaxShort, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sin, 0, 0, 1)
@@ -889,7 +889,7 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sma, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sqrt, 0, 0, 1)
@@ -898,36 +898,36 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_stddev, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  nbDev, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  nbDev, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_stoch, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastK_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowK_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowK_MAType, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowD_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  slowD_MAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastK_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowK_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowK_MAType, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowD_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  slowD_MAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_stochf, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  fastK_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  fastD_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  fastD_MAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastK_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastD_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastD_MAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_stochrsi, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  fastK_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  fastD_Period, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  fastD_MAType, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastK_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastD_Period, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  fastD_MAType, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sub, 0, 0, 2)
@@ -937,13 +937,13 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_sum, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_t3, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  vFactor, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  vFactor, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_tan, 0, 0, 1)
@@ -956,7 +956,7 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_tema, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_trange, 0, 0, 3)
@@ -967,17 +967,17 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_trima, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_trix, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_tsf, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_typprice, 0, 0, 3)
@@ -990,15 +990,15 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ultosc, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod1, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod2, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod3, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod1, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod2, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod3, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_var, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
-	ZEND_ARG_TYPE_INFO(0,  nbDev, IS_DOUBLE, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
+	ZEND_ARG_TYPE_INFO(0,  nbDev, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_wclprice, 0, 0, 3)
@@ -1011,12 +1011,12 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_willr, 0, 0, 3)
 	ZEND_ARG_TYPE_INFO(0,  high, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  low, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0,  close, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_wma, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0,  real, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0,  timePeriod, IS_LONG, 1)
+	ZEND_ARG_TYPE_INFO(0,  timePeriod, 0, 1)
 ZEND_END_ARG_INFO();
 
 #endif /* TA_PHP_ARGINFO_H */
