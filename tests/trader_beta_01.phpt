@@ -8,8 +8,8 @@ trader.real_precision=7
 --FILE--
 <?php
 
-include "data.php";
-include "func.php";
+include "inc/data.php";
+include "inc/func.php";
 
 $period = 14;
 

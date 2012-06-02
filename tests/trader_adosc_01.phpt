@@ -8,8 +8,8 @@ trader.real_precision=2
 --FILE--
 <?php
 
-include "data.php";
-include "func.php";
+include "inc/data.php";
+include "inc/func.php";
 
 var_dump(trader_adosc(
 	get_data("high", $data0),

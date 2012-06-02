@@ -6,8 +6,8 @@ if (!extension_loaded("trader")) die("skip");
 --FILE--
 <?php
 
-include "data.php";
-include "func.php";
+include "inc/data.php";
+include "inc/func.php";
 
 var_dump(trader_ad(get_data("high", $data1), get_data("low", $data1), get_data("close", $data1), get_data("volume", $data1)));
 --EXPECT--

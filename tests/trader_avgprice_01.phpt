@@ -8,8 +8,8 @@ trader.real_precision=5
 --FILE--
 <?php
 
-include "data.php";
-include "func.php";
+include "inc/data.php";
+include "inc/func.php";
 
 var_dump(trader_avgprice(
 	get_data("open", $data0),
