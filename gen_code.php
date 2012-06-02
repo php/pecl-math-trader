@@ -360,10 +360,13 @@ foreach ($func as $name => $defs) {
 			$mandatory_pcnt++;
 		}
 		/*$type_hint = $p['array'] ? 'IS_ARRAY' : ($p['type'] == 'int' || $p['type'] == 'TA_MAType' ? 'IS_LONG' : 'IS_DOUBLE');*/
-		$type_hint = $p['array'] ? 'IS_ARRAY' : '0';
 		$arg_name = ' ' . lcfirst($p['opt'] ? substr($p['name'], 5) : substr($p['name'], 2));
-		$allow_null = (int)$p['opt'];
-		$tmp .= "\tZEND_ARG_TYPE_INFO(0, $arg_name, $type_hint, $allow_null)\n";
+		if ($p['array']) {
+			$allow_null = (int)$p['opt'];
+			$tmp .= "\tZEND_ARG_ARRAY_INFO(0, $arg_name, $allow_null)\n";
+		} else {
+			$tmp .= "\tZEND_ARG_INFO(0, $arg_name)\n";
+		}
 	}
 
 	$tmp .= "ZEND_END_ARG_INFO();";
