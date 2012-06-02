@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_adosc)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|ll", &zinHigh, &zinLow, &zinClose, &zinVolume, &optInFastPeriod, &optInSlowPeriod) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 	TRADER_SET_BOUNDABLE(2, 100000, optInFastPeriod);
 	TRADER_SET_BOUNDABLE(2, 100000, optInSlowPeriod);	
 
@@ -66,6 +67,7 @@ PHP_FUNCTION(trader_adosc)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 	TRADER_DBL_ZARR_TO_ARR(zinVolume, inVolume)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_ADOSC(startIdx, endIdx, inHigh, inLow, inClose, inVolume, (int)optInFastPeriod, (int)optInSlowPeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);

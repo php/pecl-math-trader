@@ -287,10 +287,25 @@ ZEND_END_MODULE_GLOBALS(trader)
 		add_next_index_zval(zarr, zarr3); \
 	} while (0);
 
+/* XXX throw a docref here */
 #define TRADER_SET_BOUNDABLE(min, max, val) \
 	if (val < min || val > max) { \
 		val = min; \
 	} 
+
+#define TRADER_CHECK_MA_TYPE(ma_val) \
+	if (ma_val != TA_MAType_SMA && \
+		ma_val != TA_MAType_EMA && \
+		ma_val != TA_MAType_WMA && \
+		ma_val != TA_MAType_DEMA && \
+		ma_val != TA_MAType_TEMA && \
+		ma_val != TA_MAType_TRIMA && \
+		ma_val != TA_MAType_KAMA && \
+		ma_val != TA_MAType_MAMA && \
+		ma_val != TA_MAType_T3) { \
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, "invalid moving average indicator type '%ld'", ma_val); \
+		RETURN_FALSE; \
+	}
 
 #endif	/* PHP_TRADER_H */
 

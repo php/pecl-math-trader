@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_cdleveningstar)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|d", &zinOpen, &zinHigh, &zinLow, &zinClose, &optInPenetration) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInPenetration);	
 
 	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinOpen)),
@@ -65,6 +66,7 @@ PHP_FUNCTION(trader_cdleveningstar)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_CDLEVENINGSTAR(startIdx, endIdx, inOpen, inHigh, inLow, inClose, optInPenetration, &outBegIdx, &outNBElement, outInteger) != TA_SUCCESS) {
 		efree(inOpen);
 		efree(inHigh);

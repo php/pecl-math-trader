@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_cos)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a", &zinReal) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 		
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
@@ -59,6 +60,7 @@ PHP_FUNCTION(trader_cos)
 	outReal = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_COS(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outReal);

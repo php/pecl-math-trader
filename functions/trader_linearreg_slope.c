@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_linearreg_slope)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|l", &zinReal, &optInTimePeriod) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
@@ -59,6 +60,7 @@ PHP_FUNCTION(trader_linearreg_slope)
 	outReal = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_LINEARREG_SLOPE(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outReal);

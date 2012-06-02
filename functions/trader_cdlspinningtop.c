@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_cdlspinningtop)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa", &zinOpen, &zinHigh, &zinLow, &zinClose) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 		
 
 	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinOpen)),
@@ -65,6 +66,7 @@ PHP_FUNCTION(trader_cdlspinningtop)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_CDLSPINNINGTOP(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger) != TA_SUCCESS) {
 		efree(inOpen);
 		efree(inHigh);

@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_aroon)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|l", &zinHigh, &zinLow, &optInTimePeriod) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
@@ -62,6 +63,7 @@ PHP_FUNCTION(trader_aroon)
 	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_AROON(startIdx, endIdx, inHigh, inLow, (int)optInTimePeriod, &outBegIdx, &outNBElement, outAroonDown, outAroonUp) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);

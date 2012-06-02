@@ -308,6 +308,14 @@ foreach ($func as $name => $defs) {
 	}
 	$tpl = str_replace('MY_FUNC_DOC_PARAMS', $arg_doc_line, $tpl);
 
+	$ma_type_checks = array();
+	foreach ($defs['params'] as $p) {
+		if ('TA_MAType' == $p['type']) {
+			$ma_type_checks[] = "TRADER_CHECK_MA_TYPE({$p['name']})";
+		}
+	}
+	$tpl = str_replace('MY_FUNC_CHECK_MA_TYPES', implode("\n", $ma_type_checks), $tpl);
+
 	file_put_contents('functions/' . $php_func . '.c', $tpl);
 	//break;
 }

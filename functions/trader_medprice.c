@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_medprice)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinHigh, &zinLow) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 		
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
@@ -61,6 +62,7 @@ PHP_FUNCTION(trader_medprice)
 	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_MEDPRICE(startIdx, endIdx, inHigh, inLow, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);

@@ -49,7 +49,9 @@ PHP_FUNCTION(trader_stoch)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lllll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInSlowK_Period, &optInSlowK_MAType, &optInSlowD_Period, &optInSlowD_MAType) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	TRADER_CHECK_MA_TYPE(optInSlowK_MAType)
+TRADER_CHECK_MA_TYPE(optInSlowD_MAType)
 	TRADER_SET_BOUNDABLE(1, 100000, optInFastK_Period);
 	TRADER_SET_BOUNDABLE(1, 100000, optInSlowK_Period);
 	TRADER_SET_BOUNDABLE(1, 100000, optInSlowD_Period);	
@@ -66,6 +68,7 @@ PHP_FUNCTION(trader_stoch)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_STOCH(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInSlowK_Period, (int)optInSlowK_MAType, (int)optInSlowD_Period, (int)optInSlowD_MAType, &outBegIdx, &outNBElement, outSlowK, outSlowD) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);

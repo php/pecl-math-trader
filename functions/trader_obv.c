@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_obv)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinReal, &zinVolume) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 		
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
@@ -61,6 +62,7 @@ PHP_FUNCTION(trader_obv)
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 	TRADER_DBL_ZARR_TO_ARR(zinVolume, inVolume)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_OBV(startIdx, endIdx, inReal, inVolume, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
 		efree(inVolume);

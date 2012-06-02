@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_ht_sine)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinReal, &zoutSine) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 		
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
@@ -60,6 +61,7 @@ PHP_FUNCTION(trader_ht_sine)
 	outLeadSine = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_HT_SINE(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outSine, outLeadSine) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outSine);

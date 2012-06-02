@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_ad)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa", &zinHigh, &zinLow, &zinClose, &zinVolume) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 		
 
 	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
@@ -65,6 +66,7 @@ PHP_FUNCTION(trader_ad)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 	TRADER_DBL_ZARR_TO_ARR(zinVolume, inVolume)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_AD(startIdx, endIdx, inHigh, inLow, inClose, inVolume, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);

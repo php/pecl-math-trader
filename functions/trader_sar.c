@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_sar)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|dd", &zinHigh, &zinLow, &optInAcceleration, &optInMaximum) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	
 	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAcceleration);
 	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInMaximum);	
 
@@ -62,6 +63,7 @@ PHP_FUNCTION(trader_sar)
 	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_SAR(startIdx, endIdx, inHigh, inLow, optInAcceleration, optInMaximum, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);

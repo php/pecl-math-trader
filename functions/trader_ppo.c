@@ -49,7 +49,8 @@ PHP_FUNCTION(trader_ppo)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInMAType) == FAILURE) {
 		RETURN_FALSE
 	}
-	/* XXX check ma type if any*/
+
+	TRADER_CHECK_MA_TYPE(optInMAType)
 	TRADER_SET_BOUNDABLE(2, 100000, optInFastPeriod);
 	TRADER_SET_BOUNDABLE(2, 100000, optInSlowPeriod);	
 
@@ -60,6 +61,7 @@ PHP_FUNCTION(trader_ppo)
 	outReal = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
+	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
 	if (TA_PPO(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInSlowPeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outReal);
