@@ -154,7 +154,11 @@ foreach ($func as $name => $defs) {
 	$func_set_boundable = array();
 	foreach ($defs['params'] as $p) {
 		if (NULL != $p['bounds']['min'] && NULL != $p['bounds']['max']) {
-			$func_set_boundable[] = "TRADER_SET_BOUNDABLE({$p['bounds']['min']}, {$p['bounds']['max']}, {$p['name']});";
+			if ('double' == $p['type']) {
+				$func_set_boundable[] = "TRADER_DBL_SET_BOUNDABLE({$p['bounds']['min']}, {$p['bounds']['max']}, {$p['name']});";
+			} else {
+				$func_set_boundable[] = "TRADER_LONG_SET_BOUNDABLE({$p['bounds']['min']}, {$p['bounds']['max']}, {$p['name']});";
+			}
 		}
 	}
 	$tpl = str_replace('MY_FUNC_SET_BOUNDABLE', implode("\n\t", $func_set_boundable), $tpl);

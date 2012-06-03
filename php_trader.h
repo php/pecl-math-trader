@@ -285,10 +285,16 @@ ZEND_END_MODULE_GLOBALS(trader)
 		add_next_index_zval(zarr, zarr3); \
 	} while (0);
 
-/* XXX throw a docref here */
-#define TRADER_SET_BOUNDABLE(min, max, val) \
+#define TRADER_DBL_SET_BOUNDABLE(min, max, val) \
 	if (val < min || val > max) { \
+		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%f', expected a value between %f and %f", val, min, max); \
 		val = min; \
+	} 
+
+#define TRADER_LONG_SET_BOUNDABLE(min, max, val) \
+	if (val < (long)min || val > (long)max) { \
+		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%ld', expected a value between %d and %d", val, min, max); \
+		val = (long)min; \
 	} 
 
 #define TRADER_CHECK_MA_TYPE(ma_val) \

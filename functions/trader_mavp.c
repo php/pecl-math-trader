@@ -51,8 +51,8 @@ PHP_FUNCTION(trader_mavp)
 	}
 
 	TRADER_CHECK_MA_TYPE(optInMAType)
-	TRADER_SET_BOUNDABLE(2, 100000, optInMinPeriod);
-	TRADER_SET_BOUNDABLE(2, 100000, optInMaxPeriod);	
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInMinPeriod);
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInMaxPeriod);	
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinPeriods)))

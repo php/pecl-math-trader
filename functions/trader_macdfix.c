@@ -51,7 +51,7 @@ PHP_FUNCTION(trader_macdfix)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(1, 100000, optInSignalPeriod);	
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInSignalPeriod);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	endIdx--; /* it's <= in the ta-lib */

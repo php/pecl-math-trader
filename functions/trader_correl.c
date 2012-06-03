@@ -51,7 +51,7 @@ PHP_FUNCTION(trader_correl)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(1, 100000, optInTimePeriod);	
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInTimePeriod);	
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal0)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinReal1)))

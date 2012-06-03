@@ -51,7 +51,7 @@ PHP_FUNCTION(trader_cdlmorningstar)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInPenetration);	
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInPenetration);	
 
 	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinOpen)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),

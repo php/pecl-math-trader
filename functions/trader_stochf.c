@@ -51,8 +51,8 @@ PHP_FUNCTION(trader_stochf)
 	}
 
 	TRADER_CHECK_MA_TYPE(optInFastD_MAType)
-	TRADER_SET_BOUNDABLE(1, 100000, optInFastK_Period);
-	TRADER_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInFastK_Period);
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
 
 	TRADER_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),

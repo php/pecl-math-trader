@@ -51,8 +51,8 @@ PHP_FUNCTION(trader_apo)
 	}
 
 	TRADER_CHECK_MA_TYPE(optInMAType)
-	TRADER_SET_BOUNDABLE(2, 100000, optInFastPeriod);
-	TRADER_SET_BOUNDABLE(2, 100000, optInSlowPeriod);	
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInFastPeriod);
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInSlowPeriod);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	endIdx--; /* it's <= in the ta-lib */

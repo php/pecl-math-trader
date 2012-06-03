@@ -51,9 +51,9 @@ PHP_FUNCTION(trader_stochrsi)
 	}
 
 	TRADER_CHECK_MA_TYPE(optInFastD_MAType)
-	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);
-	TRADER_SET_BOUNDABLE(1, 100000, optInFastK_Period);
-	TRADER_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInTimePeriod);
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInFastK_Period);
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInFastD_Period);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	endIdx--; /* it's <= in the ta-lib */

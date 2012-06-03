@@ -51,7 +51,7 @@ PHP_FUNCTION(trader_mfi)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
 	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),

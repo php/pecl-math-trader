@@ -51,8 +51,8 @@ PHP_FUNCTION(trader_sar)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAcceleration);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInMaximum);	
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAcceleration);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInMaximum);	
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)))

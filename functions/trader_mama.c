@@ -51,8 +51,8 @@ PHP_FUNCTION(trader_mama)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(0.01, 0.99, optInFastLimit);
-	TRADER_SET_BOUNDABLE(0.01, 0.99, optInSlowLimit);	
+	TRADER_DBL_SET_BOUNDABLE(0.01, 0.99, optInFastLimit);
+	TRADER_DBL_SET_BOUNDABLE(0.01, 0.99, optInSlowLimit);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	endIdx--; /* it's <= in the ta-lib */

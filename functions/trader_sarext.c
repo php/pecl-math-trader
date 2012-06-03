@@ -51,14 +51,14 @@ PHP_FUNCTION(trader_sarext)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInStartValue);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInOffsetOnReverse);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationInitLong);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationLong);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationMaxLong);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationInitShort);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationShort);
-	TRADER_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationMaxShort);	
+	TRADER_DBL_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInStartValue);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInOffsetOnReverse);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationInitLong);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationLong);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationMaxLong);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationInitShort);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationShort);
+	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInAccelerationMaxShort);	
 
 	TRADER_SET_MIN_INT2(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)))

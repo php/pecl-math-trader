@@ -51,9 +51,9 @@ PHP_FUNCTION(trader_ultosc)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(1, 100000, optInTimePeriod1);
-	TRADER_SET_BOUNDABLE(1, 100000, optInTimePeriod2);
-	TRADER_SET_BOUNDABLE(1, 100000, optInTimePeriod3);	
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInTimePeriod1);
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInTimePeriod2);
+	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInTimePeriod3);	
 
 	TRADER_SET_MIN_INT3(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
 		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),

@@ -51,8 +51,8 @@ PHP_FUNCTION(trader_stddev)
 	}
 
 	
-	TRADER_SET_BOUNDABLE(2, 100000, optInTimePeriod);
-	TRADER_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDev);	
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInTimePeriod);
+	TRADER_DBL_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInNbDev);	
 
 	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	endIdx--; /* it's <= in the ta-lib */
