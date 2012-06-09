@@ -4,15 +4,15 @@
 ARG_ENABLE("trader", "enable ta support", "no");
 
 if (PHP_TRADER != "no") {
-	if( CHECK_HEADER_ADD_INCLUDE("ta_func.h", "CFLAGS_TRADER", PHP_TRADER + ";ext\\trader\\ta-lib\\include") &&
-		CHECK_HEADER_ADD_INCLUDE("ta_global.h", "CFLAGS_TRADER", PHP_TRADER + ";ext\\trader\\ta-lib\\src\\ta_common") &&
-		CHECK_HEADER_ADD_INCLUDE("php_trader.h", "CFLAGS_TRADER", PHP_TRADER + ";ext\\trader")
+	if( CHECK_HEADER_ADD_INCLUDE("ta_func.h", "CFLAGS_TRADER", PHP_TRADER + ";" + configure_module_dirname + "\\ta-lib\\include") &&
+		CHECK_HEADER_ADD_INCLUDE("ta_global.h", "CFLAGS_TRADER", PHP_TRADER + ";" + configure_module_dirname + "\\ta-lib\\src\\ta_common") &&
+		CHECK_HEADER_ADD_INCLUDE("php_trader.h", "CFLAGS_TRADER", PHP_TRADER + ";" + configure_module_dirname)
 	) {
 	
 		EXTENSION("trader", "trader.c");
 
-		ADD_SOURCES("ext/trader/ta-lib/src/ta_common", "ta_global.c ta_retcode.c ta_version.c", "trader");
-		ADD_SOURCES("ext/trader/ta-lib/src/ta_func", " \
+		ADD_SOURCES(configure_module_dirname + "\\ta-lib\\src\\ta_common", "ta_global.c ta_retcode.c ta_version.c", "trader");
+		ADD_SOURCES(configure_module_dirname + "\\ta-lib\\src\\ta_func", " \
 			ta_ACOS.c \
 			ta_AD.c \
 			ta_ADD.c \
@@ -175,7 +175,7 @@ if (PHP_TRADER != "no") {
 			", "trader"
 		);
 
-		ADD_SOURCES("ext/trader/functions", " \
+		ADD_SOURCES(configure_module_dirname + "\\functions", " \
 			trader_acos.c \
 			trader_ad.c \
 			trader_add.c \
