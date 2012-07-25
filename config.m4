@@ -328,7 +328,7 @@ if test "$PHP_TA" != "no"; then
 
   PHP_NEW_EXTENSION(trader, $TRADER_LIB_SOURCES trader.c, $ext_shared)
 
-  PHP_ADD_INCLUDE($ext_srcdir/ta-lib/include)
-  PHP_ADD_INCLUDE($ext_srcdir/ta-lib/src/ta_common)
-  PHP_ADD_INCLUDE($ext_srcdir/functions)
+  PHP_ADD_INCLUDE($ext_builddir/ta-lib/include)
+  PHP_ADD_INCLUDE($ext_builddir/ta-lib/src/ta_common)
+  PHP_ADD_INCLUDE($ext_builddir/functions)
 fi
