@@ -331,4 +331,11 @@ if test "$PHP_TA" != "no"; then
   PHP_ADD_INCLUDE($ext_builddir/ta-lib/include)
   PHP_ADD_INCLUDE($ext_builddir/ta-lib/src/ta_common)
   PHP_ADD_INCLUDE($ext_builddir/functions)
+  PHP_ADD_INCLUDE($ext_srcdir/ta-lib/include)
+  PHP_ADD_INCLUDE($ext_srcdir/ta-lib/src/ta_common)
+  PHP_ADD_INCLUDE($ext_srcdir/functions)
+
+  PHP_ADD_BUILD_DIR($ext_builddir/ta-lib/src/ta_common)
+  PHP_ADD_BUILD_DIR($ext_builddir/ta-lib/src/ta_func)
+  PHP_ADD_BUILD_DIR($ext_builddir/functions)
 fi
