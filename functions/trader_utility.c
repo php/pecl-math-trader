@@ -40,23 +40,54 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
  see more here http://www.ta-lib.org/d_api/ta_setunstableperiod.html */
 PHP_FUNCTION(trader_set_unstable_period)
 {
+	long functionId, timePeriod;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ll", &functionId, &timePeriod) == FAILURE) {
+		RETURN_FALSE
+	}
+
+	if (TA_SetUnstablePeriod((int)functionId, (int)timePeriod) != TA_SUCCESS) {
+		/* XXX error handling here */
+	}
 }
 /* }}} */
 
-/* {{{ proto void trader_get_unstable_period(int functionId) */
+/* {{{ proto int trader_get_unstable_period(int functionId) */
 PHP_FUNCTION(trader_get_unstable_period)
 {
+	long functionId;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &functionId) == FAILURE) {
+		RETURN_FALSE
+	}
+
+	/* XXX error handling here */
+	RETURN_LONG(TA_GetUnstablePeriod((int)functionId))
 }
 /* }}} */
 
 /* {{{ proto void trader_set_compat(compatId) */
 PHP_FUNCTION(trader_set_compat)
 {
+	long compatId;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &compatId) == FAILURE) {
+		RETURN_FALSE
+	}
+
+	if (TA_SetCompatibility((int)compatId) != TA_SUCCESS) {
+		/* XXX error handling here */
+	}
 }
 /* }}} */
 
-/* {{{ proto void trader_get_compat(void)*/
+/* {{{ proto int trader_get_compat(void)*/
 PHP_FUNCTION(trader_get_compat)
 {
+	if (zend_parse_parameters_none() == FAILURE) {
+		RETURN_FALSE
+	}
+
+	RETURN_LONG(TA_GetCompatibility())
 }
 /* }}} */
