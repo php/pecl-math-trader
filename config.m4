@@ -324,7 +324,8 @@ if test "$PHP_TA" != "no"; then
 	functions/trader_var.c \
 	functions/trader_wclprice.c \
 	functions/trader_willr.c \
-	functions/trader_wma.c"
+	functions/trader_wma.c \
+	functions/trader_utility.c"
 
   PHP_NEW_EXTENSION(trader, $TRADER_LIB_SOURCES trader.c, $ext_shared)
 

@@ -1033,6 +1033,22 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_wma, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0,  real, 0)
 	ZEND_ARG_INFO(0,  timePeriod)
 ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_set_unstable_period, 0, 0, 2)
+	ZEND_ARG_INFO(0,  functionId)
+	ZEND_ARG_INFO(0,  unstablePeriod)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_get_unstable_period, 0, 0, 1)
+	ZEND_ARG_INFO(0,  functionId)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_set_compat, 0, 0, 1)
+	ZEND_ARG_INFO(0,  compat)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_get_compat, 0, 0, 0)
+ZEND_END_ARG_INFO();
 /* }}} */
 
 /* {{{ trader_functions[]
@@ -1198,6 +1214,10 @@ const zend_function_entry trader_functions[] = {
 	PHP_FE(trader_wclprice, arg_info_trader_wclprice)
 	PHP_FE(trader_willr, arg_info_trader_willr)
 	PHP_FE(trader_wma, arg_info_trader_wma)
+	PHP_FE(trader_set_unstable_period, arg_info_trader_set_unstable_period)
+	PHP_FE(trader_get_unstable_period, arg_info_trader_get_unstable_period)
+	PHP_FE(trader_set_compat, arg_info_trader_set_compat)
+	PHP_FE(trader_get_compat, arg_info_trader_get_compat)
 	PHP_FE_END
 };
 /* }}} */
@@ -1216,7 +1236,7 @@ zend_module_entry trader_module_entry = {
 	NULL,
 	PHP_MINFO(trader),
 #if ZEND_MODULE_API_NO >= 20010901
-	TRADER_DEFAULT_REAL_PRECISION,
+	TRADER_PHP_VERSION,
 #endif
 	STANDARD_MODULE_PROPERTIES
 };

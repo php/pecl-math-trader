@@ -212,6 +212,11 @@ PHP_FUNCTION(trader_wclprice);
 PHP_FUNCTION(trader_willr);
 PHP_FUNCTION(trader_wma);
 
+PHP_FUNCTION(trader_set_unstable_period);
+PHP_FUNCTION(trader_get_unstable_period);
+PHP_FUNCTION(trader_set_compat);
+PHP_FUNCTION(trader_get_compat);
+
 ZEND_BEGIN_MODULE_GLOBALS(trader)
 	long real_precision;
 ZEND_END_MODULE_GLOBALS(trader)
