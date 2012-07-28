@@ -253,8 +253,8 @@ ZEND_END_MODULE_GLOBALS(trader)
 	array_init(zarr); \
 	do { \
 		int i; \
-		for(i = (outbegidx); i < (outnbelem); i++) { \
-			add_index_double(zarr, i, TRADER_ROUND_DOUBLE(arr[i - (outbegidx)])); \
+		for(i = 0; i < (outnbelem); i++) { \
+			add_index_double(zarr, i + (outbegidx), TRADER_ROUND_DOUBLE(arr[i])); \
 		} \
 	} while(0);
 
