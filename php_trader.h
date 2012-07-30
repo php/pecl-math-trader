@@ -291,9 +291,9 @@ ZEND_END_MODULE_GLOBALS(trader)
 	} while (0);
 
 #define TRADER_DBL_SET_BOUNDABLE(min, max, val) \
-	if (val < min || val > max) { \
+	if (val < (double)min || val > (double)max) { \
 		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%f', expected a value between %f and %f", val, min, max); \
-		val = min; \
+		val = (double)min; \
 	} 
 
 #define TRADER_LONG_SET_BOUNDABLE(min, max, val) \
