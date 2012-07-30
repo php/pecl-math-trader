@@ -11,7 +11,8 @@ trader.real_precision=2
 include "inc/data.php";
 include "inc/func.php";
 
-var_dump(trader_adosc(
+/* don't show notices */
+var_dump(@trader_adosc(
 	get_data("high", $data0),
 	get_data("low", $data0),
 	get_data("close", $data0),
@@ -20,7 +21,7 @@ var_dump(trader_adosc(
 ));
 
 --EXPECT--
-array(226) {
+array(239) {
   [13]=>
   float(850629.11)
   [14]=>
@@ -473,4 +474,30 @@ array(226) {
   float(-828143)
   [238]=>
   float(-2194331.77)
+  [239]=>
+  float(-672364.52)
+  [240]=>
+  float(2110799.7)
+  [241]=>
+  float(5562174.12)
+  [242]=>
+  float(6602044.66)
+  [243]=>
+  float(6517111.69)
+  [244]=>
+  float(8460210.02)
+  [245]=>
+  float(6131504.2)
+  [246]=>
+  float(3420007.12)
+  [247]=>
+  float(3797285.96)
+  [248]=>
+  float(3323814.23)
+  [249]=>
+  float(1868650.02)
+  [250]=>
+  float(-192274.2)
+  [251]=>
+  float(-972559.42)
 }

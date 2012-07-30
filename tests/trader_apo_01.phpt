@@ -13,7 +13,7 @@ $fast_period = 14;
 
 var_dump(trader_apo(get_data("high", $data0), $fast_period));
 --EXPECT--
-array(226) {
+array(239) {
   [13]=>
   float(0.711)
   [14]=>
@@ -466,4 +466,30 @@ array(226) {
   float(6.092)
   [238]=>
   float(1.1)
+  [239]=>
+  float(0.202)
+  [240]=>
+  float(-2.412)
+  [241]=>
+  float(-2.926)
+  [242]=>
+  float(-1.803)
+  [243]=>
+  float(-1.852)
+  [244]=>
+  float(-2.728)
+  [245]=>
+  float(-3.079)
+  [246]=>
+  float(-2.745)
+  [247]=>
+  float(-2.436)
+  [248]=>
+  float(-1.678)
+  [249]=>
+  float(-0.678)
+  [250]=>
+  float(0.026)
+  [251]=>
+  float(-0.299)
 }

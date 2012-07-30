@@ -13,9 +13,9 @@ include "inc/func.php";
 
 $time_period = 14;
 
-var_dump(trader_adxr(get_data("high", $data0), get_data("low", $data0), get_data("close", $data0), $time_period)) . "\n";
+var_dump(@trader_adxr(get_data("high", $data0), get_data("low", $data0), get_data("close", $data0), $time_period)) . "\n";
 --EXPECT--
-array(172) {
+array(212) {
   [40]=>
   float(19.86)
   [41]=>
@@ -360,4 +360,84 @@ array(172) {
   float(32.33)
   [211]=>
   float(32.8)
+  [212]=>
+  float(33.47)
+  [213]=>
+  float(34.09)
+  [214]=>
+  float(33.63)
+  [215]=>
+  float(34.15)
+  [216]=>
+  float(34.17)
+  [217]=>
+  float(34.04)
+  [218]=>
+  float(34.01)
+  [219]=>
+  float(34.05)
+  [220]=>
+  float(34.2)
+  [221]=>
+  float(33.84)
+  [222]=>
+  float(32.85)
+  [223]=>
+  float(32.28)
+  [224]=>
+  float(32.09)
+  [225]=>
+  float(32.3)
+  [226]=>
+  float(31.89)
+  [227]=>
+  float(31.44)
+  [228]=>
+  float(30.64)
+  [229]=>
+  float(29.47)
+  [230]=>
+  float(28.3)
+  [231]=>
+  float(27.67)
+  [232]=>
+  float(27.71)
+  [233]=>
+  float(28.13)
+  [234]=>
+  float(28.74)
+  [235]=>
+  float(28.77)
+  [236]=>
+  float(28.42)
+  [237]=>
+  float(27.79)
+  [238]=>
+  float(27.22)
+  [239]=>
+  float(26.09)
+  [240]=>
+  float(24.85)
+  [241]=>
+  float(23.78)
+  [242]=>
+  float(22.76)
+  [243]=>
+  float(21.69)
+  [244]=>
+  float(20.94)
+  [245]=>
+  float(20.93)
+  [246]=>
+  float(21.21)
+  [247]=>
+  float(21.64)
+  [248]=>
+  float(22.26)
+  [249]=>
+  float(22.26)
+  [250]=>
+  float(21.59)
+  [251]=>
+  float(20.49)
 }

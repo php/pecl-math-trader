@@ -13,7 +13,7 @@ $period = 14;
 
 var_dump(trader_aroonosc(get_data("high", $data0), get_data("low", $data0), $period));
 --EXPECT--
-array(224) {
+array(238) {
   [14]=>
   float(-21.428)
   [15]=>
@@ -462,4 +462,32 @@ array(224) {
   float(100)
   [237]=>
   float(92.857)
+  [238]=>
+  float(71.428)
+  [239]=>
+  float(71.428)
+  [240]=>
+  float(71.428)
+  [241]=>
+  float(50)
+  [242]=>
+  float(50)
+  [243]=>
+  float(50)
+  [244]=>
+  float(42.857)
+  [245]=>
+  float(35.714)
+  [246]=>
+  float(-28.571)
+  [247]=>
+  float(-28.571)
+  [248]=>
+  float(-28.571)
+  [249]=>
+  float(-28.571)
+  [250]=>
+  float(-28.571)
+  [251]=>
+  float(-14.285)
 }
