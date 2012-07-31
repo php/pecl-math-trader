@@ -334,6 +334,7 @@ if (PHP_TRADER != "no") {
 			trader_wclprice.c \
 			trader_willr.c \
 			trader_wma.c \
+			trader_utility.c \
 			", "trader"
 		);
 
