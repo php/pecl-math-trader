@@ -45,8 +45,14 @@ extern zend_module_entry trader_module_entry;
 #ifdef ZTS
 #include "TSRM.h"
 #endif
+#include "ext/standard/php_math.h"
+
+/* XXX need this, but it's not exported anywhere. 
+ 	This will need to be fixed once it was exposed in php_math.h */
+PHPAPI double _php_math_round(double value, int places, int mode);
 
 #define TRADER_DEFAULT_REAL_PRECISION 3
+#define TRADER_DEFAULT_REAL_ROUND_MODE PHP_ROUND_HALF_DOWN
 #define TRADER_PHP_VERSION "0.2.2"
 
 PHP_MINIT_FUNCTION(trader);
@@ -227,7 +233,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 #define TRADER_G(v) (trader_globals.v)
 #endif
 
-#define TRADER_ROUND_DOUBLE(x) ((((x) * pow(10, (int)TRADER_G(real_precision)))) / pow(10.0, (int)TRADER_G(real_precision)))
+#define TRADER_ROUND_DOUBLE(x) _php_math_round((x), (int)TRADER_G(real_precision), TRADER_DEFAULT_REAL_ROUND_MODE)
 #define TRADER_RETURN_DOUBLE(x) RETURN_DOUBLE(TRADER_ROUND_DOUBLE(x))
 
 #define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \
