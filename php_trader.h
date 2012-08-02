@@ -227,7 +227,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 #define TRADER_G(v) (trader_globals.v)
 #endif
 
-#define TRADER_ROUND_DOUBLE(x) ((((x) * pow(10, TRADER_G(real_precision)))) / pow(10.0, TRADER_G(real_precision)))
+#define TRADER_ROUND_DOUBLE(x) ((((x) * pow(10, (int)TRADER_G(real_precision)))) / pow(10.0, (int)TRADER_G(real_precision)))
 #define TRADER_RETURN_DOUBLE(x) RETURN_DOUBLE(TRADER_ROUND_DOUBLE(x))
 
 #define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \
