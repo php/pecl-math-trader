@@ -66,8 +66,8 @@ PHP_FUNCTION(trader_cdl3blackcrows)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_CDL3BLACKCROWS(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_CDL3BLACKCROWS(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inOpen);
 		efree(inHigh);
 		efree(inLow);

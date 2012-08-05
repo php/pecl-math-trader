@@ -60,8 +60,8 @@ PHP_FUNCTION(trader_ma)
 	outReal = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_MA(startIdx, endIdx, inReal, (int)optInTimePeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_MA(startIdx, endIdx, inReal, (int)optInTimePeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outReal);
 

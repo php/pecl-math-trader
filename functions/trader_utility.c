@@ -91,3 +91,16 @@ PHP_FUNCTION(trader_get_compat)
 	RETURN_LONG(TA_GetCompatibility())
 }
 /* }}} */
+
+
+/* {{{ proto int trader_errno(void)*/
+PHP_FUNCTION(trader_errno)
+{
+	if (zend_parse_parameters_none() == FAILURE) {
+		RETURN_FALSE
+	}
+
+	RETURN_LONG(TRADER_G(last_error))
+}
+/* }}} */
+

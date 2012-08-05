@@ -66,8 +66,8 @@ PHP_FUNCTION(trader_stochf)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_STOCHF(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInFastD_Period, (int)optInFastD_MAType, &outBegIdx, &outNBElement, outFastK, outFastD) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_STOCHF(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInFastD_Period, (int)optInFastD_MAType, &outBegIdx, &outNBElement, outFastK, outFastD);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);
 		efree(inClose);

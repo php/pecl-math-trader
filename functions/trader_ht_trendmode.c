@@ -60,8 +60,8 @@ PHP_FUNCTION(trader_ht_trendmode)
 	outInteger = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_HT_TRENDMODE(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outInteger) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_HT_TRENDMODE(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outInteger);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outInteger);
 

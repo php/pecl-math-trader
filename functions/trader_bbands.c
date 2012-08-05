@@ -64,8 +64,8 @@ PHP_FUNCTION(trader_bbands)
 	outRealLowerBand = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outRealUpperBand);
 		efree(outRealMiddleBand);

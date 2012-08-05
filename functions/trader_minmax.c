@@ -61,8 +61,8 @@ PHP_FUNCTION(trader_minmax)
 	outMax = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_MINMAX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outMin, outMax) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_MINMAX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outMin, outMax);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outMin);
 		efree(outMax);

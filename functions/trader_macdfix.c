@@ -62,8 +62,8 @@ PHP_FUNCTION(trader_macdfix)
 	outMACDHist = emalloc(sizeof(double)*(endIdx+1));
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_MACDFIX(startIdx, endIdx, inReal, (int)optInSignalPeriod, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_MACDFIX(startIdx, endIdx, inReal, (int)optInSignalPeriod, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal);
 		efree(outMACD);
 		efree(outMACDSignal);

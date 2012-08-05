@@ -58,8 +58,8 @@ PHP_FUNCTION(MY_FUNC_NAME_LOWER)
 
 	MY_FUNC_ARRAY_PARA_ALLOCS
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (MY_FUNC_NAME(MY_FUNC_PARAMS) != TA_SUCCESS) {
+	TRADER_G(last_error) = MY_FUNC_NAME(MY_FUNC_PARAMS);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		MY_FUNC_ARRAY_PARA_DEALLOCS2
 
 		RETURN_FALSE

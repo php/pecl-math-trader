@@ -69,8 +69,8 @@ PHP_FUNCTION(trader_sarext)
 	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_SAREXT(startIdx, endIdx, inHigh, inLow, optInStartValue, optInOffsetOnReverse, optInAccelerationInitLong, optInAccelerationLong, optInAccelerationMaxLong, optInAccelerationInitShort, optInAccelerationShort, optInAccelerationMaxShort, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_SAREXT(startIdx, endIdx, inHigh, inLow, optInStartValue, optInOffsetOnReverse, optInAccelerationInitLong, optInAccelerationLong, optInAccelerationMaxLong, optInAccelerationInitShort, optInAccelerationShort, optInAccelerationMaxShort, &outBegIdx, &outNBElement, outReal);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);
 		efree(outReal);

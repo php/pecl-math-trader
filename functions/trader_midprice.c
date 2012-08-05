@@ -62,8 +62,8 @@ PHP_FUNCTION(trader_midprice)
 	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
 	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_MIDPRICE(startIdx, endIdx, inHigh, inLow, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_MIDPRICE(startIdx, endIdx, inHigh, inLow, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);
 		efree(outReal);

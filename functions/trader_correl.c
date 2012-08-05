@@ -62,8 +62,8 @@ PHP_FUNCTION(trader_correl)
 	TRADER_DBL_ZARR_TO_ARR(zinReal0, inReal0)
 	TRADER_DBL_ZARR_TO_ARR(zinReal1, inReal1)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_CORREL(startIdx, endIdx, inReal0, inReal1, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_CORREL(startIdx, endIdx, inReal0, inReal1, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal0);
 		efree(inReal1);
 		efree(outReal);

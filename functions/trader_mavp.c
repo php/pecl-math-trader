@@ -63,8 +63,8 @@ PHP_FUNCTION(trader_mavp)
 	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 	TRADER_DBL_ZARR_TO_ARR(zinPeriods, inPeriods)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_MAVP(startIdx, endIdx, inReal, inPeriods, (int)optInMinPeriod, (int)optInMaxPeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_MAVP(startIdx, endIdx, inReal, inPeriods, (int)optInMinPeriod, (int)optInMaxPeriod, (int)optInMAType, &outBegIdx, &outNBElement, outReal);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inReal);
 		efree(inPeriods);
 		efree(outReal);

@@ -66,8 +66,8 @@ PHP_FUNCTION(trader_ad)
 	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 	TRADER_DBL_ZARR_TO_ARR(zinVolume, inVolume)
 
-	/* XXX implement trader_get_last_error for non TA_SUCCESS returns */
-	if (TA_AD(startIdx, endIdx, inHigh, inLow, inClose, inVolume, &outBegIdx, &outNBElement, outReal) != TA_SUCCESS) {
+	TRADER_G(last_error) = TA_AD(startIdx, endIdx, inHigh, inLow, inClose, inVolume, &outBegIdx, &outNBElement, outReal);
+	if (TRADER_G(last_error) != TA_SUCCESS) {
 		efree(inHigh);
 		efree(inLow);
 		efree(inClose);

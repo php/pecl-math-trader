@@ -217,6 +217,7 @@ PHP_FUNCTION(trader_var);
 PHP_FUNCTION(trader_wclprice);
 PHP_FUNCTION(trader_willr);
 PHP_FUNCTION(trader_wma);
+PHP_FUNCTION(trader_errno);
 
 PHP_FUNCTION(trader_set_unstable_period);
 PHP_FUNCTION(trader_get_unstable_period);
