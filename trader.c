@@ -1277,6 +1277,11 @@ PHP_MINIT_FUNCTION(trader)
 
 	REGISTER_INI_ENTRIES();
 
+	if (TA_SUCCESS != TA_Initialize()) {
+		php_error_docref(NULL TSRMLS_CC, E_ERROR, "Trader initialization failed");
+		return FAILURE;
+	}
+
 	REGISTER_LONG_CONSTANT("TRADER_MA_TYPE_SMA", TA_MAType_SMA, CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("TRADER_MA_TYPE_EMA", TA_MAType_EMA, CONST_CS | CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("TRADER_MA_TYPE_WMA", TA_MAType_WMA, CONST_CS | CONST_PERSISTENT);
@@ -1336,6 +1341,11 @@ PHP_MSHUTDOWN_FUNCTION(trader)
 #else
 		php_trader_globals_dtor(&trader_globals TSRMLS_CC);
 #endif
+
+	if (TA_SUCCESS != TA_Shutdown()) {
+		php_error_docref(NULL TSRMLS_CC, E_ERROR, "Trader shutdown failed");
+		return FAILURE;
+	}
 
 	return SUCCESS;
 }

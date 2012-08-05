@@ -225,6 +225,7 @@ PHP_FUNCTION(trader_get_compat);
 
 ZEND_BEGIN_MODULE_GLOBALS(trader)
 	long real_precision;
+	int last_error;
 ZEND_END_MODULE_GLOBALS(trader)
 
 #ifdef ZTS
