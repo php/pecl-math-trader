@@ -10,6 +10,7 @@ include "inc/data.php";
 include "inc/func.php";
 
 var_dump(trader_add(get_data("high", $data1), get_data("low", $data1)));
+
 --EXPECT--
 array(30) {
   [0]=>
@@ -35,7 +36,7 @@ array(30) {
   [10]=>
   float(116.58)
   [11]=>
-  float(116.509)
+  float(116.51)
   [12]=>
   float(116.38)
   [13]=>
@@ -69,7 +70,7 @@ array(30) {
   [27]=>
   float(125.28)
   [28]=>
-  float(124.289)
+  float(124.29)
   [29]=>
   float(123.95)
 }
