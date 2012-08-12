@@ -10,22 +10,22 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2012-07-28</date>
+	<date>2012-08-12</date>
 	<version>
-		<release>0.2.2</release>
+		<release>0.3.0</release>
 		<api>0.4.0</api>
 	</version>
 	<stability>
-		<release>beta</release>
+		<release>stable</release>
 		<api>stable</api>
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- better check for bounded incoming argument values
-		- added Windows compatibility, check for Windows versions under http://windows.php.net/downloads/pecl/releases/trader/ (thanks tomkrawc)
-		- fixed pecl package build on Mac OS X
-		- fixed element number in out arrays
-		- implemented TA-Lib utility functions to set compatibility mode and unstable period
+		- fixed bugs #62720, #62612 large numbers causing rounding errors
+		- added ini trader.real_round_mode, valid values are HALF_UP, HALF_DOWN, HALF_EVEN, HALF_ODD
+		- implemented trader_errno() to get the last TA-Lib error code
+
+		Special thanks to Michael for helping to chase the bugs down, trader is marked stable now.
 	</notes>
 	<contents>
 		<dir name="/">
@@ -371,6 +371,7 @@
 				<file role="test" name="trader_ad_02.phpt" />
 				<file role="test" name="trader_add_01.phpt" />
 				<file role="test" name="trader_adosc_01.phpt" />
+				<file role="test" name="trader_adosc_bug62728.phpt" />
 				<file role="test" name="trader_adx_01.phpt" />
 				<file role="test" name="trader_adxr_01.phpt" />
 				<file role="test" name="trader_apo_01.phpt" />
@@ -384,7 +385,14 @@
 				<file role="test" name="trader_beta_01.phpt" />
 				<file role="test" name="trader_bop_01.phpt" />
 				<file role="test" name="trader_cci_01.phpt" />
+				<file role="test" name="trader_cdl2crows_01.phpt" />
+				<file role="test" name="trader_ini_01.phpt" />
+				<file role="test" name="trader_ini_02.phpt" />
 				<file role="test" name="trader_macd.phpt" />
+				<file role="test" name="trader_obv_bug62712.phpt" />
+				<file role="test" name="trader_sma_bug62720.phpt" />
+				<file role="test" name="trader_t3_01.phpt" />
+				<file role="test" name="trader_t3_bug62698.phpt" />
 			</dir>
 		</dir>
 	</contents>
@@ -402,6 +410,25 @@
 	<providesextension>trader</providesextension>
 	<extsrcrelease/>
 	<changelog>
+		<release>
+			<date>2012-07-28</date>
+			<version>
+				<release>0.2.2</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>beta</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- better check for bounded incoming argument values
+				- added Windows compatibility, check for Windows versions under http://windows.php.net/downloads/pecl/releases/trader/ (thanks tomkrawc)
+				- fixed pecl package build on Mac OS X
+				- fixed element number in out arrays
+				- implemented TA-Lib utility functions to set compatibility mode and unstable period
+			</notes>
+		</release>
 		<release>
 			<date>2012-06-03</date>
 			<version>
