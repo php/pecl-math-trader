@@ -217,8 +217,8 @@ PHP_FUNCTION(trader_var);
 PHP_FUNCTION(trader_wclprice);
 PHP_FUNCTION(trader_willr);
 PHP_FUNCTION(trader_wma);
-PHP_FUNCTION(trader_errno);
 
+PHP_FUNCTION(trader_errno);
 PHP_FUNCTION(trader_set_unstable_period);
 PHP_FUNCTION(trader_get_unstable_period);
 PHP_FUNCTION(trader_set_compat);
@@ -227,6 +227,7 @@ PHP_FUNCTION(trader_get_compat);
 ZEND_BEGIN_MODULE_GLOBALS(trader)
 	long real_precision;
 	int last_error;
+	int real_round_mode;
 ZEND_END_MODULE_GLOBALS(trader)
 
 #ifdef ZTS
@@ -235,7 +236,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 #define TRADER_G(v) (trader_globals.v)
 #endif
 
-#define TRADER_ROUND_DOUBLE(x) _php_math_round((x), (int)TRADER_G(real_precision), TRADER_DEFAULT_REAL_ROUND_MODE)
+#define TRADER_ROUND_DOUBLE(x) _php_math_round((x), (int)TRADER_G(real_precision), TRADER_G(real_round_mode))
 #define TRADER_RETURN_DOUBLE(x) RETURN_DOUBLE(TRADER_ROUND_DOUBLE(x))
 
 #define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \

@@ -1252,8 +1252,27 @@ ZEND_GET_MODULE(trader)
 
 /* {{{ PHP_INI
  */
+static PHP_INI_MH(OnUpdateTraderRealRoundMode)
+{
+	if ((new_value_length+1 >= sizeof("HALF_UP")) && (strncasecmp(new_value, "HALF_UP", sizeof("HALF_UP")) == 0)) {
+		TRADER_G(real_round_mode) = PHP_ROUND_HALF_UP;
+	} else if ((new_value_length+1 >= sizeof("HALF_DOWN")) && (strncasecmp(new_value, "HALF_DOWN", sizeof("HALF_DOWN")) == 0)) {
+		TRADER_G(real_round_mode) = PHP_ROUND_HALF_DOWN;
+	} else if ((new_value_length+1 >= sizeof("HALF_EVEN")) && (strncasecmp(new_value, "HALF_EVEN", sizeof("HALF_EVEN")) == 0)) {
+		TRADER_G(real_round_mode) = PHP_ROUND_HALF_EVEN;
+	} else if ((new_value_length+1 >= sizeof("HALF_ODD")) && (strncasecmp(new_value, "HALF_ODD", sizeof("HALF_ODD")) == 0)) {
+		TRADER_G(real_round_mode) = PHP_ROUND_HALF_ODD;
+	} else {
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid value '%s' for trader.real_round_mode", new_value);
+		return FAILURE;
+	}
+
+	return SUCCESS;
+}
+
 PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("trader.real_precision", "3", PHP_INI_ALL, OnUpdateLong, real_precision, zend_trader_globals, trader_globals)
+    PHP_INI_ENTRY("trader.real_round_mode", "HALF_DOWN", PHP_INI_ALL, OnUpdateTraderRealRoundMode)
 PHP_INI_END()
 /* }}} */ 
 
@@ -1263,6 +1282,7 @@ static void php_trader_globals_ctor(zend_trader_globals *trader_globals)
 {
 	trader_globals->real_precision = TRADER_DEFAULT_REAL_PRECISION;
 	trader_globals->last_error = TA_SUCCESS;
+	trader_globals->real_round_mode = TRADER_DEFAULT_REAL_ROUND_MODE;
 }
 /* }}} */
 
