@@ -385,7 +385,6 @@
 				<file role="test" name="trader_beta_01.phpt" />
 				<file role="test" name="trader_bop_01.phpt" />
 				<file role="test" name="trader_cci_01.phpt" />
-				<file role="test" name="trader_cdl2crows_01.phpt" />
 				<file role="test" name="trader_ini_01.phpt" />
 				<file role="test" name="trader_ini_02.phpt" />
 				<file role="test" name="trader_macd.phpt" />
