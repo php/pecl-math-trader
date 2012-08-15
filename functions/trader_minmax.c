@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Lowest and highest values over a specified period */
 PHP_FUNCTION(trader_minmax)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal, *zoutMin;
 	double *inReal, *outMin, *outMax;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -57,24 +58,33 @@ PHP_FUNCTION(trader_minmax)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outMin = emalloc(sizeof(double)*(endIdx+1));
-	outMax = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_MINMAX_Lookback((int)optInTimePeriod);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outMin = emalloc(sizeof(double)*optimalOutAlloc);
+		outMax = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_MINMAX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outMin, outMax);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_MINMAX(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outMin, outMax);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outMin);
+			efree(outMax);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET2(outMin, outMax, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outMin);
 		efree(outMax);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET2(outMin, outMax, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outMin);
-	efree(outMax);
 }
 /* }}} */
 

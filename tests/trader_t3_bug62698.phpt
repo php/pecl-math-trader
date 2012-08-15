@@ -25,5 +25,4 @@ $close = array ( 568.1, 589.58, 585.56, 585.57,
 var_dump(trader_t3($close, 20));
 
 --EXPECT--
-array(0) {
-}
+bool(false)

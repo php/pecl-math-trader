@@ -106,8 +106,8 @@ foreach ($func as $name => $defs) {
 			$func_arr_deallocs[] = "efree({$p['name']});";
 		}
 	}
-	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS1', implode("\n\t", $func_arr_deallocs), $tpl);
-	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS2', implode("\n\t\t", $func_arr_deallocs), $tpl);
+	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS1', implode("\n\t\t", $func_arr_deallocs), $tpl);
+	$tpl = str_replace('MY_FUNC_ARRAY_PARA_DEALLOCS2', implode("\n\t\t\t", $func_arr_deallocs), $tpl);
 
 
 	$func_arr_defs = array();
@@ -267,11 +267,11 @@ foreach ($func as $name => $defs) {
 		$item = "TRADER_DBL_ZARR_TO_ARR(z$item, $item)";
 	}
 	unset($item);
-	$func_arr_allocs_str = '';
+	$func_arr_allocs_s = array();
 	foreach($rets as $ret) {
-		$func_arr_allocs_str .= "$ret = emalloc(sizeof(double)*(endIdx+1));\n\t";
+		$func_arr_allocs_s[] = "$ret = emalloc(sizeof(double)*optimalOutAlloc);";
 	}
-	$func_arr_allocs_str .= implode("\n\t", $func_arr_allocs);
+	$func_arr_allocs_str = implode("\n\t\t", $func_arr_allocs_s) . "\n\t\t" . implode("\n\t\t", $func_arr_allocs);
 	$tpl = str_replace('MY_FUNC_ARRAY_PARA_ALLOCS', $func_arr_allocs_str, $tpl);
 
 	foreach ($func_min_end_idx_arr as &$item) {
@@ -319,6 +319,20 @@ foreach ($func as $name => $defs) {
 		}
 	}
 	$tpl = str_replace('MY_FUNC_CHECK_MA_TYPES', implode("\n", $ma_type_checks), $tpl);
+
+	$lb = array();
+	foreach ($defs['params'] as $p) {
+		if ($p['opt']) {
+			/* usually time periods or ma types which are long*/
+			$cast = in_array($p['type'], array('TA_MAType', 'int')) ? '(int)' : '';
+
+			$lb[] = $cast . $p['name'];
+		}
+	}
+	$opt_alloc = array();
+	$opt_alloc[] = 'lookback = ' . $name . '_Lookback(' . implode(', ', $lb) . ');';
+	$opt_alloc[] = "\toptimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);";
+	$tpl = str_replace('MY_FUNC_OPTIMAL_OUT_ALLOC', implode("\n", $opt_alloc) , $tpl);
 
 	file_put_contents('functions/' . $php_func . '.c', $tpl);
 	//break;

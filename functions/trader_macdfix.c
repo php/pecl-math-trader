@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Moving Average Convergence/Divergence Fix 12/26 */
 PHP_FUNCTION(trader_macdfix)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal, *zoutMACD, *zoutMACDSignal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -57,27 +58,36 @@ PHP_FUNCTION(trader_macdfix)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outMACD = emalloc(sizeof(double)*(endIdx+1));
-	outMACDSignal = emalloc(sizeof(double)*(endIdx+1));
-	outMACDHist = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_MACDFIX_Lookback((int)optInSignalPeriod);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outMACD = emalloc(sizeof(double)*optimalOutAlloc);
+		outMACDSignal = emalloc(sizeof(double)*optimalOutAlloc);
+		outMACDHist = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_MACDFIX(startIdx, endIdx, inReal, (int)optInSignalPeriod, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_MACDFIX(startIdx, endIdx, inReal, (int)optInSignalPeriod, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outMACD);
+			efree(outMACDSignal);
+			efree(outMACDHist);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outMACD);
 		efree(outMACDSignal);
 		efree(outMACDHist);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outMACD);
-	efree(outMACDSignal);
-	efree(outMACDHist);
 }
 /* }}} */
 

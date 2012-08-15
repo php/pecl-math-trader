@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Rising/Falling Three Methods */
 PHP_FUNCTION(trader_cdlrisefall3methods)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinOpen, *zinHigh, *zinLow, *zinClose;
 	double *inOpen, *inHigh, *inLow, *inClose;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0, *outInteger = 0;
@@ -60,30 +61,39 @@ PHP_FUNCTION(trader_cdlrisefall3methods)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outInteger = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinOpen, inOpen)
-	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
-	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
-	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
+	lookback = TA_CDLRISEFALL3METHODS_Lookback();
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outInteger = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinOpen, inOpen)
+		TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
+		TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
+		TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
-	TRADER_G(last_error) = TA_CDLRISEFALL3METHODS(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_CDLRISEFALL3METHODS(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inOpen);
+			efree(inHigh);
+			efree(inLow);
+			efree(inClose);
+			efree(outInteger);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inOpen);
 		efree(inHigh);
 		efree(inLow);
 		efree(inClose);
 		efree(outInteger);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inOpen);
-	efree(inHigh);
-	efree(inLow);
-	efree(inClose);
-	efree(outInteger);
 }
 /* }}} */
 

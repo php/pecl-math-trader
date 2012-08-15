@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	MESA Adaptive Moving Average */
 PHP_FUNCTION(trader_mama)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal, *zoutMAMA;
 	double *inReal, *outMAMA, *outFAMA;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -58,24 +59,33 @@ PHP_FUNCTION(trader_mama)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outMAMA = emalloc(sizeof(double)*(endIdx+1));
-	outFAMA = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_MAMA_Lookback(optInFastLimit, optInSlowLimit);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outMAMA = emalloc(sizeof(double)*optimalOutAlloc);
+		outFAMA = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_MAMA(startIdx, endIdx, inReal, optInFastLimit, optInSlowLimit, &outBegIdx, &outNBElement, outMAMA, outFAMA);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_MAMA(startIdx, endIdx, inReal, optInFastLimit, optInSlowLimit, &outBegIdx, &outNBElement, outMAMA, outFAMA);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outMAMA);
+			efree(outFAMA);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET2(outMAMA, outFAMA, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outMAMA);
 		efree(outFAMA);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET2(outMAMA, outFAMA, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outMAMA);
-	efree(outFAMA);
 }
 /* }}} */
 

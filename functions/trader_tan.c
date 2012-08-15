@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Vector Trigonometric Tan */
 PHP_FUNCTION(trader_tan)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal;
 	double *inReal, *outReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -57,21 +58,30 @@ PHP_FUNCTION(trader_tan)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outReal = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_TAN_Lookback();
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outReal = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_TAN(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outReal);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_TAN(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outReal);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outReal);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outReal);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outReal);
 }
 /* }}} */
 

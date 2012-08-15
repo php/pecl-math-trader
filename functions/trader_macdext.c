@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	MACD with controllable MA type */
 PHP_FUNCTION(trader_macdext)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal, *zoutMACD, *zoutMACDSignal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -61,27 +62,36 @@ TRADER_CHECK_MA_TYPE(optInSignalMAType)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outMACD = emalloc(sizeof(double)*(endIdx+1));
-	outMACDSignal = emalloc(sizeof(double)*(endIdx+1));
-	outMACDHist = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_MACDEXT_Lookback((int)optInFastPeriod, (int)optInFastMAType, (int)optInSlowPeriod, (int)optInSlowMAType, (int)optInSignalPeriod, (int)optInSignalMAType);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outMACD = emalloc(sizeof(double)*optimalOutAlloc);
+		outMACDSignal = emalloc(sizeof(double)*optimalOutAlloc);
+		outMACDHist = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_MACDEXT(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInFastMAType, (int)optInSlowPeriod, (int)optInSlowMAType, (int)optInSignalPeriod, (int)optInSignalMAType, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_MACDEXT(startIdx, endIdx, inReal, (int)optInFastPeriod, (int)optInFastMAType, (int)optInSlowPeriod, (int)optInSlowMAType, (int)optInSignalPeriod, (int)optInSignalMAType, &outBegIdx, &outNBElement, outMACD, outMACDSignal, outMACDHist);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outMACD);
+			efree(outMACDSignal);
+			efree(outMACDHist);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outMACD);
 		efree(outMACDSignal);
 		efree(outMACDHist);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outMACD);
-	efree(outMACDSignal);
-	efree(outMACDHist);
 }
 /* }}} */
 

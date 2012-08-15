@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Bollinger Bands */
 PHP_FUNCTION(trader_bbands)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal, *zoutRealUpperBand, *zoutRealMiddleBand;
 	double *inReal, *outRealUpperBand, *outRealMiddleBand, *outRealLowerBand;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -59,27 +60,36 @@ PHP_FUNCTION(trader_bbands)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outRealUpperBand = emalloc(sizeof(double)*(endIdx+1));
-	outRealMiddleBand = emalloc(sizeof(double)*(endIdx+1));
-	outRealLowerBand = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_BBANDS_Lookback((int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outRealUpperBand = emalloc(sizeof(double)*optimalOutAlloc);
+		outRealMiddleBand = emalloc(sizeof(double)*optimalOutAlloc);
+		outRealLowerBand = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_BBANDS(startIdx, endIdx, inReal, (int)optInTimePeriod, optInNbDevUp, optInNbDevDn, (int)optInMAType, &outBegIdx, &outNBElement, outRealUpperBand, outRealMiddleBand, outRealLowerBand);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outRealUpperBand);
+			efree(outRealMiddleBand);
+			efree(outRealLowerBand);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outRealUpperBand);
 		efree(outRealMiddleBand);
 		efree(outRealLowerBand);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET3(outRealUpperBand, outRealMiddleBand, outRealLowerBand, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outRealUpperBand);
-	efree(outRealMiddleBand);
-	efree(outRealLowerBand);
 }
 /* }}} */
 

@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Aroon */
 PHP_FUNCTION(trader_aroon)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinHigh, *zinLow, *zoutAroonDown;
 	double *inHigh, *inLow, *outAroonDown, *outAroonUp;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -58,27 +59,36 @@ PHP_FUNCTION(trader_aroon)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outAroonDown = emalloc(sizeof(double)*(endIdx+1));
-	outAroonUp = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
-	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
+	lookback = TA_AROON_Lookback((int)optInTimePeriod);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outAroonDown = emalloc(sizeof(double)*optimalOutAlloc);
+		outAroonUp = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
+		TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
-	TRADER_G(last_error) = TA_AROON(startIdx, endIdx, inHigh, inLow, (int)optInTimePeriod, &outBegIdx, &outNBElement, outAroonDown, outAroonUp);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_AROON(startIdx, endIdx, inHigh, inLow, (int)optInTimePeriod, &outBegIdx, &outNBElement, outAroonDown, outAroonUp);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inHigh);
+			efree(inLow);
+			efree(outAroonDown);
+			efree(outAroonUp);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET2(outAroonDown, outAroonUp, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inHigh);
 		efree(inLow);
 		efree(outAroonDown);
 		efree(outAroonUp);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET2(outAroonDown, outAroonUp, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inHigh);
-	efree(inLow);
-	efree(outAroonDown);
-	efree(outAroonUp);
 }
 /* }}} */
 

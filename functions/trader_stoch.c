@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Stochastic */
 PHP_FUNCTION(trader_stoch)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinHigh, *zinLow, *zinClose, *zoutSlowK;
 	double *inHigh, *inLow, *inClose, *outSlowK, *outSlowD;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -62,30 +63,39 @@ TRADER_CHECK_MA_TYPE(optInSlowD_MAType)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outSlowK = emalloc(sizeof(double)*(endIdx+1));
-	outSlowD = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
-	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
-	TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
+	lookback = TA_STOCH_Lookback((int)optInFastK_Period, (int)optInSlowK_Period, (int)optInSlowK_MAType, (int)optInSlowD_Period, (int)optInSlowD_MAType);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outSlowK = emalloc(sizeof(double)*optimalOutAlloc);
+		outSlowD = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
+		TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
+		TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
 
-	TRADER_G(last_error) = TA_STOCH(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInSlowK_Period, (int)optInSlowK_MAType, (int)optInSlowD_Period, (int)optInSlowD_MAType, &outBegIdx, &outNBElement, outSlowK, outSlowD);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_STOCH(startIdx, endIdx, inHigh, inLow, inClose, (int)optInFastK_Period, (int)optInSlowK_Period, (int)optInSlowK_MAType, (int)optInSlowD_Period, (int)optInSlowD_MAType, &outBegIdx, &outNBElement, outSlowK, outSlowD);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inHigh);
+			efree(inLow);
+			efree(inClose);
+			efree(outSlowK);
+			efree(outSlowD);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inHigh);
 		efree(inLow);
 		efree(inClose);
 		efree(outSlowK);
 		efree(outSlowD);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET2(outSlowK, outSlowD, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inHigh);
-	efree(inLow);
-	efree(inClose);
-	efree(outSlowK);
-	efree(outSlowD);
 }
 /* }}} */
 

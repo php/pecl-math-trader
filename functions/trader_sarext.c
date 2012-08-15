@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Parabolic SAR - Extended */
 PHP_FUNCTION(trader_sarext)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinHigh, *zinLow;
 	double *inHigh, *inLow, *outReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -65,24 +66,33 @@ PHP_FUNCTION(trader_sarext)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outReal = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
-	TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
+	lookback = TA_SAREXT_Lookback(optInStartValue, optInOffsetOnReverse, optInAccelerationInitLong, optInAccelerationLong, optInAccelerationMaxLong, optInAccelerationInitShort, optInAccelerationShort, optInAccelerationMaxShort);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outReal = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
+		TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
 
-	TRADER_G(last_error) = TA_SAREXT(startIdx, endIdx, inHigh, inLow, optInStartValue, optInOffsetOnReverse, optInAccelerationInitLong, optInAccelerationLong, optInAccelerationMaxLong, optInAccelerationInitShort, optInAccelerationShort, optInAccelerationMaxShort, &outBegIdx, &outNBElement, outReal);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_SAREXT(startIdx, endIdx, inHigh, inLow, optInStartValue, optInOffsetOnReverse, optInAccelerationInitLong, optInAccelerationLong, optInAccelerationMaxLong, optInAccelerationInitShort, optInAccelerationShort, optInAccelerationMaxShort, &outBegIdx, &outNBElement, outReal);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inHigh);
+			efree(inLow);
+			efree(outReal);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inHigh);
 		efree(inLow);
 		efree(outReal);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inHigh);
-	efree(inLow);
-	efree(outReal);
 }
 /* }}} */
 

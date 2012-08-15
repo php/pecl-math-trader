@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	MY_FUNC_DESC */
 PHP_FUNCTION(MY_FUNC_NAME_LOWER)
 {
+	int optimalOutAlloc, lookback;
 	MY_IN_PHP_ARRAY_DEFS
 	MY_FUNC_ARRAY_PARA_DEFS
 	MY_FUNC_INT_PARA_DEFS
@@ -56,18 +57,26 @@ PHP_FUNCTION(MY_FUNC_NAME_LOWER)
 	MY_FUNC_SET_MIN_END_IDX
 	MY_FUNC_SET_START_IDX
 
-	MY_FUNC_ARRAY_PARA_ALLOCS
+	MY_FUNC_OPTIMAL_OUT_ALLOC
+	if (optimalOutAlloc > 0) {
+		MY_FUNC_ARRAY_PARA_ALLOCS
 
-	TRADER_G(last_error) = MY_FUNC_NAME(MY_FUNC_PARAMS);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
-		MY_FUNC_ARRAY_PARA_DEALLOCS2
+		TRADER_G(last_error) = MY_FUNC_NAME(MY_FUNC_PARAMS);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			MY_FUNC_ARRAY_PARA_DEALLOCS2
 
+			RETURN_FALSE
+		}
+
+		MY_PHP_MAKE_RETURN
+
+		MY_FUNC_ARRAY_PARA_DEALLOCS1
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	MY_PHP_MAKE_RETURN
-
-	MY_FUNC_ARRAY_PARA_DEALLOCS1
 }
 /* }}} */
 

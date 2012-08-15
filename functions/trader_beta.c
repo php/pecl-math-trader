@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Beta */
 PHP_FUNCTION(trader_beta)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal0, *zinReal1;
 	double *inReal0, *inReal1, *outReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -58,24 +59,33 @@ PHP_FUNCTION(trader_beta)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outReal = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal0, inReal0)
-	TRADER_DBL_ZARR_TO_ARR(zinReal1, inReal1)
+	lookback = TA_BETA_Lookback((int)optInTimePeriod);
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outReal = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal0, inReal0)
+		TRADER_DBL_ZARR_TO_ARR(zinReal1, inReal1)
 
-	TRADER_G(last_error) = TA_BETA(startIdx, endIdx, inReal0, inReal1, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_BETA(startIdx, endIdx, inReal0, inReal1, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal0);
+			efree(inReal1);
+			efree(outReal);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal0);
 		efree(inReal1);
 		efree(outReal);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal0);
-	efree(inReal1);
-	efree(outReal);
 }
 /* }}} */
 

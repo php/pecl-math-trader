@@ -40,6 +40,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 	Hilbert Transform - Phasor Components */
 PHP_FUNCTION(trader_ht_phasor)
 {
+	int optimalOutAlloc, lookback;
 	zval *zinReal, *zoutInPhase;
 	double *inReal, *outInPhase, *outQuadrature;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
@@ -57,24 +58,33 @@ PHP_FUNCTION(trader_ht_phasor)
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	outInPhase = emalloc(sizeof(double)*(endIdx+1));
-	outQuadrature = emalloc(sizeof(double)*(endIdx+1));
-	TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
+	lookback = TA_HT_PHASOR_Lookback();
+	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
+	if (optimalOutAlloc > 0) {
+		outInPhase = emalloc(sizeof(double)*optimalOutAlloc);
+		outQuadrature = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-	TRADER_G(last_error) = TA_HT_PHASOR(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outInPhase, outQuadrature);
-	if (TRADER_G(last_error) != TA_SUCCESS) {
+		TRADER_G(last_error) = TA_HT_PHASOR(startIdx, endIdx, inReal, &outBegIdx, &outNBElement, outInPhase, outQuadrature);
+		if (TRADER_G(last_error) != TA_SUCCESS) {
+			efree(inReal);
+			efree(outInPhase);
+			efree(outQuadrature);
+
+			RETURN_FALSE
+		}
+
+		TRADER_DBL_ARR_TO_ZRET2(outInPhase, outQuadrature, return_value, endIdx, outBegIdx, outNBElement)
+
 		efree(inReal);
 		efree(outInPhase);
 		efree(outQuadrature);
-
+	} else {
+		/* The current input args combination would cause TA-Lib to produce
+			 zero output, don't bother making any allocs or calls. */
+		TRADER_G(last_error) = TA_BAD_PARAM;
 		RETURN_FALSE
 	}
-
-	TRADER_DBL_ARR_TO_ZRET2(outInPhase, outQuadrature, return_value, endIdx, outBegIdx, outNBElement)
-
-	efree(inReal);
-	efree(outInPhase);
-	efree(outQuadrature);
 }
 /* }}} */
 
