@@ -3,7 +3,7 @@
 	<name>trader</name>
 	<channel>pecl.php.net</channel>
 	<summary>Technical Analysis for traders.</summary>
-	<description>The trader extension is dedicated for trading software developers requiring to perform technical analysis of financial market data.</description>
+	<description>The trader extension is a free open source stock library based on TA-Lib. It's dedicated to trading software developers requiring to perform technical analysis of financial market data. Alongside many indicators like ADX, MACD, RSI, Stochastic, TRIX the candlestick pattern recognition and several vector arithmetic and algebraic functions are present. </description>
 	<lead>
 		<name>Anatoliy Belsky</name>
 		<user>ab</user>
@@ -12,7 +12,7 @@
 	</lead>
 	<date>2012-08-12</date>
 	<version>
-		<release>0.3.0</release>
+		<release>0.3.1</release>
 		<api>0.4.0</api>
 	</version>
 	<stability>
@@ -21,11 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- fixed bugs #62720, #62612 large numbers causing rounding errors
-		- added ini trader.real_round_mode, valid values are HALF_UP, HALF_DOWN, HALF_EVEN, HALF_ODD
-		- implemented trader_errno() to get the last TA-Lib error code
-
-		Special thanks to Michael for helping to chase the bugs down, trader is marked stable now.
+		- Optimized output data allocation
 	</notes>
 	<contents>
 		<dir name="/">
@@ -409,6 +405,25 @@
 	<providesextension>trader</providesextension>
 	<extsrcrelease/>
 	<changelog>
+		<release>
+			<date>2012-08-12</date>
+			<version>
+				<release>0.3.0</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- fixed bugs #62720, #62612 large numbers causing rounding errors
+				- added ini trader.real_round_mode, valid values are HALF_UP, HALF_DOWN, HALF_EVEN, HALF_ODD
+				- implemented trader_errno() to get the last TA-Lib error code
+
+				Special thanks to Michael for helping to chase the bugs down, trader is marked stable now.
+			</notes>
+		</release>
 		<release>
 			<date>2012-07-28</date>
 			<version>
