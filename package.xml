@@ -22,6 +22,7 @@
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
 		- Optimized output data allocation
+		- Fixed bug #62832 PHP_FE_END undefined on PHP lower than 5.3.10
 	</notes>
 	<contents>
 		<dir name="/">
