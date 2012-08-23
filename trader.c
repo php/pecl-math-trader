@@ -45,8 +45,8 @@ ZEND_DECLARE_MODULE_GLOBALS(trader)
 /* True global resources - no need for thread safety here */
 static int le_trader;
 
-#ifndef ZEND_FE_END
-#define ZEND_FE_END { NULL, NULL, NULL, 0, 0 }
+#ifndef PHP_FE_END
+#define PHP_FE_END { NULL, NULL, NULL, 0, 0 }
 #endif
 
 /* {{{ trader_arginfo */
