@@ -1244,7 +1244,7 @@ zend_module_entry trader_module_entry = {
 	NULL,
 	PHP_MINFO(trader),
 #if ZEND_MODULE_API_NO >= 20010901
-	TRADER_PHP_VERSION,
+	PHP_TRADER_VERSION,
 #endif
 	STANDARD_MODULE_PROPERTIES
 };
@@ -1406,7 +1406,7 @@ PHP_MINFO_FUNCTION(trader)
 {
 	php_info_print_table_start();
 	php_info_print_table_header(2, "Trader Technical Analysis Library Support", "enabled");
-	php_info_print_table_header(2, "Version", TRADER_PHP_VERSION);
+	php_info_print_table_header(2, "Version", PHP_TRADER_VERSION);
 	php_info_print_table_header(2, "TA-Lib version", TA_GetVersionString());
 	php_info_print_table_end();
 
