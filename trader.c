@@ -1258,16 +1258,24 @@ ZEND_GET_MODULE(trader)
  */
 static PHP_INI_MH(OnUpdateTraderRealRoundMode)
 {
-	if ((new_value_length+1 >= sizeof("HALF_UP")) && (strncasecmp(new_value, "HALF_UP", sizeof("HALF_UP")) == 0)) {
+#if PHP_MAJOR_VERSION >= 7
+	size_t new_len = new_value->len;
+	char *new_val = new_value->val;
+#else
+	int new_len = new_value_length+1;
+	char *new_val = new_value;
+#endif
+
+	if ((new_len >= sizeof("HALF_UP")) && (strncasecmp(new_val, "HALF_UP", sizeof("HALF_UP")) == 0)) {
 		TRADER_G(real_round_mode) = PHP_ROUND_HALF_UP;
-	} else if ((new_value_length+1 >= sizeof("HALF_DOWN")) && (strncasecmp(new_value, "HALF_DOWN", sizeof("HALF_DOWN")) == 0)) {
+	} else if ((new_len >= sizeof("HALF_DOWN")) && (strncasecmp(new_val, "HALF_DOWN", sizeof("HALF_DOWN")) == 0)) {
 		TRADER_G(real_round_mode) = PHP_ROUND_HALF_DOWN;
-	} else if ((new_value_length+1 >= sizeof("HALF_EVEN")) && (strncasecmp(new_value, "HALF_EVEN", sizeof("HALF_EVEN")) == 0)) {
+	} else if ((new_len >= sizeof("HALF_EVEN")) && (strncasecmp(new_val, "HALF_EVEN", sizeof("HALF_EVEN")) == 0)) {
 		TRADER_G(real_round_mode) = PHP_ROUND_HALF_EVEN;
-	} else if ((new_value_length+1 >= sizeof("HALF_ODD")) && (strncasecmp(new_value, "HALF_ODD", sizeof("HALF_ODD")) == 0)) {
+	} else if ((new_len >= sizeof("HALF_ODD")) && (strncasecmp(new_val, "HALF_ODD", sizeof("HALF_ODD")) == 0)) {
 		TRADER_G(real_round_mode) = PHP_ROUND_HALF_ODD;
 	} else {
-		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid value '%s' for trader.real_round_mode", new_value);
+		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid value '%s' for trader.real_round_mode", new_val);
 		return FAILURE;
 	}
 
