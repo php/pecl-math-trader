@@ -1259,7 +1259,7 @@ ZEND_GET_MODULE(trader)
 static PHP_INI_MH(OnUpdateTraderRealRoundMode)
 {
 #if PHP_MAJOR_VERSION >= 7
-	size_t new_len = new_value->len;
+	size_t new_len = new_value->len+1;
 	char *new_val = new_value->val;
 #else
 	int new_len = new_value_length+1;

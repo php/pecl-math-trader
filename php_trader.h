@@ -47,6 +47,10 @@ extern zend_module_entry trader_module_entry;
 #endif
 #include "ext/standard/php_math.h"
 
+#if PHP_MAJOR_VERSION < 7 
+typedef long zend_long;
+#endif
+
 /* XXX need this, but it's not exported anywhere. 
  	This will need to be fixed once it was exposed in php_math.h */
 PHPAPI double _php_math_round(double value, int places, int mode);
@@ -225,7 +229,7 @@ PHP_FUNCTION(trader_set_compat);
 PHP_FUNCTION(trader_get_compat);
 
 ZEND_BEGIN_MODULE_GLOBALS(trader)
-	long real_precision;
+	zend_long real_precision;
 	int last_error;
 	int real_round_mode;
 ZEND_END_MODULE_GLOBALS(trader)
@@ -239,6 +243,21 @@ ZEND_END_MODULE_GLOBALS(trader)
 #define TRADER_ROUND_DOUBLE(x) _php_math_round((x), (int)TRADER_G(real_precision), TRADER_G(real_round_mode))
 #define TRADER_RETURN_DOUBLE(x) RETURN_DOUBLE(TRADER_ROUND_DOUBLE(x))
 
+#if PHP_MAJOR_VERSION >= 7
+#define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \
+		do { \
+			zval *data; \
+			size_t i = 0; \
+\
+			arr = emalloc(sizeof(double)*(zend_hash_num_elements(Z_ARRVAL_P(zarr))+1)); \
+\
+			ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(zarr), data) { \
+				convert_to_double(data); \
+				arr[i] = Z_DVAL_P(data); \
+				i++; \
+			} ZEND_HASH_FOREACH_END(); \
+		} while (0);
+#else
 #define TRADER_DBL_ZARR_TO_ARR(zarr, arr) \
 		do { \
 			HashTable *ht = Z_ARRVAL_P(zarr); \
@@ -255,6 +274,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 				arr[i] = Z_DVAL_PP(data); \
 			} \
 		} while (0);
+#endif
 
 /* XXX fix this because if function call passed it would cause multiple functions calls */
 #define TRADER_MIN_INT(x, y) ((int)(x) < (int)(y) ? (int)(x) : (int)(y))
@@ -263,6 +283,40 @@ ZEND_END_MODULE_GLOBALS(trader)
 #define TRADER_SET_MIN_INT3(t, x, y, z) t = TRADER_MIN_INT(x, TRADER_MIN_INT(y, z));
 #define TRADER_SET_MIN_INT4(t, x, y, z, k) t = TRADER_MIN_INT(x, TRADER_MIN_INT(y, TRADER_MIN_INT(z, k)));
 
+#if PHP_MAJOR_VERSION >= 7
+#define TRADER_DBL_ARR_TO_ZRET1(arr, zarr, endidx, outbegidx, outnbelem) \
+	array_init(zarr); \
+	do { \
+		size_t i; \
+		for(i = 0; i < (outnbelem); i++) { \
+			add_index_double(zarr, i + (outbegidx), TRADER_ROUND_DOUBLE(arr[i])); \
+		} \
+	} while(0);
+
+/* XXX wouldn't it go out of the scope ??? */
+#define TRADER_DBL_ARR_TO_ZRET2(arr1, arr2, zarr, endidx, outbegidx, outnbelem) \
+	array_init(zarr); \
+	do { \
+		zval zarr1, zarr2; \
+		TRADER_DBL_ARR_TO_ZRET1(arr1, &zarr1, endidx, outbegidx, outnbelem) \
+		TRADER_DBL_ARR_TO_ZRET1(arr2, &zarr2, endidx, outbegidx, outnbelem) \
+		add_next_index_zval(zarr, &zarr1); \
+		add_next_index_zval(zarr, &zarr2); \
+	} while (0);
+
+#define TRADER_DBL_ARR_TO_ZRET3(arr1, arr2, arr3, zarr, endidx, outbegidx, outnbelem) \
+	array_init(zarr); \
+	do { \
+		zval zarr1, zarr2, zarr3; \
+		TRADER_DBL_ARR_TO_ZRET1(arr1, &zarr1, endidx, outbegidx, outnbelem) \
+		TRADER_DBL_ARR_TO_ZRET1(arr2, &zarr2, endidx, outbegidx, outnbelem) \
+		TRADER_DBL_ARR_TO_ZRET1(arr3, &zarr3, endidx, outbegidx, outnbelem) \
+		add_next_index_zval(zarr, &zarr1); \
+		add_next_index_zval(zarr, &zarr2); \
+		add_next_index_zval(zarr, &zarr3); \
+	} while (0);
+
+#else
 #define TRADER_DBL_ARR_TO_ZRET1(arr, zarr, endidx, outbegidx, outnbelem) \
 	array_init(zarr); \
 	do { \
@@ -299,6 +353,8 @@ ZEND_END_MODULE_GLOBALS(trader)
 		add_next_index_zval(zarr, zarr3); \
 	} while (0);
 
+#endif
+
 #define TRADER_DBL_SET_BOUNDABLE(min, max, val) \
 	if (val < (double)min || val > (double)max) { \
 		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%f', expected a value between %f and %f", val, min, max); \
@@ -306,9 +362,9 @@ ZEND_END_MODULE_GLOBALS(trader)
 	} 
 
 #define TRADER_LONG_SET_BOUNDABLE(min, max, val) \
-	if (val < (long)min || val > (long)max) { \
+	if (val < (zend_long)min || val > (zend_long)max) { \
 		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%ld', expected a value between %d and %d", val, min, max); \
-		val = (long)min; \
+		val = (zend_long)min; \
 	} 
 
 #define TRADER_CHECK_MA_TYPE(ma_val) \
