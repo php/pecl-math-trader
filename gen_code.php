@@ -138,7 +138,7 @@ foreach ($func as $name => $defs) {
 			$php_long_defs[] = "$p[name]" . (NULL != $p['bounds']['min'] ? " = {$p['bounds']['min']}" : ' = 0');
 		}
 	}
-	$php_long_defs_repl = count($php_long_defs) ? 'long ' . implode(', ', $php_long_defs) . ';' : '';
+	$php_long_defs_repl = count($php_long_defs) ? 'zend_long ' . implode(', ', $php_long_defs) . ';' : '';
 	$tpl = str_replace('MY_IN_PHP_LONG_DEFS', $php_long_defs_repl, $tpl);
 
 	$php_dbl_defs = array();

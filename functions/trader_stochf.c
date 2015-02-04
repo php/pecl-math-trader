@@ -44,7 +44,7 @@ PHP_FUNCTION(trader_stochf)
 	zval *zinHigh, *zinLow, *zinClose, *zoutFastK;
 	double *inHigh, *inLow, *inClose, *outFastK, *outFastD;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
-	long optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType = 0;
+	zend_long optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType = 0;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {

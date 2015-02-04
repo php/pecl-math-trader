@@ -44,7 +44,7 @@ PHP_FUNCTION(trader_maxindex)
 	zval *zinReal;
 	double *inReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0, *outInteger = 0;
-	long optInTimePeriod = 2;
+	zend_long optInTimePeriod = 2;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|l", &zinReal, &optInTimePeriod) == FAILURE) {

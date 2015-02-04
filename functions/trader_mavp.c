@@ -44,7 +44,7 @@ PHP_FUNCTION(trader_mavp)
 	zval *zinReal, *zinPeriods;
 	double *inReal, *inPeriods, *outReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
-	long optInMinPeriod = 2, optInMaxPeriod = 2, optInMAType = 0;
+	zend_long optInMinPeriod = 2, optInMaxPeriod = 2, optInMAType = 0;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|lll", &zinReal, &zinPeriods, &optInMinPeriod, &optInMaxPeriod, &optInMAType) == FAILURE) {

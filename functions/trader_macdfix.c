@@ -44,7 +44,7 @@ PHP_FUNCTION(trader_macdfix)
 	zval *zinReal, *zoutMACD, *zoutMACDSignal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
-	long optInSignalPeriod = 1;
+	zend_long optInSignalPeriod = 1;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|l", &zinReal, &optInSignalPeriod) == FAILURE) {

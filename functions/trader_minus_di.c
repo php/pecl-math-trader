@@ -44,7 +44,7 @@ PHP_FUNCTION(trader_minus_di)
 	zval *zinHigh, *zinLow, *zinClose;
 	double *inHigh, *inLow, *inClose, *outReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
-	long optInTimePeriod = 1;
+	zend_long optInTimePeriod = 1;
 	
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|l", &zinHigh, &zinLow, &zinClose, &optInTimePeriod) == FAILURE) {

@@ -44,7 +44,7 @@ PHP_FUNCTION(trader_bbands)
 	zval *zinReal, *zoutRealUpperBand, *zoutRealMiddleBand;
 	double *inReal, *outRealUpperBand, *outRealMiddleBand, *outRealLowerBand;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
-	long optInTimePeriod = 2, optInMAType = 0;
+	zend_long optInTimePeriod = 2, optInMAType = 0;
 	double optInNbDevUp = TA_REAL_MIN, optInNbDevDn = TA_REAL_MIN;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lddl", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn, &optInMAType) == FAILURE) {
