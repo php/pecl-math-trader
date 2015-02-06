@@ -10,9 +10,9 @@
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2012-08-12</date>
+	<date>2014-02-06</date>
 	<version>
-		<release>0.3.1</release>
+		<release>0.4.0</release>
 		<api>0.4.0</api>
 	</version>
 	<stability>
@@ -21,6 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
+		- PHP7 compatibility
 		- Optimized output data allocation
 		- Fixed bug #62832 PHP_FE_END undefined on PHP lower than 5.3.10
 	</notes>

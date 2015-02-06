@@ -57,7 +57,7 @@ PHPAPI double _php_math_round(double value, int places, int mode);
 
 #define TRADER_DEFAULT_REAL_PRECISION 3
 #define TRADER_DEFAULT_REAL_ROUND_MODE PHP_ROUND_HALF_DOWN
-#define PHP_TRADER_VERSION "0.3.1"
+#define PHP_TRADER_VERSION "0.4.0"
 
 PHP_MINIT_FUNCTION(trader);
 PHP_MSHUTDOWN_FUNCTION(trader);
