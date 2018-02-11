@@ -93,10 +93,12 @@ foreach ($func as $name => $defs) {
 	$php_arr_defs = array();
 	foreach ($defs['params'] as $p) {
 		if ($p['array']) {
-			$php_arr_defs[] = "*z$p[name]";
+			if (substr($p["name"], 0, 3) !== "out") {
+				$php_arr_defs[] = "*z$p[name]";
+			}
 		}
 	}
-	array_pop($php_arr_defs); // the last is always the out array which is return_value
+//	array_pop($php_arr_defs); // the last is always the out array which is return_value
 	$tpl = str_replace('MY_IN_PHP_ARRAY_DEFS', 'zval ' . implode(', ', $php_arr_defs) . ';', $tpl);
 
 
@@ -177,11 +179,14 @@ foreach ($func as $name => $defs) {
 		} else if (in_array($p['name'], array('outBegIdx', 'outNBElement'))) {
 			$func_param_list[] = "&{$p['name']}";
 		} else if ($p['array']) {
-			$last_was_ar = true;
-			$zend_param_str .= 'a';
+			/* Special case for for trader_ht_* functions with two out params with no naming scheme. */
+			if (!in_array($p["name"], array("outLeadSine", "outInPhase"))) {
+				$last_was_ar = true;
+				$zend_param_str .= 'a';
 
-			$ar_count++;
-			$zend_param_list[] = "&z{$p['name']}";
+				$ar_count++;
+				$zend_param_list[] = "&z{$p['name']}";
+			}
 
 			$func_param_list[] = $p['name'];
 		} else if ($p['opt'] && ('int' == $p['type'] || 'TA_MAType' == $p['type'])) {

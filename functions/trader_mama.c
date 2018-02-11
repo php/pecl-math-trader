@@ -41,7 +41,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 PHP_FUNCTION(trader_mama)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinReal, *zoutMAMA;
+	zval *zinReal;
 	double *inReal, *outMAMA, *outFAMA;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	

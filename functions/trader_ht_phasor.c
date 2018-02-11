@@ -41,13 +41,13 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 PHP_FUNCTION(trader_ht_phasor)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinReal, *zoutInPhase;
+	zval *zinReal;
 	double *inReal, *outInPhase, *outQuadrature;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	
 	
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinReal, &zoutInPhase) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a", &zinReal) == FAILURE) {
 		RETURN_FALSE
 	}
 

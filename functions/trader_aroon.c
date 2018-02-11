@@ -41,7 +41,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 PHP_FUNCTION(trader_aroon)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinHigh, *zinLow, *zoutAroonDown;
+	zval *zinHigh, *zinLow;
 	double *inHigh, *inLow, *outAroonDown, *outAroonUp;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	zend_long optInTimePeriod = 2;

@@ -41,7 +41,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 PHP_FUNCTION(trader_minmaxindex)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinReal, *zoutMinIdx;
+	zval *zinReal;
 	double *inReal;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0, *outMinIdx = 0, *outMaxIdx = 0;
 	zend_long optInTimePeriod = 2;

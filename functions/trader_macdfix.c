@@ -41,7 +41,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 PHP_FUNCTION(trader_macdfix)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinReal, *zoutMACD, *zoutMACDSignal;
+	zval *zinReal;
 	double *inReal, *outMACD, *outMACDSignal, *outMACDHist;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	zend_long optInSignalPeriod = 1;

@@ -41,7 +41,7 @@ ZEND_EXTERN_MODULE_GLOBALS(trader)
 PHP_FUNCTION(trader_stoch)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinHigh, *zinLow, *zinClose, *zoutSlowK;
+	zval *zinHigh, *zinLow, *zinClose;
 	double *inHigh, *inLow, *inClose, *outSlowK, *outSlowD;
 	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
 	zend_long optInFastK_Period = 1, optInSlowK_Period = 1, optInSlowK_MAType = 0, optInSlowD_Period = 1, optInSlowD_MAType = 0;
