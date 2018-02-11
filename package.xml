@@ -21,7 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Fixed bug #72882, #72967 trader_ht_phasor and trader_ht_sine expect two parameters, one listed
+		- trader_ht_phasor and trader_ht_sine expect one argument, fixes bugs #72882, #72967
 	</notes>
 	<contents>
 		<dir name="/">
