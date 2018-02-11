@@ -293,7 +293,6 @@ ZEND_END_MODULE_GLOBALS(trader)
 		} \
 	} while(0);
 
-/* XXX wouldn't it go out of the scope ??? */
 #define TRADER_DBL_ARR_TO_ZRET2(arr1, arr2, zarr, endidx, outbegidx, outnbelem) \
 	array_init(zarr); \
 	do { \
