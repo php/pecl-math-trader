@@ -1,0 +1,527 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.7.2" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+	<name>trader</name>
+	<channel>pecl.php.net</channel>
+	<summary>Technical Analysis for traders.</summary>
+	<description>The trader extension is a free open source stock library based on TA-Lib. It's dedicated to trading software developers requiring to perform technical analysis of financial market data. Alongside many indicators like ADX, MACD, RSI, Stochastic, TRIX the candlestick pattern recognition and several vector arithmetic and algebraic functions are present. </description>
+	<lead>
+		<name>Anatol Belski</name>
+		<user>ab</user>
+		<email>ab@php.net</email>
+		<active>yes</active>
+	</lead>
+	<date>2018-02-12</date>
+	<version>
+		<release>0.4.1</release>
+		<api>0.4.0</api>
+	</version>
+	<stability>
+		<release>stable</release>
+		<api>stable</api>
+	</stability>
+	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+	<notes>
+		- trader_ht_phasor and trader_ht_sine expect one argument, fixes bugs #72882, #72967
+	</notes>
+	<contents>
+		<dir name="/">
+			<file role="src" name="php_trader.h"/>
+			<file role="src" name="trader.c"/>
+			<file role="doc" name="EXPERIMENTAL"/>
+			<file role="doc" name="CREDITS"/>
+			<file role="doc" name="LICENSE"/>
+			<file role="src" name="config.w32"/>
+			<file role="src" name="config.m4"/>
+<!-- {{{ TA-Lib -->
+			<file role="src" name="ta-lib/src/ta_func/ta_utility.h" />
+			<file role="src" name="ta-lib/src/ta_common/ta_memory.h" />
+			<file role="src" name="ta-lib/include/ta_defs.h" />
+			<file role="src" name="ta-lib/src/ta_common/ta_global.h" />
+			<file role="src" name="ta-lib/src/ta_common/ta_magic_nb.h" />
+			<file role="src" name="ta-lib/include/ta_common.h" />
+			<file role="src" name="ta-lib/include/ta_func.h" />
+			<file role="src" name="ta-lib/src/ta_common/ta_global.c" />
+			<file role="src" name="ta-lib/src/ta_common/ta_retcode.c" />
+			<file role="src" name="ta-lib/src/ta_common/ta_version.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_utility.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ACOS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_AD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ADD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ADOSC.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ADX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ADXR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_APO.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_AROON.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_AROONOSC.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ASIN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ATAN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ATR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_AVGPRICE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_BBANDS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_BETA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_BOP.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CCI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL2CROWS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL3BLACKCROWS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL3INSIDE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL3LINESTRIKE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL3OUTSIDE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL3STARSINSOUTH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDL3WHITESOLDIERS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLABANDONEDBABY.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLADVANCEBLOCK.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLBELTHOLD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLBREAKAWAY.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLCLOSINGMARUBOZU.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLCONCEALBABYSWALL.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLCOUNTERATTACK.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLDARKCLOUDCOVER.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLDOJI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLDOJISTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLDRAGONFLYDOJI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLENGULFING.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLEVENINGDOJISTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLEVENINGSTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLGAPSIDESIDEWHITE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLGRAVESTONEDOJI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHAMMER.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHANGINGMAN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHARAMI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHARAMICROSS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHIGHWAVE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHIKKAKE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHIKKAKEMOD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLHOMINGPIGEON.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLIDENTICAL3CROWS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLINNECK.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLINVERTEDHAMMER.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLKICKING.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLKICKINGBYLENGTH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLLADDERBOTTOM.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLLONGLEGGEDDOJI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLLONGLINE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLMARUBOZU.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLMATCHINGLOW.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLMATHOLD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLMORNINGDOJISTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLMORNINGSTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLONNECK.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLPIERCING.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLRICKSHAWMAN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLRISEFALL3METHODS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLSEPARATINGLINES.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLSHOOTINGSTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLSHORTLINE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLSPINNINGTOP.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLSTALLEDPATTERN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLSTICKSANDWICH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLTAKURI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLTASUKIGAP.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLTHRUSTING.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLTRISTAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLUNIQUE3RIVER.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLUPSIDEGAP2CROWS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CDLXSIDEGAP3METHODS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CEIL.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CMO.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_CORREL.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_COS.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_COSH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_DEMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_DIV.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_DX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_EMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_EXP.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_FLOOR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_HT_DCPERIOD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_HT_DCPHASE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_HT_PHASOR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_HT_SINE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_HT_TRENDLINE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_HT_TRENDMODE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_KAMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_LINEARREG.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_LINEARREG_ANGLE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_LINEARREG_INTERCEPT.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_LINEARREG_SLOPE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_LN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_LOG10.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MACD.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MACDEXT.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MACDFIX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MAMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MAVP.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MAX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MAXINDEX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MEDPRICE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MFI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MIDPOINT.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MIDPRICE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MIN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MININDEX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MINMAX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MINMAXINDEX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MINUS_DI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MINUS_DM.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MOM.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_MULT.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_NATR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_OBV.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_PLUS_DI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_PLUS_DM.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_PPO.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ROC.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ROCP.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ROCR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ROCR100.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_RSI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SAREXT.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SIN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SINH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SQRT.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_STDDEV.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_STOCH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_STOCHF.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_STOCHRSI.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SUB.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_SUM.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_T3.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TAN.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TANH.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TEMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TRANGE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TRIMA.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TRIX.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TSF.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_TYPPRICE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_ULTOSC.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_VAR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_WCLPRICE.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_WILLR.c" />
+			<file role="src" name="ta-lib/src/ta_func/ta_WMA.c" />
+<!-- }}}  -->
+<!-- {{{ Functions -->
+			<file role="src" name="functions/trader_acos.c" />
+			<file role="src" name="functions/trader_ad.c" />
+			<file role="src" name="functions/trader_add.c" />
+			<file role="src" name="functions/trader_adosc.c" />
+			<file role="src" name="functions/trader_adx.c" />
+			<file role="src" name="functions/trader_adxr.c" />
+			<file role="src" name="functions/trader_apo.c" />
+			<file role="src" name="functions/trader_aroon.c" />
+			<file role="src" name="functions/trader_aroonosc.c" />
+			<file role="src" name="functions/trader_asin.c" />
+			<file role="src" name="functions/trader_atan.c" />
+			<file role="src" name="functions/trader_atr.c" />
+			<file role="src" name="functions/trader_avgprice.c" />
+			<file role="src" name="functions/trader_bbands.c" />
+			<file role="src" name="functions/trader_beta.c" />
+			<file role="src" name="functions/trader_bop.c" />
+			<file role="src" name="functions/trader_cci.c" />
+			<file role="src" name="functions/trader_cdl2crows.c" />
+			<file role="src" name="functions/trader_cdl3blackcrows.c" />
+			<file role="src" name="functions/trader_cdl3inside.c" />
+			<file role="src" name="functions/trader_cdl3linestrike.c" />
+			<file role="src" name="functions/trader_cdl3outside.c" />
+			<file role="src" name="functions/trader_cdl3starsinsouth.c" />
+			<file role="src" name="functions/trader_cdl3whitesoldiers.c" />
+			<file role="src" name="functions/trader_cdlabandonedbaby.c" />
+			<file role="src" name="functions/trader_cdladvanceblock.c" />
+			<file role="src" name="functions/trader_cdlbelthold.c" />
+			<file role="src" name="functions/trader_cdlbreakaway.c" />
+			<file role="src" name="functions/trader_cdlclosingmarubozu.c" />
+			<file role="src" name="functions/trader_cdlconcealbabyswall.c" />
+			<file role="src" name="functions/trader_cdlcounterattack.c" />
+			<file role="src" name="functions/trader_cdldarkcloudcover.c" />
+			<file role="src" name="functions/trader_cdldoji.c" />
+			<file role="src" name="functions/trader_cdldojistar.c" />
+			<file role="src" name="functions/trader_cdldragonflydoji.c" />
+			<file role="src" name="functions/trader_cdlengulfing.c" />
+			<file role="src" name="functions/trader_cdleveningdojistar.c" />
+			<file role="src" name="functions/trader_cdleveningstar.c" />
+			<file role="src" name="functions/trader_cdlgapsidesidewhite.c" />
+			<file role="src" name="functions/trader_cdlgravestonedoji.c" />
+			<file role="src" name="functions/trader_cdlhammer.c" />
+			<file role="src" name="functions/trader_cdlhangingman.c" />
+			<file role="src" name="functions/trader_cdlharami.c" />
+			<file role="src" name="functions/trader_cdlharamicross.c" />
+			<file role="src" name="functions/trader_cdlhighwave.c" />
+			<file role="src" name="functions/trader_cdlhikkake.c" />
+			<file role="src" name="functions/trader_cdlhikkakemod.c" />
+			<file role="src" name="functions/trader_cdlhomingpigeon.c" />
+			<file role="src" name="functions/trader_cdlidentical3crows.c" />
+			<file role="src" name="functions/trader_cdlinneck.c" />
+			<file role="src" name="functions/trader_cdlinvertedhammer.c" />
+			<file role="src" name="functions/trader_cdlkickingbylength.c" />
+			<file role="src" name="functions/trader_cdlkicking.c" />
+			<file role="src" name="functions/trader_cdlladderbottom.c" />
+			<file role="src" name="functions/trader_cdllongleggeddoji.c" />
+			<file role="src" name="functions/trader_cdllongline.c" />
+			<file role="src" name="functions/trader_cdlmarubozu.c" />
+			<file role="src" name="functions/trader_cdlmatchinglow.c" />
+			<file role="src" name="functions/trader_cdlmathold.c" />
+			<file role="src" name="functions/trader_cdlmorningdojistar.c" />
+			<file role="src" name="functions/trader_cdlmorningstar.c" />
+			<file role="src" name="functions/trader_cdlonneck.c" />
+			<file role="src" name="functions/trader_cdlpiercing.c" />
+			<file role="src" name="functions/trader_cdlrickshawman.c" />
+			<file role="src" name="functions/trader_cdlrisefall3methods.c" />
+			<file role="src" name="functions/trader_cdlseparatinglines.c" />
+			<file role="src" name="functions/trader_cdlshootingstar.c" />
+			<file role="src" name="functions/trader_cdlshortline.c" />
+			<file role="src" name="functions/trader_cdlspinningtop.c" />
+			<file role="src" name="functions/trader_cdlstalledpattern.c" />
+			<file role="src" name="functions/trader_cdlsticksandwich.c" />
+			<file role="src" name="functions/trader_cdltakuri.c" />
+			<file role="src" name="functions/trader_cdltasukigap.c" />
+			<file role="src" name="functions/trader_cdlthrusting.c" />
+			<file role="src" name="functions/trader_cdltristar.c" />
+			<file role="src" name="functions/trader_cdlunique3river.c" />
+			<file role="src" name="functions/trader_cdlupsidegap2crows.c" />
+			<file role="src" name="functions/trader_cdlxsidegap3methods.c" />
+			<file role="src" name="functions/trader_ceil.c" />
+			<file role="src" name="functions/trader_cmo.c" />
+			<file role="src" name="functions/trader_correl.c" />
+			<file role="src" name="functions/trader_cos.c" />
+			<file role="src" name="functions/trader_cosh.c" />
+			<file role="src" name="functions/trader_dema.c" />
+			<file role="src" name="functions/trader_div.c" />
+			<file role="src" name="functions/trader_dx.c" />
+			<file role="src" name="functions/trader_ema.c" />
+			<file role="src" name="functions/trader_exp.c" />
+			<file role="src" name="functions/trader_floor.c" />
+			<file role="src" name="functions/trader_ht_dcperiod.c" />
+			<file role="src" name="functions/trader_ht_dcphase.c" />
+			<file role="src" name="functions/trader_ht_phasor.c" />
+			<file role="src" name="functions/trader_ht_sine.c" />
+			<file role="src" name="functions/trader_ht_trendline.c" />
+			<file role="src" name="functions/trader_ht_trendmode.c" />
+			<file role="src" name="functions/trader_kama.c" />
+			<file role="src" name="functions/trader_linearreg_angle.c" />
+			<file role="src" name="functions/trader_linearreg.c" />
+			<file role="src" name="functions/trader_linearreg_intercept.c" />
+			<file role="src" name="functions/trader_linearreg_slope.c" />
+			<file role="src" name="functions/trader_ln.c" />
+			<file role="src" name="functions/trader_log10.c" />
+			<file role="src" name="functions/trader_ma.c" />
+			<file role="src" name="functions/trader_macd.c" />
+			<file role="src" name="functions/trader_macdext.c" />
+			<file role="src" name="functions/trader_macdfix.c" />
+			<file role="src" name="functions/trader_mama.c" />
+			<file role="src" name="functions/trader_mavp.c" />
+			<file role="src" name="functions/trader_max.c" />
+			<file role="src" name="functions/trader_maxindex.c" />
+			<file role="src" name="functions/trader_medprice.c" />
+			<file role="src" name="functions/trader_mfi.c" />
+			<file role="src" name="functions/trader_midpoint.c" />
+			<file role="src" name="functions/trader_midprice.c" />
+			<file role="src" name="functions/trader_min.c" />
+			<file role="src" name="functions/trader_minindex.c" />
+			<file role="src" name="functions/trader_minmax.c" />
+			<file role="src" name="functions/trader_minmaxindex.c" />
+			<file role="src" name="functions/trader_minus_di.c" />
+			<file role="src" name="functions/trader_minus_dm.c" />
+			<file role="src" name="functions/trader_mom.c" />
+			<file role="src" name="functions/trader_mult.c" />
+			<file role="src" name="functions/trader_natr.c" />
+			<file role="src" name="functions/trader_obv.c" />
+			<file role="src" name="functions/trader_plus_di.c" />
+			<file role="src" name="functions/trader_plus_dm.c" />
+			<file role="src" name="functions/trader_ppo.c" />
+			<file role="src" name="functions/trader_roc.c" />
+			<file role="src" name="functions/trader_rocp.c" />
+			<file role="src" name="functions/trader_rocr100.c" />
+			<file role="src" name="functions/trader_rocr.c" />
+			<file role="src" name="functions/trader_rsi.c" />
+			<file role="src" name="functions/trader_sar.c" />
+			<file role="src" name="functions/trader_sarext.c" />
+			<file role="src" name="functions/trader_sin.c" />
+			<file role="src" name="functions/trader_sinh.c" />
+			<file role="src" name="functions/trader_sma.c" />
+			<file role="src" name="functions/trader_sqrt.c" />
+			<file role="src" name="functions/trader_stddev.c" />
+			<file role="src" name="functions/trader_stoch.c" />
+			<file role="src" name="functions/trader_stochf.c" />
+			<file role="src" name="functions/trader_stochrsi.c" />
+			<file role="src" name="functions/trader_sub.c" />
+			<file role="src" name="functions/trader_sum.c" />
+			<file role="src" name="functions/trader_t3.c" />
+			<file role="src" name="functions/trader_tan.c" />
+			<file role="src" name="functions/trader_tanh.c" />
+			<file role="src" name="functions/trader_tema.c" />
+			<file role="src" name="functions/trader_trange.c" />
+			<file role="src" name="functions/trader_trima.c" />
+			<file role="src" name="functions/trader_trix.c" />
+			<file role="src" name="functions/trader_tsf.c" />
+			<file role="src" name="functions/trader_typprice.c" />
+			<file role="src" name="functions/trader_ultosc.c" />
+			<file role="src" name="functions/trader_var.c" />
+			<file role="src" name="functions/trader_wclprice.c" />
+			<file role="src" name="functions/trader_willr.c" />
+			<file role="src" name="functions/trader_wma.c" />
+			<file role="src" name="functions/trader_utility.c" />
+<!-- }}}  -->
+			<dir name="tests">
+<!-- {{{ Tests -->
+				<file role="test" name="inc/data.php" />
+				<file role="test" name="inc/func.php" />
+				<file role="test" name="trader_acos_01.phpt" />
+				<file role="test" name="trader_ad_01.phpt" />
+				<file role="test" name="trader_ad_02.phpt" />
+				<file role="test" name="trader_add_01.phpt" />
+				<file role="test" name="trader_adosc_01.phpt" />
+				<file role="test" name="trader_adosc_bug62728.phpt" />
+				<file role="test" name="trader_adx_01.phpt" />
+				<file role="test" name="trader_adxr_01.phpt" />
+				<file role="test" name="trader_apo_01.phpt" />
+				<file role="test" name="trader_aroon_01.phpt" />
+				<file role="test" name="trader_aroonosc_01.phpt" />
+				<file role="test" name="trader_asin_01.phpt" />
+				<file role="test" name="trader_atan_01.phpt" />
+				<file role="test" name="trader_atr_01.phpt" />
+				<file role="test" name="trader_avgprice_01.phpt" />
+				<file role="test" name="trader_bbands_01.phpt" />
+				<file role="test" name="trader_beta_01.phpt" />
+				<file role="test" name="trader_bop_01.phpt" />
+				<file role="test" name="trader_cci_01.phpt" />
+				<file role="test" name="trader_ini_01.phpt" />
+				<file role="test" name="trader_ini_02.phpt" />
+				<file role="test" name="trader_macd.phpt" />
+				<file role="test" name="trader_obv_bug62712.phpt" />
+				<file role="test" name="trader_sma_bug62720.phpt" />
+				<file role="test" name="trader_t3_01.phpt" />
+				<file role="test" name="trader_t3_bug62698.phpt" />
+				<file role="test" name="trader_ht_phasor_01.phpt" />
+				<file role="test" name="trader_ht_sine_01.phpt" />
+<!-- }}}  -->
+			</dir>
+		</dir>
+	</contents>
+	<dependencies>
+		<required>
+			<php>
+				<min>5.3</min>
+			</php>
+			<pearinstaller>
+				<min>1.4.0</min>
+			</pearinstaller>
+			<os>linux</os>
+		</required>
+	</dependencies>
+	<providesextension>trader</providesextension>
+	<extsrcrelease/>
+	<changelog>
+		<release>
+			<date>2014-02-06</date>
+			<version>
+				<release>0.4.0</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- PHP7 compatibility
+				- Optimized output data allocation
+				- Fixed bug #62832 PHP_FE_END undefined on PHP lower than 5.3.10
+			</notes>
+		</release>
+		<release>
+			<date>2012-08-12</date>
+			<version>
+				<release>0.3.0</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- fixed bugs #62720, #62612 large numbers causing rounding errors
+				- added ini trader.real_round_mode, valid values are HALF_UP, HALF_DOWN, HALF_EVEN, HALF_ODD
+				- implemented trader_errno() to get the last TA-Lib error code
+
+				Special thanks to Michael for helping to chase the bugs down, trader is marked stable now.
+			</notes>
+		</release>
+		<release>
+			<date>2012-07-28</date>
+			<version>
+				<release>0.2.2</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>beta</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- better check for bounded incoming argument values
+				- added Windows compatibility, check for Windows versions under http://windows.php.net/downloads/pecl/releases/trader/ (thanks tomkrawc)
+				- fixed pecl package build on Mac OS X
+				- fixed element number in out arrays
+				- implemented TA-Lib utility functions to set compatibility mode and unstable period
+			</notes>
+		</release>
+		<release>
+			<date>2012-06-03</date>
+			<version>
+				<release>0.2.1</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>beta</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Fixed type hints and related runtime errors
+				- Added MA type checks
+				- Addded integer min and max constants
+				- Added more tests
+			</notes>
+		</release>
+		<release>
+			<date>2012-05-27</date>
+			<version>
+				<release>0.2</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>alpha</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				Initial TA-Lib wrapper implementation
+			</notes>
+			<dependencies>
+				<required>
+					<php>
+						<min>5.3</min>
+					</php>
+					<pearinstaller>
+						<min>1.4.0</min>
+					</pearinstaller>
+					<os>linux</os>
+				</required>
+			</dependencies>
+		</release>
+	</changelog>
+</package>
+<!--
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * End:
+ * vim600: noet sw=4 ts=4 fdm=marker
+ * vim<600: noet sw=4 ts=4
+ */
+-->
