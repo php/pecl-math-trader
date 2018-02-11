@@ -5,15 +5,15 @@
 	<summary>Technical Analysis for traders.</summary>
 	<description>The trader extension is a free open source stock library based on TA-Lib. It's dedicated to trading software developers requiring to perform technical analysis of financial market data. Alongside many indicators like ADX, MACD, RSI, Stochastic, TRIX the candlestick pattern recognition and several vector arithmetic and algebraic functions are present. </description>
 	<lead>
-		<name>Anatoliy Belsky</name>
+		<name>Anatol Belski</name>
 		<user>ab</user>
 		<email>ab@php.net</email>
 		<active>yes</active>
 	</lead>
-	<date>2014-02-06</date>
+	<date>2018-02-12</date>
 	<version>
-		<release>0.4.0</release>
-		<api>0.4.0</api>
+		<release>0.4.1</release>
+		<api>0.4.1</api>
 	</version>
 	<stability>
 		<release>stable</release>
@@ -21,9 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- PHP7 compatibility
-		- Optimized output data allocation
-		- Fixed bug #62832 PHP_FE_END undefined on PHP lower than 5.3.10
+		- Fixed bug #72882, #72967 trader_ht_phasor and trader_ht_sine expect two parameters, one listed
 	</notes>
 	<contents>
 		<dir name="/">
@@ -34,6 +32,7 @@
 			<file role="doc" name="LICENSE"/>
 			<file role="src" name="config.w32"/>
 			<file role="src" name="config.m4"/>
+<!-- {{{ TA-Lib -->
 			<file role="src" name="ta-lib/src/ta_func/ta_utility.h" />
 			<file role="src" name="ta-lib/src/ta_common/ta_memory.h" />
 			<file role="src" name="ta-lib/include/ta_defs.h" />
@@ -203,6 +202,8 @@
 			<file role="src" name="ta-lib/src/ta_func/ta_WCLPRICE.c" />
 			<file role="src" name="ta-lib/src/ta_func/ta_WILLR.c" />
 			<file role="src" name="ta-lib/src/ta_func/ta_WMA.c" />
+<!-- }}}  -->
+<!-- {{{ Functions -->
 			<file role="src" name="functions/trader_acos.c" />
 			<file role="src" name="functions/trader_ad.c" />
 			<file role="src" name="functions/trader_add.c" />
@@ -362,7 +363,9 @@
 			<file role="src" name="functions/trader_willr.c" />
 			<file role="src" name="functions/trader_wma.c" />
 			<file role="src" name="functions/trader_utility.c" />
+<!-- }}}  -->
 			<dir name="tests">
+<!-- {{{ Tests -->
 				<file role="test" name="inc/data.php" />
 				<file role="test" name="inc/func.php" />
 				<file role="test" name="trader_acos_01.phpt" />
@@ -393,6 +396,7 @@
 				<file role="test" name="trader_t3_bug62698.phpt" />
 				<file role="test" name="trader_ht_phasor.phpt" />
 				<file role="test" name="trader_ht_sine.phpt" />
+<!-- }}}  -->
 			</dir>
 		</dir>
 	</contents>
@@ -410,6 +414,23 @@
 	<providesextension>trader</providesextension>
 	<extsrcrelease/>
 	<changelog>
+		<release>
+			<date>2014-02-06</date>
+			<version>
+				<release>0.4.0</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- PHP7 compatibility
+				- Optimized output data allocation
+				- Fixed bug #62832 PHP_FE_END undefined on PHP lower than 5.3.10
+			</notes>
+		</release>
 		<release>
 			<date>2012-08-12</date>
 			<version>
@@ -494,3 +515,13 @@
 		</release>
 	</changelog>
 </package>
+<!--
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * End:
+ * vim600: noet sw=4 ts=4 fdm=marker
+ * vim<600: noet sw=4 ts=4
+ */
+-->
