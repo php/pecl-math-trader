@@ -1,5 +1,5 @@
 --TEST--
-trader_ht_phasor() basic test
+trader_ht_sine() basic test
 --SKIPIF--
 <?php
 if (!extension_loaded("trader")) die("skip");
