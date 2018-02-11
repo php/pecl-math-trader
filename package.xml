@@ -394,8 +394,8 @@
 				<file role="test" name="trader_sma_bug62720.phpt" />
 				<file role="test" name="trader_t3_01.phpt" />
 				<file role="test" name="trader_t3_bug62698.phpt" />
-				<file role="test" name="trader_ht_phasor.phpt" />
-				<file role="test" name="trader_ht_sine.phpt" />
+				<file role="test" name="trader_ht_phasor_01.phpt" />
+				<file role="test" name="trader_ht_sine_01.phpt" />
 <!-- }}}  -->
 			</dir>
 		</dir>
