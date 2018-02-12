@@ -47,9 +47,16 @@ PHP_FUNCTION(trader_obv)
 	
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_ARRAY(zinReal)
+		Z_PARAM_ARRAY(zinVolume)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinReal, &zinVolume) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 		

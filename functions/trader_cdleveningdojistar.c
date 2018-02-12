@@ -47,9 +47,20 @@ PHP_FUNCTION(trader_cdleveningdojistar)
 	
 	double optInPenetration = 0;
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(4, 5)
+		Z_PARAM_ARRAY(zinOpen)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+		Z_PARAM_ARRAY(zinClose)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_DOUBLE(optInPenetration)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|d", &zinOpen, &zinHigh, &zinLow, &zinClose, &optInPenetration) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 	TRADER_DBL_SET_BOUNDABLE(0, TA_REAL_MAX, optInPenetration);	

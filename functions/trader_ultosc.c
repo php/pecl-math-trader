@@ -47,9 +47,21 @@ PHP_FUNCTION(trader_ultosc)
 	zend_long optInTimePeriod1 = 1, optInTimePeriod2 = 1, optInTimePeriod3 = 1;
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(3, 6)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+		Z_PARAM_ARRAY(zinClose)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInTimePeriod1)
+		Z_PARAM_LONG(optInTimePeriod2)
+		Z_PARAM_LONG(optInTimePeriod3)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInTimePeriod1, &optInTimePeriod2, &optInTimePeriod3) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInTimePeriod1);

@@ -47,9 +47,20 @@ PHP_FUNCTION(trader_stochrsi)
 	zend_long optInTimePeriod = 2, optInFastK_Period = 1, optInFastD_Period = 1, optInFastD_MAType = 0;
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(1, 5)
+		Z_PARAM_ARRAY(zinReal)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInTimePeriod)
+		Z_PARAM_LONG(optInFastK_Period)
+		Z_PARAM_LONG(optInFastD_Period)
+		Z_PARAM_LONG(optInFastD_MAType)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|llll", &zinReal, &optInTimePeriod, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	TRADER_CHECK_MA_TYPE(optInFastD_MAType)
 	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInTimePeriod);

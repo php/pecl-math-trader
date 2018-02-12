@@ -168,6 +168,7 @@ foreach ($func as $name => $defs) {
 
 	$zend_param_str = '';
 	$zend_param_list = array();
+	$zend_fast_params = array("min_cnt" => 0, "opt_cnt" => 0, "it" => array());
 	$func_param_list = array();
 	$ar_count = 0;
 	$ar_breaks = false;
@@ -185,7 +186,11 @@ foreach ($func as $name => $defs) {
 				$zend_param_str .= 'a';
 
 				$ar_count++;
+
 				$zend_param_list[] = "&z{$p['name']}";
+				$zend_fast_params["it"][] = "Z_PARAM_ARRAY(z{$p['name']})";
+				//$zend_fast_params["it"][] = "Z_PARAM_ARRAY_EX(z{$p['name']}, 0, 1)";
+				$zend_fast_params["min_cnt"]++;
 			}
 
 			$func_param_list[] = $p['name'];
@@ -193,6 +198,7 @@ foreach ($func as $name => $defs) {
 			$last_was_ar = false;
 			if(!$pipe_set && !$ar_breaks && $ar_count > 0) {
 				$zend_param_str .= '|';
+				$zend_fast_params["it"][] = "Z_PARAM_OPTIONAL";
 				$pipe_set = true;
 			}
 			$zend_param_str .= 'l';
@@ -201,11 +207,15 @@ foreach ($func as $name => $defs) {
 			$ar_count = 0;
 			$zend_param_list[] = "&{$p['name']}";
 
+			$zend_fast_params["it"][] = "Z_PARAM_LONG({$p['name']})";
+			$zend_fast_params["opt_cnt"]++;
+
 			$func_param_list[] = "(int){$p['name']}";
 		} else if ($p['opt'] && 'double' == $p['type']) {
 			$last_was_ar = false;
 			if(!$pipe_set && !$ar_breaks && $ar_count > 0) {
 				$zend_param_str .= '|';
+				$zend_fast_params["it"][] = "Z_PARAM_OPTIONAL";
 				$pipe_set = true;
 			}
 			$zend_param_str .= 'd';
@@ -213,6 +223,9 @@ foreach ($func as $name => $defs) {
 			$ar_breaks = true;
 			$ar_count = 0;
 			$zend_param_list[] = "&{$p['name']}";
+
+			$zend_fast_params["it"][] = "Z_PARAM_DOUBLE({$p['name']})";
+			$zend_fast_params["opt_cnt"]++;
 
 			$func_param_list[] = ($p['byref'] ? '&' : '') . $p['name'];
 		}
@@ -223,18 +236,33 @@ foreach ($func as $name => $defs) {
 	if ($ar_breaks) {
 		$zpl = $zend_param_list;
 		end($zpl);
-		while (false !== ($k = key($zpl)) && $ar_count > 0) {
+		$m = $l = $ar_count;
+		while (false !== ($k = key($zpl)) && $m > 0) {
 			unset($zend_param_list[$k]);
-			$ar_count--;
+			unset($zend_param_list[$k]);
+			$m--;
+			prev($zpl);
+		}
+		$ar_count = $m;
+		$zpl = $zend_fast_params["it"];
+		end($zpl);
+		while (false !== ($k = key($zpl)) && $l > 0) {
+			unset($zend_fast_params["it"][$k]);
+			$l--;
+			$zend_fast_params["min_cnt"]--;
 			prev($zpl);
 		}
 	} else {
 		array_pop($zend_param_list);
+		array_pop($zend_fast_params["it"]);
+		$zend_fast_params["min_cnt"]--;
 	}
 	$zend_params = implode(', ', $zend_param_list);
 	$tpl = str_replace('MY_ZEND_PARAM_LIST', $zend_params, $tpl);
 	$func_params = implode(', ', $func_param_list);
 	$tpl = str_replace('MY_FUNC_PARAMS', $func_params, $tpl);
+	$zend_fast = "ZEND_PARSE_PARAMETERS_START(" . $zend_fast_params['min_cnt'] . ", " . ($zend_fast_params['min_cnt'] + $zend_fast_params['opt_cnt']) . ")\n\t\t" . implode("\n\t\t", $zend_fast_params["it"]) . "\n\tZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);";
+	$tpl = str_replace("MY_ZEND_FAST_ZPP", $zend_fast, $tpl);
 
 
 	$rets = array();

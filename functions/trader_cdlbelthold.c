@@ -47,9 +47,18 @@ PHP_FUNCTION(trader_cdlbelthold)
 	
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(4, 4)
+		Z_PARAM_ARRAY(zinOpen)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+		Z_PARAM_ARRAY(zinClose)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa", &zinOpen, &zinHigh, &zinLow, &zinClose) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 		

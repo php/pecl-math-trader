@@ -47,9 +47,25 @@ PHP_FUNCTION(trader_sarext)
 	
 	double optInStartValue = TA_REAL_MIN, optInOffsetOnReverse = 0, optInAccelerationInitLong = 0, optInAccelerationLong = 0, optInAccelerationMaxLong = 0, optInAccelerationInitShort = 0, optInAccelerationShort = 0, optInAccelerationMaxShort = 0;
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(2, 10)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_DOUBLE(optInStartValue)
+		Z_PARAM_DOUBLE(optInOffsetOnReverse)
+		Z_PARAM_DOUBLE(optInAccelerationInitLong)
+		Z_PARAM_DOUBLE(optInAccelerationLong)
+		Z_PARAM_DOUBLE(optInAccelerationMaxLong)
+		Z_PARAM_DOUBLE(optInAccelerationInitShort)
+		Z_PARAM_DOUBLE(optInAccelerationShort)
+		Z_PARAM_DOUBLE(optInAccelerationMaxShort)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|dddddddd", &zinHigh, &zinLow, &optInStartValue, &optInOffsetOnReverse, &optInAccelerationInitLong, &optInAccelerationLong, &optInAccelerationMaxLong, &optInAccelerationInitShort, &optInAccelerationShort, &optInAccelerationMaxShort) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 	TRADER_DBL_SET_BOUNDABLE(TA_REAL_MIN, TA_REAL_MAX, optInStartValue);

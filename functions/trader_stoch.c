@@ -47,9 +47,23 @@ PHP_FUNCTION(trader_stoch)
 	zend_long optInFastK_Period = 1, optInSlowK_Period = 1, optInSlowK_MAType = 0, optInSlowD_Period = 1, optInSlowD_MAType = 0;
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(3, 8)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+		Z_PARAM_ARRAY(zinClose)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInFastK_Period)
+		Z_PARAM_LONG(optInSlowK_Period)
+		Z_PARAM_LONG(optInSlowK_MAType)
+		Z_PARAM_LONG(optInSlowD_Period)
+		Z_PARAM_LONG(optInSlowD_MAType)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lllll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInSlowK_Period, &optInSlowK_MAType, &optInSlowD_Period, &optInSlowD_MAType) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	TRADER_CHECK_MA_TYPE(optInSlowK_MAType)
 TRADER_CHECK_MA_TYPE(optInSlowD_MAType)

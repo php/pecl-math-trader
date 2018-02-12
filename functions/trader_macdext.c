@@ -47,9 +47,22 @@ PHP_FUNCTION(trader_macdext)
 	zend_long optInFastPeriod = 2, optInFastMAType = 0, optInSlowPeriod = 2, optInSlowMAType = 0, optInSignalPeriod = 1, optInSignalMAType = 0;
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(1, 7)
+		Z_PARAM_ARRAY(zinReal)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInFastPeriod)
+		Z_PARAM_LONG(optInFastMAType)
+		Z_PARAM_LONG(optInSlowPeriod)
+		Z_PARAM_LONG(optInSlowMAType)
+		Z_PARAM_LONG(optInSignalPeriod)
+		Z_PARAM_LONG(optInSignalMAType)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|llllll", &zinReal, &optInFastPeriod, &optInFastMAType, &optInSlowPeriod, &optInSlowMAType, &optInSignalPeriod, &optInSignalMAType) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	TRADER_CHECK_MA_TYPE(optInFastMAType)
 TRADER_CHECK_MA_TYPE(optInSlowMAType)

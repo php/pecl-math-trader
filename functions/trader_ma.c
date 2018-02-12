@@ -47,9 +47,18 @@ PHP_FUNCTION(trader_ma)
 	zend_long optInTimePeriod = 1, optInMAType = 0;
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(1, 3)
+		Z_PARAM_ARRAY(zinReal)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInTimePeriod)
+		Z_PARAM_LONG(optInMAType)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|ll", &zinReal, &optInTimePeriod, &optInMAType) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	TRADER_CHECK_MA_TYPE(optInMAType)
 	TRADER_LONG_SET_BOUNDABLE(1, 100000, optInTimePeriod);	

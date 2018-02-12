@@ -47,9 +47,18 @@ PHP_FUNCTION(trader_mama)
 	
 	double optInFastLimit = 0.01, optInSlowLimit = 0.01;
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(1, 3)
+		Z_PARAM_ARRAY(zinReal)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_DOUBLE(optInFastLimit)
+		Z_PARAM_DOUBLE(optInSlowLimit)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|dd", &zinReal, &optInFastLimit, &optInSlowLimit) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 	TRADER_DBL_SET_BOUNDABLE(0.01, 0.99, optInFastLimit);

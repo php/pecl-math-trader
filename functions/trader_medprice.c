@@ -47,9 +47,16 @@ PHP_FUNCTION(trader_medprice)
 	
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinHigh, &zinLow) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 		

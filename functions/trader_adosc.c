@@ -47,9 +47,21 @@ PHP_FUNCTION(trader_adosc)
 	zend_long optInFastPeriod = 2, optInSlowPeriod = 2;
 	
 
+#if PHP_MAJOR_VERSION >= 7
+	ZEND_PARSE_PARAMETERS_START(4, 6)
+		Z_PARAM_ARRAY(zinHigh)
+		Z_PARAM_ARRAY(zinLow)
+		Z_PARAM_ARRAY(zinClose)
+		Z_PARAM_ARRAY(zinVolume)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInFastPeriod)
+		Z_PARAM_LONG(optInSlowPeriod)
+	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
+#else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|ll", &zinHigh, &zinLow, &zinClose, &zinVolume, &optInFastPeriod, &optInSlowPeriod) == FAILURE) {
 		RETURN_FALSE
 	}
+#endif
 
 	
 	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInFastPeriod);
