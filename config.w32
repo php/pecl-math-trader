@@ -1,7 +1,7 @@
 // $Id$
 // vim:ft=javascript
 
-ARG_ENABLE("trader", "enable ta support", "no");
+ARG_ENABLE("trader", "enable trader support", "no");
 
 if (PHP_TRADER != "no") {
 	if( CHECK_HEADER_ADD_INCLUDE("ta_func.h", "CFLAGS_TRADER", PHP_TRADER + ";" + configure_module_dirname + "\\ta-lib\\include") &&
