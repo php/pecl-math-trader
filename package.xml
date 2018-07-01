@@ -12,7 +12,7 @@
 	</lead>
 	<date>2018-07-01</date>
 	<version>
-		<release>0.5.0</release>
+		<release>0.5.1</release>
 		<api>0.4.0</api>
 	</version>
 	<stability>
@@ -21,7 +21,7 @@
 	</stability>
 	<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
 	<notes>
-		- Added fast ZPP support for builds with PHP 7
+		- todo
 	</notes>
 	<contents>
 		<dir name="/">
@@ -414,6 +414,21 @@
 	<extsrcrelease/>
 	<changelog>
 <!-- {{{ -->
+		<release>
+			<date>2018-07-01</date>
+			<version>
+				<release>0.5.0</release>
+				<api>0.4.0</api>
+			</version>
+			<stability>
+				<release>stable</release>
+				<api>stable</api>
+			</stability>
+			<license uri="http://opensource.org/licenses/BSD-2-Clause">BSD 2-clause</license>
+			<notes>
+				- Added fast ZPP support for builds with PHP 7
+			</notes>
+		</release>
 		<release>
 			<date>2018-02-12</date>
 			<version>
