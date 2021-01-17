@@ -58,7 +58,7 @@ PHP_FUNCTION(trader_adosc)
 		Z_PARAM_LONG(optInSlowPeriod)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|ll", &zinHigh, &zinLow, &zinClose, &zinVolume, &optInFastPeriod, &optInSlowPeriod) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aaaa|ll", &zinHigh, &zinLow, &zinClose, &zinVolume, &optInFastPeriod, &optInSlowPeriod) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

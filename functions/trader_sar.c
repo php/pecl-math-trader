@@ -56,7 +56,7 @@ PHP_FUNCTION(trader_sar)
 		Z_PARAM_DOUBLE(optInMaximum)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|dd", &zinHigh, &zinLow, &optInAcceleration, &optInMaximum) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aa|dd", &zinHigh, &zinLow, &optInAcceleration, &optInMaximum) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

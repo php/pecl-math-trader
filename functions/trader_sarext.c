@@ -62,7 +62,7 @@ PHP_FUNCTION(trader_sarext)
 		Z_PARAM_DOUBLE(optInAccelerationMaxShort)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|dddddddd", &zinHigh, &zinLow, &optInStartValue, &optInOffsetOnReverse, &optInAccelerationInitLong, &optInAccelerationLong, &optInAccelerationMaxLong, &optInAccelerationInitShort, &optInAccelerationShort, &optInAccelerationMaxShort) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aa|dddddddd", &zinHigh, &zinLow, &optInStartValue, &optInOffsetOnReverse, &optInAccelerationInitLong, &optInAccelerationLong, &optInAccelerationMaxLong, &optInAccelerationInitShort, &optInAccelerationShort, &optInAccelerationMaxShort) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

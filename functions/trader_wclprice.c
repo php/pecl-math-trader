@@ -54,7 +54,7 @@ PHP_FUNCTION(trader_wclprice)
 		Z_PARAM_ARRAY(zinClose)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa", &zinHigh, &zinLow, &zinClose) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aaa", &zinHigh, &zinLow, &zinClose) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

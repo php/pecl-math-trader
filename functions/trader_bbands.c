@@ -57,7 +57,7 @@ PHP_FUNCTION(trader_bbands)
 		Z_PARAM_LONG(optInMAType)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lddl", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn, &optInMAType) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "a|lddl", &zinReal, &optInTimePeriod, &optInNbDevUp, &optInNbDevDn, &optInMAType) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

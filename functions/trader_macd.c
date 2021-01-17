@@ -56,7 +56,7 @@ PHP_FUNCTION(trader_macd)
 		Z_PARAM_LONG(optInSignalPeriod)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInSignalPeriod) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "a|lll", &zinReal, &optInFastPeriod, &optInSlowPeriod, &optInSignalPeriod) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

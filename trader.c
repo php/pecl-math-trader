@@ -1275,7 +1275,7 @@ static PHP_INI_MH(OnUpdateTraderRealRoundMode)
 	} else if ((new_len >= sizeof("HALF_ODD")) && (strncasecmp(new_val, "HALF_ODD", sizeof("HALF_ODD")) == 0)) {
 		TRADER_G(real_round_mode) = PHP_ROUND_HALF_ODD;
 	} else {
-		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid value '%s' for trader.real_round_mode", new_val);
+		php_error_docref(NULL, E_WARNING, "Invalid value '%s' for trader.real_round_mode", new_val);
 		return FAILURE;
 	}
 
@@ -1315,7 +1315,7 @@ PHP_MINIT_FUNCTION(trader)
 	REGISTER_INI_ENTRIES();
 
 	if (TA_SUCCESS != TA_Initialize()) {
-		php_error_docref(NULL TSRMLS_CC, E_ERROR, "Trader initialization failed");
+		php_error_docref(NULL, E_ERROR, "Trader initialization failed");
 		return FAILURE;
 	}
 
@@ -1396,11 +1396,11 @@ PHP_MSHUTDOWN_FUNCTION(trader)
 #ifdef ZTS
 	    ts_free_id(trader_globals_id);
 #else
-		php_trader_globals_dtor(&trader_globals TSRMLS_CC);
+		php_trader_globals_dtor(&trader_globals);
 #endif
 
 	if (TA_SUCCESS != TA_Shutdown()) {
-		php_error_docref(NULL TSRMLS_CC, E_ERROR, "Trader shutdown failed");
+		php_error_docref(NULL, E_ERROR, "Trader shutdown failed");
 		return FAILURE;
 	}
 

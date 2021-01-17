@@ -57,7 +57,7 @@ PHP_FUNCTION(trader_cdleveningdojistar)
 		Z_PARAM_DOUBLE(optInPenetration)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa|d", &zinOpen, &zinHigh, &zinLow, &zinClose, &optInPenetration) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aaaa|d", &zinOpen, &zinHigh, &zinLow, &zinClose, &optInPenetration) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

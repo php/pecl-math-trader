@@ -58,7 +58,7 @@ PHP_FUNCTION(trader_stochf)
 		Z_PARAM_LONG(optInFastD_MAType)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInFastK_Period, &optInFastD_Period, &optInFastD_MAType) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

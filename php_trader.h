@@ -356,13 +356,13 @@ ZEND_END_MODULE_GLOBALS(trader)
 
 #define TRADER_DBL_SET_BOUNDABLE(min, max, val) \
 	if (val < (double)min || val > (double)max) { \
-		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%f', expected a value between %f and %f", val, min, max); \
+		php_error_docref(NULL, E_NOTICE, "invalid value '%f', expected a value between %f and %f", val, min, max); \
 		val = (double)min; \
 	} 
 
 #define TRADER_LONG_SET_BOUNDABLE(min, max, val) \
 	if (val < (zend_long)min || val > (zend_long)max) { \
-		php_error_docref(NULL TSRMLS_CC, E_NOTICE, "invalid value '%ld', expected a value between %d and %d", val, min, max); \
+		php_error_docref(NULL, E_NOTICE, "invalid value '%ld', expected a value between %d and %d", val, min, max); \
 		val = (zend_long)min; \
 	} 
 
@@ -376,7 +376,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 		ma_val != TA_MAType_KAMA && \
 		ma_val != TA_MAType_MAMA && \
 		ma_val != TA_MAType_T3) { \
-		php_error_docref(NULL TSRMLS_CC, E_WARNING, "invalid moving average indicator type '%ld'", ma_val); \
+		php_error_docref(NULL, E_WARNING, "invalid moving average indicator type '%ld'", ma_val); \
 		RETURN_FALSE; \
 	}
 

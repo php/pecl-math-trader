@@ -57,7 +57,7 @@ PHP_FUNCTION(trader_mavp)
 		Z_PARAM_LONG(optInMAType)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa|lll", &zinReal, &zinPeriods, &optInMinPeriod, &optInMaxPeriod, &optInMAType) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aa|lll", &zinReal, &zinPeriods, &optInMinPeriod, &optInMaxPeriod, &optInMAType) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

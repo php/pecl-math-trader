@@ -55,7 +55,7 @@ PHP_FUNCTION(trader_stddev)
 		Z_PARAM_DOUBLE(optInNbDev)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|ld", &zinReal, &optInTimePeriod, &optInNbDev) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "a|ld", &zinReal, &optInTimePeriod, &optInNbDev) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

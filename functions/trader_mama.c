@@ -55,7 +55,7 @@ PHP_FUNCTION(trader_mama)
 		Z_PARAM_DOUBLE(optInSlowLimit)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|dd", &zinReal, &optInFastLimit, &optInSlowLimit) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "a|dd", &zinReal, &optInFastLimit, &optInSlowLimit) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

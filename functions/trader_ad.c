@@ -55,7 +55,7 @@ PHP_FUNCTION(trader_ad)
 		Z_PARAM_ARRAY(zinVolume)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaaa", &zinHigh, &zinLow, &zinClose, &zinVolume) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aaaa", &zinHigh, &zinLow, &zinClose, &zinVolume) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

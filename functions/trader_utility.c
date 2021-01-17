@@ -42,8 +42,8 @@ PHP_FUNCTION(trader_set_unstable_period)
 {
 	long functionId, timePeriod;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ll", &functionId, &timePeriod) == FAILURE) {
-		RETURN_FALSE
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "ll", &functionId, &timePeriod) == FAILURE) {
+		RETURN_FALSE;
 	}
 
 	if (TA_SetUnstablePeriod((int)functionId, (int)timePeriod) != TA_SUCCESS) {
@@ -57,12 +57,12 @@ PHP_FUNCTION(trader_get_unstable_period)
 {
 	long functionId;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &functionId) == FAILURE) {
-		RETURN_FALSE
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &functionId) == FAILURE) {
+		RETURN_FALSE;
 	}
 
 	/* XXX error handling here */
-	RETURN_LONG(TA_GetUnstablePeriod((int)functionId))
+	RETURN_LONG(TA_GetUnstablePeriod((int)functionId));
 }
 /* }}} */
 
@@ -71,8 +71,8 @@ PHP_FUNCTION(trader_set_compat)
 {
 	long compatId;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &compatId) == FAILURE) {
-		RETURN_FALSE
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "l", &compatId) == FAILURE) {
+		RETURN_FALSE;
 	}
 
 	if (TA_SetCompatibility((int)compatId) != TA_SUCCESS) {
@@ -85,10 +85,10 @@ PHP_FUNCTION(trader_set_compat)
 PHP_FUNCTION(trader_get_compat)
 {
 	if (zend_parse_parameters_none() == FAILURE) {
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 
-	RETURN_LONG(TA_GetCompatibility())
+	RETURN_LONG(TA_GetCompatibility());
 }
 /* }}} */
 
@@ -97,10 +97,10 @@ PHP_FUNCTION(trader_get_compat)
 PHP_FUNCTION(trader_errno)
 {
 	if (zend_parse_parameters_none() == FAILURE) {
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 
-	RETURN_LONG(TRADER_G(last_error))
+	RETURN_LONG(TRADER_G(last_error));
 }
 /* }}} */
 

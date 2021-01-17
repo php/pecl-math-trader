@@ -54,7 +54,7 @@ PHP_FUNCTION(trader_linearreg_slope)
 		Z_PARAM_LONG(optInTimePeriod)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|l", &zinReal, &optInTimePeriod) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "a|l", &zinReal, &optInTimePeriod) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif

@@ -53,7 +53,7 @@ PHP_FUNCTION(trader_medprice)
 		Z_PARAM_ARRAY(zinLow)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aa", &zinHigh, &zinLow) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aa", &zinHigh, &zinLow) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif
