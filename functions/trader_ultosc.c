@@ -59,7 +59,7 @@ PHP_FUNCTION(trader_ultosc)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "aaa|lll", &zinHigh, &zinLow, &zinClose, &optInTimePeriod1, &optInTimePeriod2, &optInTimePeriod3) == FAILURE) {
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 #endif
 
@@ -89,7 +89,7 @@ PHP_FUNCTION(trader_ultosc)
 			efree(inClose);
 			efree(outReal);
 
-			RETURN_FALSE
+			RETURN_FALSE;
 		}
 
 		TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
@@ -102,7 +102,7 @@ PHP_FUNCTION(trader_ultosc)
 		/* The current input args combination would cause TA-Lib to produce
 			 zero output, don't bother making any allocs or calls. */
 		TRADER_G(last_error) = TA_BAD_PARAM;
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 }
 /* }}} */

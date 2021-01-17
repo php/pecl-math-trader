@@ -51,7 +51,7 @@ PHP_FUNCTION(MY_FUNC_NAME_LOWER)
 	MY_ZEND_FAST_ZPP
 #else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, MY_ZEND_PARAMS_STR, MY_ZEND_PARAM_LIST) == FAILURE) {
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 #endif
 
@@ -69,7 +69,7 @@ PHP_FUNCTION(MY_FUNC_NAME_LOWER)
 		if (TRADER_G(last_error) != TA_SUCCESS) {
 			MY_FUNC_ARRAY_PARA_DEALLOCS2
 
-			RETURN_FALSE
+			RETURN_FALSE;
 		}
 
 		MY_PHP_MAKE_RETURN
@@ -79,7 +79,7 @@ PHP_FUNCTION(MY_FUNC_NAME_LOWER)
 		/* The current input args combination would cause TA-Lib to produce
 			 zero output, don't bother making any allocs or calls. */
 		TRADER_G(last_error) = TA_BAD_PARAM;
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 }
 /* }}} */

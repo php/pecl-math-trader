@@ -55,7 +55,7 @@ PHP_FUNCTION(trader_macdfix)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|l", &zinReal, &optInSignalPeriod) == FAILURE) {
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 #endif
 
@@ -81,7 +81,7 @@ PHP_FUNCTION(trader_macdfix)
 			efree(outMACDSignal);
 			efree(outMACDHist);
 
-			RETURN_FALSE
+			RETURN_FALSE;
 		}
 
 		TRADER_DBL_ARR_TO_ZRET3(outMACD, outMACDSignal, outMACDHist, return_value, endIdx, outBegIdx, outNBElement)
@@ -94,7 +94,7 @@ PHP_FUNCTION(trader_macdfix)
 		/* The current input args combination would cause TA-Lib to produce
 			 zero output, don't bother making any allocs or calls. */
 		TRADER_G(last_error) = TA_BAD_PARAM;
-		RETURN_FALSE
+		RETURN_FALSE;
 	}
 }
 /* }}} */
