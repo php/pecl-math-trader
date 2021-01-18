@@ -35,7 +35,12 @@ var_dump(ini_get('trader.real_round_mode'));
 ini_set('trader.real_round_mode', 'schnitzel');
 var_dump(ini_get('trader.real_round_mode'));
 
-ini_set('trader.real_round_mode', array());
+try {
+	// Hide warning for PHP 7
+	@ini_set('trader.real_round_mode', array());
+} catch (TypeError $e) {
+	// Hide exception for PHP 8
+}
 var_dump(ini_get('trader.real_round_mode'));
 
 ini_set('trader.real_round_mode', 42);
@@ -55,8 +60,6 @@ string(8) "half_odd"
 
 Warning: ini_set(): Invalid value 'schnitzel' for trader.real_round_mode in %strader_ini_01.php on line %d
 string(8) "half_odd"
-
-Warning: ini_set() expects parameter 2 to be string, array given in %strader_ini_01.php on line %d
 string(8) "half_odd"
 
 Warning: ini_set(): Invalid value '42' for trader.real_round_mode in %strader_ini_01.php on line %d

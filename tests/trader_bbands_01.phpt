@@ -3,6 +3,8 @@ trader_bbands() basic test
 --SKIPIF--
 <?php
 if (!extension_loaded("trader")) die("skip");
+if (PHP_VERSION_ID >= 80000) die ("skip PHP 7 only");
+?>
 --INI--
 trader.real_precision=3
 --FILE--
