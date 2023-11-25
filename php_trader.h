@@ -47,11 +47,11 @@ extern zend_module_entry trader_module_entry;
 #endif
 #include "ext/standard/php_math.h"
 
-#if PHP_MAJOR_VERSION < 7 
+#if PHP_MAJOR_VERSION < 7
 typedef long zend_long;
 #endif
 
-/* XXX need this, but it's not exported anywhere. 
+/* XXX need this, but it's not exported anywhere.
  	This will need to be fixed once it was exposed in php_math.h */
 PHPAPI double _php_math_round(double value, int places, int mode);
 
@@ -63,6 +63,7 @@ PHP_MINIT_FUNCTION(trader);
 PHP_MSHUTDOWN_FUNCTION(trader);
 PHP_MINFO_FUNCTION(trader);
 
+PHP_FUNCTION(trader_accbands);
 PHP_FUNCTION(trader_acos);
 PHP_FUNCTION(trader_ad);
 PHP_FUNCTION(trader_add);
@@ -75,6 +76,7 @@ PHP_FUNCTION(trader_aroonosc);
 PHP_FUNCTION(trader_asin);
 PHP_FUNCTION(trader_atan);
 PHP_FUNCTION(trader_atr);
+PHP_FUNCTION(trader_avgdev);
 PHP_FUNCTION(trader_avgprice);
 PHP_FUNCTION(trader_bbands);
 PHP_FUNCTION(trader_beta);
@@ -158,6 +160,7 @@ PHP_FUNCTION(trader_ht_phasor);
 PHP_FUNCTION(trader_ht_sine);
 PHP_FUNCTION(trader_ht_trendline);
 PHP_FUNCTION(trader_ht_trendmode);
+PHP_FUNCTION(trader_imi);
 PHP_FUNCTION(trader_kama);
 PHP_FUNCTION(trader_linearreg);
 PHP_FUNCTION(trader_linearreg_angle);
@@ -278,7 +281,7 @@ ZEND_END_MODULE_GLOBALS(trader)
 
 /* XXX fix this because if function call passed it would cause multiple functions calls */
 #define TRADER_MIN_INT(x, y) ((int)(x) < (int)(y) ? (int)(x) : (int)(y))
-#define TRADER_SET_MIN_INT1(t, x) t = (int)(x); 
+#define TRADER_SET_MIN_INT1(t, x) t = (int)(x);
 #define TRADER_SET_MIN_INT2(t, x, y) t = TRADER_MIN_INT(x, y);
 #define TRADER_SET_MIN_INT3(t, x, y, z) t = TRADER_MIN_INT(x, TRADER_MIN_INT(y, z));
 #define TRADER_SET_MIN_INT4(t, x, y, z, k) t = TRADER_MIN_INT(x, TRADER_MIN_INT(y, TRADER_MIN_INT(z, k)));
@@ -358,13 +361,13 @@ ZEND_END_MODULE_GLOBALS(trader)
 	if (val < (double)min || val > (double)max) { \
 		php_error_docref(NULL, E_NOTICE, "invalid value '%f', expected a value between %f and %f", val, min, max); \
 		val = (double)min; \
-	} 
+	}
 
 #define TRADER_LONG_SET_BOUNDABLE(min, max, val) \
 	if (val < (zend_long)min || val > (zend_long)max) { \
 		php_error_docref(NULL, E_NOTICE, "invalid value '%ld', expected a value between %d and %d", val, min, max); \
 		val = (zend_long)min; \
-	} 
+	}
 
 #define TRADER_CHECK_MA_TYPE(ma_val) \
 	if (ma_val != TA_MAType_SMA && \

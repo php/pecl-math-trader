@@ -203,6 +203,7 @@
 			<file role="src" name="ta-lib/src/ta_func/ta_WMA.c" />
 <!-- }}}  -->
 <!-- {{{ Functions -->
+			<file role="src" name="functions/trader_accbands.c" />
 			<file role="src" name="functions/trader_acos.c" />
 			<file role="src" name="functions/trader_ad.c" />
 			<file role="src" name="functions/trader_add.c" />
@@ -215,6 +216,7 @@
 			<file role="src" name="functions/trader_asin.c" />
 			<file role="src" name="functions/trader_atan.c" />
 			<file role="src" name="functions/trader_atr.c" />
+			<file role="src" name="functions/trader_avgdev.c" />
 			<file role="src" name="functions/trader_avgprice.c" />
 			<file role="src" name="functions/trader_bbands.c" />
 			<file role="src" name="functions/trader_beta.c" />
@@ -298,6 +300,7 @@
 			<file role="src" name="functions/trader_ht_sine.c" />
 			<file role="src" name="functions/trader_ht_trendline.c" />
 			<file role="src" name="functions/trader_ht_trendmode.c" />
+			<file role="src" name="functions/trader_imi.c" />
 			<file role="src" name="functions/trader_kama.c" />
 			<file role="src" name="functions/trader_linearreg_angle.c" />
 			<file role="src" name="functions/trader_linearreg.c" />

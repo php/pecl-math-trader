@@ -8,7 +8,7 @@ if (PHP_TRADER != "no") {
 		CHECK_HEADER_ADD_INCLUDE("ta_global.h", "CFLAGS_TRADER", PHP_TRADER + ";" + configure_module_dirname + "\\ta-lib\\src\\ta_common") &&
 		CHECK_HEADER_ADD_INCLUDE("php_trader.h", "CFLAGS_TRADER", PHP_TRADER + ";" + configure_module_dirname)
 	) {
-	
+
 		EXTENSION("trader", "trader.c");
 
 		ADD_SOURCES(configure_module_dirname + "\\ta-lib\\src\\ta_common", "ta_global.c ta_retcode.c ta_version.c", "trader");
@@ -176,6 +176,7 @@ if (PHP_TRADER != "no") {
 		);
 
 		ADD_SOURCES(configure_module_dirname + "\\functions", " \
+			trader_accbands.c \
 			trader_acos.c \
 			trader_ad.c \
 			trader_add.c \
@@ -188,6 +189,7 @@ if (PHP_TRADER != "no") {
 			trader_asin.c \
 			trader_atan.c \
 			trader_atr.c \
+			trader_avgdev.c \
 			trader_avgprice.c \
 			trader_bbands.c \
 			trader_beta.c \
@@ -271,6 +273,7 @@ if (PHP_TRADER != "no") {
 			trader_ht_sine.c \
 			trader_ht_trendline.c \
 			trader_ht_trendmode.c \
+			trader_imi.c \
 			trader_kama.c \
 			trader_linearreg.c \
 			trader_linearreg_angle.c \
@@ -339,10 +342,10 @@ if (PHP_TRADER != "no") {
 		);
 
 		AC_DEFINE('HAVE_TRADER', 1, 'Have ta library');
-		
+
 		ADD_FLAG("CFLAGS_TRADER", ' /I "ta-lib/include" /I "ta-lib/src/ta_common" /I "functions" ');
 		ADD_FLAG("LDFLAGS_TRADER", ' /libpath:"ta-lib/include" /libpath:"ta-lib/src/ta_common" /libpath:"functions" ');
-		
+
 	}
 	else {
 		WARNING("trader not enabled; libraries and headers not found");
