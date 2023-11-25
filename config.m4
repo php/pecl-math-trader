@@ -9,6 +9,7 @@ if test "$PHP_TA" != "no"; then
     ta-lib/src/ta_common/ta_retcode.c \
     ta-lib/src/ta_common/ta_version.c \
 	ta-lib/src/ta_func/ta_utility.c \
+	ta-lib/src/ta_func/ta_ACCBANDS.c \
 	ta-lib/src/ta_func/ta_ACOS.c \
 	ta-lib/src/ta_func/ta_AD.c \
 	ta-lib/src/ta_func/ta_ADD.c \
@@ -21,6 +22,7 @@ if test "$PHP_TA" != "no"; then
 	ta-lib/src/ta_func/ta_ASIN.c \
 	ta-lib/src/ta_func/ta_ATAN.c \
 	ta-lib/src/ta_func/ta_ATR.c \
+	ta-lib/src/ta_func/ta_AVGDEV.c \
 	ta-lib/src/ta_func/ta_AVGPRICE.c \
 	ta-lib/src/ta_func/ta_BBANDS.c \
 	ta-lib/src/ta_func/ta_BETA.c \
@@ -104,6 +106,7 @@ if test "$PHP_TA" != "no"; then
 	ta-lib/src/ta_func/ta_HT_SINE.c \
 	ta-lib/src/ta_func/ta_HT_TRENDLINE.c \
 	ta-lib/src/ta_func/ta_HT_TRENDMODE.c \
+	ta-lib/src/ta_func/ta_IMI.c \
 	ta-lib/src/ta_func/ta_KAMA.c \
 	ta-lib/src/ta_func/ta_LINEARREG.c \
 	ta-lib/src/ta_func/ta_LINEARREG_ANGLE.c \

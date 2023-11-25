@@ -13,6 +13,7 @@ if (PHP_TRADER != "no") {
 
 		ADD_SOURCES(configure_module_dirname + "\\ta-lib\\src\\ta_common", "ta_global.c ta_retcode.c ta_version.c", "trader");
 		ADD_SOURCES(configure_module_dirname + "\\ta-lib\\src\\ta_func", " \
+		    ta_ACCBANDS.c \
 			ta_ACOS.c \
 			ta_AD.c \
 			ta_ADD.c \
@@ -25,6 +26,7 @@ if (PHP_TRADER != "no") {
 			ta_ASIN.c \
 			ta_ATAN.c \
 			ta_ATR.c \
+			ta_AVGDEV.c \
 			ta_AVGPRICE.c \
 			ta_BBANDS.c \
 			ta_BETA.c \
@@ -108,6 +110,7 @@ if (PHP_TRADER != "no") {
 			ta_HT_SINE.c \
 			ta_HT_TRENDLINE.c \
 			ta_HT_TRENDMODE.c \
+			ta_IMI.c \
 			ta_KAMA.c \
 			ta_LINEARREG.c \
 			ta_LINEARREG_ANGLE.c \
