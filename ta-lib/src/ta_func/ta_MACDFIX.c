@@ -1,4 +1,4 @@
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+/* TA-LIB Copyright (c) 1999-2008, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -85,7 +85,7 @@
 /* Generated */ public int macdFixLookback( int           optInSignalPeriod )  /* From 1 to 100000 */
 /* Generated */ 
 /* Generated */ #else
-/* Generated */ int TA_MACDFIX_Lookback( int           optInSignalPeriod )  /* From 1 to 100000 */
+/* Generated */ TA_LIB_API int TA_MACDFIX_Lookback( int           optInSignalPeriod )  /* From 1 to 100000 */
 /* Generated */ 
 /* Generated */ #endif
 /**** END GENCODE SECTION 1 - DO NOT DELETE THIS LINE ****/
@@ -132,13 +132,13 @@
 /* Generated */ #if defined( _MANAGED ) && defined( USE_SUBARRAY )
 /* Generated */ enum class Core::RetCode Core::MacdFix( int    startIdx,
 /* Generated */                                         int    endIdx,
-/* Generated */                                         SubArray^    inReal,
+/* Generated */                                         SubArray<double>^ inReal,
 /* Generated */                                         int           optInSignalPeriod, /* From 1 to 100000 */
 /* Generated */                                         [Out]int%    outBegIdx,
 /* Generated */                                         [Out]int%    outNBElement,
-/* Generated */                                         cli::array<double>^  outMACD,
-/* Generated */                                         cli::array<double>^  outMACDSignal,
-/* Generated */                                         cli::array<double>^  outMACDHist )
+/* Generated */                                         SubArray<double>^  outMACD,
+/* Generated */                                         SubArray<double>^  outMACDSignal,
+/* Generated */                                         SubArray<double>^  outMACDHist )
 /* Generated */ #elif defined( _MANAGED )
 /* Generated */ enum class Core::RetCode Core::MacdFix( int    startIdx,
 /* Generated */                                         int    endIdx,
@@ -160,15 +160,15 @@
 /* Generated */                         double        outMACDSignal[],
 /* Generated */                         double        outMACDHist[] )
 /* Generated */ #else
-/* Generated */ TA_RetCode TA_MACDFIX( int    startIdx,
-/* Generated */                        int    endIdx,
-/* Generated */                        const double inReal[],
-/* Generated */                        int           optInSignalPeriod, /* From 1 to 100000 */
-/* Generated */                        int          *outBegIdx,
-/* Generated */                        int          *outNBElement,
-/* Generated */                        double        outMACD[],
-/* Generated */                        double        outMACDSignal[],
-/* Generated */                        double        outMACDHist[] )
+/* Generated */ TA_LIB_API TA_RetCode TA_MACDFIX( int    startIdx,
+/* Generated */                                   int    endIdx,
+/* Generated */                                              const double inReal[],
+/* Generated */                                              int           optInSignalPeriod, /* From 1 to 100000 */
+/* Generated */                                              int          *outBegIdx,
+/* Generated */                                              int          *outNBElement,
+/* Generated */                                              double        outMACD[],
+/* Generated */                                              double        outMACDSignal[],
+/* Generated */                                              double        outMACDHist[] )
 /* Generated */ #endif
 /**** END GENCODE SECTION 3 - DO NOT DELETE THIS LINE ****/
 {
@@ -224,13 +224,24 @@
 /**** START GENCODE SECTION 5 - DO NOT DELETE THIS LINE ****/
 /* Generated */ 
 /* Generated */ #define  USE_SINGLE_PRECISION_INPUT
+/* Generated */ #undef  TA_LIB_PRO
 /* Generated */ #if !defined( _MANAGED ) && !defined( _JAVA )
 /* Generated */    #undef   TA_PREFIX
 /* Generated */    #define  TA_PREFIX(x) TA_S_##x
 /* Generated */ #endif
 /* Generated */ #undef   INPUT_TYPE
 /* Generated */ #define  INPUT_TYPE float
-/* Generated */ #if defined( _MANAGED )
+/* Generated */ #if defined( _MANAGED ) && defined( USE_SUBARRAY )
+/* Generated */ enum class Core::RetCode Core::MacdFix( int    startIdx,
+/* Generated */                                         int    endIdx,
+/* Generated */                                         SubArray<float>^ inReal,
+/* Generated */                                         int           optInSignalPeriod, /* From 1 to 100000 */
+/* Generated */                                         [Out]int%    outBegIdx,
+/* Generated */                                         [Out]int%    outNBElement,
+/* Generated */                                         SubArray<double>^  outMACD,
+/* Generated */                                         SubArray<double>^  outMACDSignal,
+/* Generated */                                         SubArray<double>^  outMACDHist )
+/* Generated */ #elif defined( _MANAGED )
 /* Generated */ enum class Core::RetCode Core::MacdFix( int    startIdx,
 /* Generated */                                         int    endIdx,
 /* Generated */                                         cli::array<float>^ inReal,

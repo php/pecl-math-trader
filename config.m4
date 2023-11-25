@@ -9,6 +9,7 @@ if test "$PHP_TA" != "no"; then
     ta-lib/src/ta_common/ta_retcode.c \
     ta-lib/src/ta_common/ta_version.c \
 	ta-lib/src/ta_func/ta_utility.c \
+	ta-lib/src/ta_func/ta_ACCBANDS.c \
 	ta-lib/src/ta_func/ta_ACOS.c \
 	ta-lib/src/ta_func/ta_AD.c \
 	ta-lib/src/ta_func/ta_ADD.c \
@@ -21,6 +22,7 @@ if test "$PHP_TA" != "no"; then
 	ta-lib/src/ta_func/ta_ASIN.c \
 	ta-lib/src/ta_func/ta_ATAN.c \
 	ta-lib/src/ta_func/ta_ATR.c \
+	ta-lib/src/ta_func/ta_AVGDEV.c \
 	ta-lib/src/ta_func/ta_AVGPRICE.c \
 	ta-lib/src/ta_func/ta_BBANDS.c \
 	ta-lib/src/ta_func/ta_BETA.c \
@@ -104,6 +106,7 @@ if test "$PHP_TA" != "no"; then
 	ta-lib/src/ta_func/ta_HT_SINE.c \
 	ta-lib/src/ta_func/ta_HT_TRENDLINE.c \
 	ta-lib/src/ta_func/ta_HT_TRENDMODE.c \
+	ta-lib/src/ta_func/ta_IMI.c \
 	ta-lib/src/ta_func/ta_KAMA.c \
 	ta-lib/src/ta_func/ta_LINEARREG.c \
 	ta-lib/src/ta_func/ta_LINEARREG_ANGLE.c \
@@ -167,6 +170,7 @@ if test "$PHP_TA" != "no"; then
 	ta-lib/src/ta_func/ta_WCLPRICE.c \
 	ta-lib/src/ta_func/ta_WILLR.c \
 	ta-lib/src/ta_func/ta_WMA.c \
+	functions/trader_accbands.c \
 	functions/trader_acos.c \
 	functions/trader_ad.c \
 	functions/trader_add.c \
@@ -179,6 +183,7 @@ if test "$PHP_TA" != "no"; then
 	functions/trader_asin.c \
 	functions/trader_atan.c \
 	functions/trader_atr.c \
+	functions/trader_avgdev.c \
 	functions/trader_avgprice.c \
 	functions/trader_bbands.c \
 	functions/trader_beta.c \
@@ -262,6 +267,7 @@ if test "$PHP_TA" != "no"; then
 	functions/trader_ht_sine.c \
 	functions/trader_ht_trendline.c \
 	functions/trader_ht_trendmode.c \
+	functions/trader_imi.c \
 	functions/trader_kama.c \
 	functions/trader_linearreg_angle.c \
 	functions/trader_linearreg.c \

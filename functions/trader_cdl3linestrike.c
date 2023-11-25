@@ -37,7 +37,7 @@
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
 /* {{{ proto array trader_cdl3linestrike(array open, array high, array low, array close)
-	Three-Line Strike  */
+	Three-Line Strike */
 PHP_FUNCTION(trader_cdl3linestrike)
 {
 	int optimalOutAlloc, lookback;

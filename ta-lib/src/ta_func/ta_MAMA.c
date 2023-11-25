@@ -1,4 +1,4 @@
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+/* TA-LIB Copyright (c) 1999-2008, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -88,8 +88,8 @@
 /* Generated */                        double        optInSlowLimit )  /* From 0.01 to 0.99 */
 /* Generated */ 
 /* Generated */ #else
-/* Generated */ int TA_MAMA_Lookback( double        optInFastLimit, /* From 0.01 to 0.99 */
-/* Generated */                     double        optInSlowLimit )  /* From 0.01 to 0.99 */
+/* Generated */ TA_LIB_API int TA_MAMA_Lookback( double        optInFastLimit, /* From 0.01 to 0.99 */
+/* Generated */                                           double        optInSlowLimit )  /* From 0.01 to 0.99 */
 /* Generated */ 
 /* Generated */ #endif
 /**** END GENCODE SECTION 1 - DO NOT DELETE THIS LINE ****/
@@ -161,13 +161,13 @@
 /* Generated */ #if defined( _MANAGED ) && defined( USE_SUBARRAY )
 /* Generated */ enum class Core::RetCode Core::Mama( int    startIdx,
 /* Generated */                                      int    endIdx,
-/* Generated */                                      SubArray^    inReal,
+/* Generated */                                      SubArray<double>^ inReal,
 /* Generated */                                      double        optInFastLimit, /* From 0.01 to 0.99 */
 /* Generated */                                      double        optInSlowLimit, /* From 0.01 to 0.99 */
 /* Generated */                                      [Out]int%    outBegIdx,
 /* Generated */                                      [Out]int%    outNBElement,
-/* Generated */                                      cli::array<double>^  outMAMA,
-/* Generated */                                      cli::array<double>^  outFAMA )
+/* Generated */                                      SubArray<double>^  outMAMA,
+/* Generated */                                      SubArray<double>^  outFAMA )
 /* Generated */ #elif defined( _MANAGED )
 /* Generated */ enum class Core::RetCode Core::Mama( int    startIdx,
 /* Generated */                                      int    endIdx,
@@ -189,15 +189,15 @@
 /* Generated */                      double        outMAMA[],
 /* Generated */                      double        outFAMA[] )
 /* Generated */ #else
-/* Generated */ TA_RetCode TA_MAMA( int    startIdx,
-/* Generated */                     int    endIdx,
-/* Generated */                     const double inReal[],
-/* Generated */                     double        optInFastLimit, /* From 0.01 to 0.99 */
-/* Generated */                     double        optInSlowLimit, /* From 0.01 to 0.99 */
-/* Generated */                     int          *outBegIdx,
-/* Generated */                     int          *outNBElement,
-/* Generated */                     double        outMAMA[],
-/* Generated */                     double        outFAMA[] )
+/* Generated */ TA_LIB_API TA_RetCode TA_MAMA( int    startIdx,
+/* Generated */                                int    endIdx,
+/* Generated */                                           const double inReal[],
+/* Generated */                                           double        optInFastLimit, /* From 0.01 to 0.99 */
+/* Generated */                                           double        optInSlowLimit, /* From 0.01 to 0.99 */
+/* Generated */                                           int          *outBegIdx,
+/* Generated */                                           int          *outNBElement,
+/* Generated */                                           double        outMAMA[],
+/* Generated */                                           double        outFAMA[] )
 /* Generated */ #endif
 /**** END GENCODE SECTION 3 - DO NOT DELETE THIS LINE ****/
 {
@@ -493,13 +493,24 @@
 /**** START GENCODE SECTION 5 - DO NOT DELETE THIS LINE ****/
 /* Generated */ 
 /* Generated */ #define  USE_SINGLE_PRECISION_INPUT
+/* Generated */ #undef  TA_LIB_PRO
 /* Generated */ #if !defined( _MANAGED ) && !defined( _JAVA )
 /* Generated */    #undef   TA_PREFIX
 /* Generated */    #define  TA_PREFIX(x) TA_S_##x
 /* Generated */ #endif
 /* Generated */ #undef   INPUT_TYPE
 /* Generated */ #define  INPUT_TYPE float
-/* Generated */ #if defined( _MANAGED )
+/* Generated */ #if defined( _MANAGED ) && defined( USE_SUBARRAY )
+/* Generated */ enum class Core::RetCode Core::Mama( int    startIdx,
+/* Generated */                                      int    endIdx,
+/* Generated */                                      SubArray<float>^ inReal,
+/* Generated */                                      double        optInFastLimit, /* From 0.01 to 0.99 */
+/* Generated */                                      double        optInSlowLimit, /* From 0.01 to 0.99 */
+/* Generated */                                      [Out]int%    outBegIdx,
+/* Generated */                                      [Out]int%    outNBElement,
+/* Generated */                                      SubArray<double>^  outMAMA,
+/* Generated */                                      SubArray<double>^  outFAMA )
+/* Generated */ #elif defined( _MANAGED )
 /* Generated */ enum class Core::RetCode Core::Mama( int    startIdx,
 /* Generated */                                      int    endIdx,
 /* Generated */                                      cli::array<float>^ inReal,

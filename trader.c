@@ -50,6 +50,14 @@ static int le_trader;
 #endif
 
 /* {{{ trader_arginfo */
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_accbands, 0, 0, 3)
+	ZEND_ARG_ARRAY_INFO(0,  high, 0)
+	ZEND_ARG_ARRAY_INFO(0,  low, 0)
+	ZEND_ARG_ARRAY_INFO(0,  close, 0)
+	ZEND_ARG_INFO(0,  timePeriod)
+ZEND_END_ARG_INFO();
+
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_acos, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0,  real, 0)
 ZEND_END_ARG_INFO();
@@ -120,6 +128,11 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_atr, 0, 0, 3)
 	ZEND_ARG_ARRAY_INFO(0,  high, 0)
 	ZEND_ARG_ARRAY_INFO(0,  low, 0)
 	ZEND_ARG_ARRAY_INFO(0,  close, 0)
+	ZEND_ARG_INFO(0,  timePeriod)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_avgdev, 0, 0, 1)
+	ZEND_ARG_ARRAY_INFO(0,  real, 0)
 	ZEND_ARG_INFO(0,  timePeriod)
 ZEND_END_ARG_INFO();
 
@@ -669,6 +682,12 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ht_trendmode, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0,  real, 0)
 ZEND_END_ARG_INFO();
 
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_imi, 0, 0, 2)
+	ZEND_ARG_ARRAY_INFO(0,  open, 0)
+	ZEND_ARG_ARRAY_INFO(0,  close, 0)
+	ZEND_ARG_INFO(0,  timePeriod)
+ZEND_END_ARG_INFO();
+
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_kama, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0,  real, 0)
 	ZEND_ARG_INFO(0,  timePeriod)
@@ -1063,6 +1082,7 @@ ZEND_END_ARG_INFO();
  * Every user visible function must have an entry in trader_functions[].
  */
 const zend_function_entry trader_functions[] = {
+	PHP_FE(trader_accbands, arg_info_trader_accbands)
 	PHP_FE(trader_acos, arg_info_trader_acos)
 	PHP_FE(trader_ad, arg_info_trader_ad)
 	PHP_FE(trader_add, arg_info_trader_add)
@@ -1075,6 +1095,7 @@ const zend_function_entry trader_functions[] = {
 	PHP_FE(trader_asin, arg_info_trader_asin)
 	PHP_FE(trader_atan, arg_info_trader_atan)
 	PHP_FE(trader_atr, arg_info_trader_atr)
+	PHP_FE(trader_avgdev, arg_info_trader_avgdev)
 	PHP_FE(trader_avgprice, arg_info_trader_avgprice)
 	PHP_FE(trader_bbands, arg_info_trader_bbands)
 	PHP_FE(trader_beta, arg_info_trader_beta)
@@ -1158,6 +1179,7 @@ const zend_function_entry trader_functions[] = {
 	PHP_FE(trader_ht_sine, arg_info_trader_ht_sine)
 	PHP_FE(trader_ht_trendline, arg_info_trader_ht_trendline)
 	PHP_FE(trader_ht_trendmode, arg_info_trader_ht_trendmode)
+	PHP_FE(trader_imi, arg_info_trader_imi)
 	PHP_FE(trader_kama, arg_info_trader_kama)
 	PHP_FE(trader_linearreg, arg_info_trader_linearreg)
 	PHP_FE(trader_linearreg_angle, arg_info_trader_linearreg_angle)
@@ -1286,7 +1308,7 @@ PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("trader.real_precision", "3", PHP_INI_ALL, OnUpdateLong, real_precision, zend_trader_globals, trader_globals)
     PHP_INI_ENTRY("trader.real_round_mode", "HALF_DOWN", PHP_INI_ALL, OnUpdateTraderRealRoundMode)
 PHP_INI_END()
-/* }}} */ 
+/* }}} */
 
 /* {{{ php_trader_globals_ctor
  */
