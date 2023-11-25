@@ -36,67 +36,54 @@
 
 ZEND_EXTERN_MODULE_GLOBALS(trader)
 
-/* {{{ proto array trader_cdl3linestrike(array open, array high, array low, array close)
-	Three-Line Strike */
-PHP_FUNCTION(trader_cdl3linestrike)
+/* {{{ proto array trader_avgdev(array real [, int timePeriod])
+	Average Deviation */
+PHP_FUNCTION(trader_avgdev)
 {
 	int optimalOutAlloc, lookback;
-	zval *zinOpen, *zinHigh, *zinLow, *zinClose;
-	double *inOpen, *inHigh, *inLow, *inClose;
-	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0, *outInteger = 0;
-	
+	zval *zinReal;
+	double *inReal, *outReal;
+	int startIdx = 0, endIdx = 0, outBegIdx = 0, outNBElement = 0;
+	zend_long optInTimePeriod = 2;
 	
 
 #if PHP_MAJOR_VERSION >= 7
-	ZEND_PARSE_PARAMETERS_START(4, 4)
-		Z_PARAM_ARRAY(zinOpen)
-		Z_PARAM_ARRAY(zinHigh)
-		Z_PARAM_ARRAY(zinLow)
-		Z_PARAM_ARRAY(zinClose)
+	ZEND_PARSE_PARAMETERS_START(1, 2)
+		Z_PARAM_ARRAY(zinReal)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG(optInTimePeriod)
 	ZEND_PARSE_PARAMETERS_END_EX(RETURN_FALSE);
 #else
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "aaaa", &zinOpen, &zinHigh, &zinLow, &zinClose) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "a|l", &zinReal, &optInTimePeriod) == FAILURE) {
 		RETURN_FALSE;
 	}
 #endif
 
 	
-		
+	TRADER_LONG_SET_BOUNDABLE(2, 100000, optInTimePeriod);	
 
-	TRADER_SET_MIN_INT4(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinOpen)),
-		zend_hash_num_elements(Z_ARRVAL_P(zinHigh)),
-		zend_hash_num_elements(Z_ARRVAL_P(zinLow)),
-		zend_hash_num_elements(Z_ARRVAL_P(zinClose)))
+	TRADER_SET_MIN_INT1(endIdx, zend_hash_num_elements(Z_ARRVAL_P(zinReal)))
 	endIdx--; /* it's <= in the ta-lib */
 	
 
-	lookback = TA_CDL3LINESTRIKE_Lookback();
+	lookback = TA_AVGDEV_Lookback((int)optInTimePeriod);
 	optimalOutAlloc = (lookback > endIdx) ? 0 : (endIdx - lookback + 1);
 	if (optimalOutAlloc > 0) {
-		outInteger = emalloc(sizeof(double)*optimalOutAlloc);
-		TRADER_DBL_ZARR_TO_ARR(zinOpen, inOpen)
-		TRADER_DBL_ZARR_TO_ARR(zinHigh, inHigh)
-		TRADER_DBL_ZARR_TO_ARR(zinLow, inLow)
-		TRADER_DBL_ZARR_TO_ARR(zinClose, inClose)
+		outReal = emalloc(sizeof(double)*optimalOutAlloc);
+		TRADER_DBL_ZARR_TO_ARR(zinReal, inReal)
 
-		TRADER_G(last_error) = TA_CDL3LINESTRIKE(startIdx, endIdx, inOpen, inHigh, inLow, inClose, &outBegIdx, &outNBElement, outInteger);
+		TRADER_G(last_error) = TA_AVGDEV(startIdx, endIdx, inReal, (int)optInTimePeriod, &outBegIdx, &outNBElement, outReal);
 		if (TRADER_G(last_error) != TA_SUCCESS) {
-			efree(inOpen);
-			efree(inHigh);
-			efree(inLow);
-			efree(inClose);
-			efree(outInteger);
+			efree(inReal);
+			efree(outReal);
 
 			RETURN_FALSE;
 		}
 
-		TRADER_DBL_ARR_TO_ZRET1(outInteger, return_value, endIdx, outBegIdx, outNBElement)
+		TRADER_DBL_ARR_TO_ZRET1(outReal, return_value, endIdx, outBegIdx, outNBElement)
 
-		efree(inOpen);
-		efree(inHigh);
-		efree(inLow);
-		efree(inClose);
-		efree(outInteger);
+		efree(inReal);
+		efree(outReal);
 	} else {
 		/* The current input args combination would cause TA-Lib to produce
 			 zero output, don't bother making any allocs or calls. */

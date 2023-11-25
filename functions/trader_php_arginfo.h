@@ -31,6 +31,13 @@
 #ifndef TA_PHP_ARGINFO_H
 #define TA_PHP_ARGINFO_H
 
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_accbands, 0, 0, 3)
+	ZEND_ARG_ARRAY_INFO(0,  high, 0)
+	ZEND_ARG_ARRAY_INFO(0,  low, 0)
+	ZEND_ARG_ARRAY_INFO(0,  close, 0)
+	ZEND_ARG_INFO(0,  timePeriod)
+ZEND_END_ARG_INFO();
+
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_acos, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0,  real, 0)
 ZEND_END_ARG_INFO();
@@ -109,6 +116,11 @@ ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_avgprice, 0, 0, 4)
 	ZEND_ARG_ARRAY_INFO(0,  high, 0)
 	ZEND_ARG_ARRAY_INFO(0,  low, 0)
 	ZEND_ARG_ARRAY_INFO(0,  close, 0)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_avgdev, 0, 0, 1)
+	ZEND_ARG_ARRAY_INFO(0,  real, 0)
+	ZEND_ARG_INFO(0,  timePeriod)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_bbands, 0, 0, 1)
@@ -648,6 +660,12 @@ ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_ht_trendmode, 0, 0, 1)
 	ZEND_ARG_ARRAY_INFO(0,  real, 0)
+ZEND_END_ARG_INFO();
+
+ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_imi, 0, 0, 2)
+	ZEND_ARG_ARRAY_INFO(0,  open, 0)
+	ZEND_ARG_ARRAY_INFO(0,  close, 0)
+	ZEND_ARG_INFO(0,  timePeriod)
 ZEND_END_ARG_INFO();
 
 ZEND_BEGIN_ARG_INFO_EX(arg_info_trader_kama, 0, 0, 1)

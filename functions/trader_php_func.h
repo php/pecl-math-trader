@@ -31,6 +31,7 @@
 #ifndef TA_PHP_FUNC_H
 #define TA_PHP_FUNC_H
 
+PHP_FUNCTION(trader_accbands);
 PHP_FUNCTION(trader_acos);
 PHP_FUNCTION(trader_ad);
 PHP_FUNCTION(trader_add);
@@ -44,6 +45,7 @@ PHP_FUNCTION(trader_asin);
 PHP_FUNCTION(trader_atan);
 PHP_FUNCTION(trader_atr);
 PHP_FUNCTION(trader_avgprice);
+PHP_FUNCTION(trader_avgdev);
 PHP_FUNCTION(trader_bbands);
 PHP_FUNCTION(trader_beta);
 PHP_FUNCTION(trader_bop);
@@ -126,6 +128,7 @@ PHP_FUNCTION(trader_ht_phasor);
 PHP_FUNCTION(trader_ht_sine);
 PHP_FUNCTION(trader_ht_trendline);
 PHP_FUNCTION(trader_ht_trendmode);
+PHP_FUNCTION(trader_imi);
 PHP_FUNCTION(trader_kama);
 PHP_FUNCTION(trader_linearreg);
 PHP_FUNCTION(trader_linearreg_angle);

@@ -31,6 +31,7 @@
 #ifndef TA_PHP_FE_H
 #define TA_PHP_FE_H
 const zend_function_entry ta_functions[] = {
+	PHP_FE(trader_accbands, arg_info_trader_accbands)
 	PHP_FE(trader_acos, arg_info_trader_acos)
 	PHP_FE(trader_ad, arg_info_trader_ad)
 	PHP_FE(trader_add, arg_info_trader_add)
@@ -44,6 +45,7 @@ const zend_function_entry ta_functions[] = {
 	PHP_FE(trader_atan, arg_info_trader_atan)
 	PHP_FE(trader_atr, arg_info_trader_atr)
 	PHP_FE(trader_avgprice, arg_info_trader_avgprice)
+	PHP_FE(trader_avgdev, arg_info_trader_avgdev)
 	PHP_FE(trader_bbands, arg_info_trader_bbands)
 	PHP_FE(trader_beta, arg_info_trader_beta)
 	PHP_FE(trader_bop, arg_info_trader_bop)
@@ -126,6 +128,7 @@ const zend_function_entry ta_functions[] = {
 	PHP_FE(trader_ht_sine, arg_info_trader_ht_sine)
 	PHP_FE(trader_ht_trendline, arg_info_trader_ht_trendline)
 	PHP_FE(trader_ht_trendmode, arg_info_trader_ht_trendmode)
+	PHP_FE(trader_imi, arg_info_trader_imi)
 	PHP_FE(trader_kama, arg_info_trader_kama)
 	PHP_FE(trader_linearreg, arg_info_trader_linearreg)
 	PHP_FE(trader_linearreg_angle, arg_info_trader_linearreg_angle)
