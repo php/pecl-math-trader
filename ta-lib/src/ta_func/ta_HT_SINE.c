@@ -1,4 +1,4 @@
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+/* TA-LIB Copyright (c) 1999-2008, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -85,7 +85,7 @@
 /* Generated */ public int htSineLookback(  )
 /* Generated */ 
 /* Generated */ #else
-/* Generated */ int TA_HT_SINE_Lookback( void )
+/* Generated */ TA_LIB_API int TA_HT_SINE_Lookback( void )
 /* Generated */ 
 /* Generated */ #endif
 /**** END GENCODE SECTION 1 - DO NOT DELETE THIS LINE ****/
@@ -121,11 +121,11 @@
 /* Generated */ #if defined( _MANAGED ) && defined( USE_SUBARRAY )
 /* Generated */ enum class Core::RetCode Core::HtSine( int    startIdx,
 /* Generated */                                        int    endIdx,
-/* Generated */                                        SubArray^    inReal,
+/* Generated */                                        SubArray<double>^ inReal,
 /* Generated */                                        [Out]int%    outBegIdx,
 /* Generated */                                        [Out]int%    outNBElement,
-/* Generated */                                        cli::array<double>^  outSine,
-/* Generated */                                        cli::array<double>^  outLeadSine )
+/* Generated */                                        SubArray<double>^  outSine,
+/* Generated */                                        SubArray<double>^  outLeadSine )
 /* Generated */ #elif defined( _MANAGED )
 /* Generated */ enum class Core::RetCode Core::HtSine( int    startIdx,
 /* Generated */                                        int    endIdx,
@@ -143,13 +143,13 @@
 /* Generated */                        double        outSine[],
 /* Generated */                        double        outLeadSine[] )
 /* Generated */ #else
-/* Generated */ TA_RetCode TA_HT_SINE( int    startIdx,
-/* Generated */                        int    endIdx,
-/* Generated */                        const double inReal[],
-/* Generated */                        int          *outBegIdx,
-/* Generated */                        int          *outNBElement,
-/* Generated */                        double        outSine[],
-/* Generated */                        double        outLeadSine[] )
+/* Generated */ TA_LIB_API TA_RetCode TA_HT_SINE( int    startIdx,
+/* Generated */                                   int    endIdx,
+/* Generated */                                              const double inReal[],
+/* Generated */                                              int          *outBegIdx,
+/* Generated */                                              int          *outNBElement,
+/* Generated */                                              double        outSine[],
+/* Generated */                                              double        outLeadSine[] )
 /* Generated */ #endif
 /**** END GENCODE SECTION 3 - DO NOT DELETE THIS LINE ****/
 {
@@ -467,13 +467,22 @@
 /**** START GENCODE SECTION 5 - DO NOT DELETE THIS LINE ****/
 /* Generated */ 
 /* Generated */ #define  USE_SINGLE_PRECISION_INPUT
+/* Generated */ #undef  TA_LIB_PRO
 /* Generated */ #if !defined( _MANAGED ) && !defined( _JAVA )
 /* Generated */    #undef   TA_PREFIX
 /* Generated */    #define  TA_PREFIX(x) TA_S_##x
 /* Generated */ #endif
 /* Generated */ #undef   INPUT_TYPE
 /* Generated */ #define  INPUT_TYPE float
-/* Generated */ #if defined( _MANAGED )
+/* Generated */ #if defined( _MANAGED ) && defined( USE_SUBARRAY )
+/* Generated */ enum class Core::RetCode Core::HtSine( int    startIdx,
+/* Generated */                                        int    endIdx,
+/* Generated */                                        SubArray<float>^ inReal,
+/* Generated */                                        [Out]int%    outBegIdx,
+/* Generated */                                        [Out]int%    outNBElement,
+/* Generated */                                        SubArray<double>^  outSine,
+/* Generated */                                        SubArray<double>^  outLeadSine )
+/* Generated */ #elif defined( _MANAGED )
 /* Generated */ enum class Core::RetCode Core::HtSine( int    startIdx,
 /* Generated */                                        int    endIdx,
 /* Generated */                                        cli::array<float>^ inReal,

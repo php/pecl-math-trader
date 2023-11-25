@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libta_func.la
 AM_CPPFLAGS = -I../ta_common/
 
 libta_func_la_SOURCES = ta_utility.c \
+	ta_ACCBANDS.c \
 	ta_ACOS.c \
 	ta_AD.c \
 	ta_ADD.c \
@@ -16,6 +17,7 @@ libta_func_la_SOURCES = ta_utility.c \
 	ta_ATAN.c \
 	ta_ATR.c \
 	ta_AVGPRICE.c \
+	ta_AVGDEV.c \
 	ta_BBANDS.c \
 	ta_BETA.c \
 	ta_BOP.c \
@@ -98,6 +100,7 @@ libta_func_la_SOURCES = ta_utility.c \
 	ta_HT_SINE.c \
 	ta_HT_TRENDLINE.c \
 	ta_HT_TRENDMODE.c \
+	ta_IMI.c \
 	ta_KAMA.c \
 	ta_LINEARREG.c \
 	ta_LINEARREG_ANGLE.c \
@@ -161,8 +164,6 @@ libta_func_la_SOURCES = ta_utility.c \
 	ta_WCLPRICE.c \
 	ta_WILLR.c \
 	ta_WMA.c
-
-libta_func_la_LDFLAGS = -version-info $(TALIB_LIBRARY_VERSION)
 
 libta_funcdir=$(includedir)/ta-lib/
 libta_func_HEADERS = ../../include/ta_defs.h \
